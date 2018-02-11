@@ -4,15 +4,16 @@
   "description": "electron demo",
   "main": "main.js",
   "scripts": {
-    "test": "electron .",
-    "dist-l": "electron-builder -l --x64"
+    "dev": "NODE_ENV=development webpack",
+    "start": "NODE_ENV=development electron .",
+    "dist-l": "NODE_ENV=production webpack && electron-builder -l --x64"
   },
   "build": {
     "appId": "com.cwxyz007.electron-PM",
     "productName": "electron-PM",
     "files": [
-      "app",
-      "entry",
+      "app/build",
+      "app/index.html",
       "main.js"
     ],
     "mac": {
@@ -36,9 +37,22 @@
   "author": "cwxyz007",
   "license": "MIT",
   "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.9",
     "electron": "^1.8.2",
-    "electron-builder": "^19.56.0"
+    "electron-builder": "^19.56.0",
+    "electron-reload": "^1.2.2",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.6",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.20.1",
+    "webpack": "^3.11.0"
   }
 }

@@ -2,6 +2,9 @@ const {app, BrowserWindow} = require('electron')
 const url = require('url')
 const path = require('path')
 
+// hot reload
+if (process.env.NODE_ENV == 'development') require('electron-reload')(__dirname)
+
 let win
 
 let createWindow = () => {
@@ -11,7 +14,7 @@ let createWindow = () => {
   })
 
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'entry/index.html'),
+    pathname: path.join(__dirname, './app/index.html'),
     protocol: 'file:',
     slashes: true
   }))
