@@ -1,0 +1,15 @@
+{
+  "name": "electro-PM",
+  "version": "1.0.0",
+  "description": "electron demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "electron ."
+  },
+  "repository": "'https://github.com/cwxyz007/electron-PM.git'",
+  "author": "cwxyz007",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^1.8.2"
+  }
+}
