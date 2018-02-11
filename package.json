@@ -2,14 +2,43 @@
   "name": "electro-PM",
   "version": "1.0.0",
   "description": "electron demo",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "electron ."
+    "test": "electron .",
+    "dist-l": "electron-builder -l --x64"
+  },
+  "build": {
+    "appId": "com.cwxyz007.electron-PM",
+    "productName": "electron-PM",
+    "files": [
+      "app",
+      "entry",
+      "main.js"
+    ],
+    "mac": {
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "category": "Utility",
+      "target": [
+        "AppImage"
+      ]
+    }
   },
   "repository": "'https://github.com/cwxyz007/electron-PM.git'",
   "author": "cwxyz007",
   "license": "MIT",
   "dependencies": {
-    "electron": "^1.8.2"
+  },
+  "devDependencies": {
+    "electron": "^1.8.2",
+    "electron-builder": "^19.56.0"
   }
 }
