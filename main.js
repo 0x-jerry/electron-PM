@@ -2,8 +2,16 @@ const {app, BrowserWindow} = require('electron')
 const url = require('url')
 const path = require('path')
 
-// hot reload
-if (process.env.NODE_ENV == 'development') require('electron-reload')(__dirname)
+if (process.env.NODE_ENV == 'development') {
+  // hot reload
+  require('electron-reload')(__dirname)
+
+  const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer')
+  // react devtool extension
+  installExtension(REACT_DEVELOPER_TOOLS)
+    .then( name => console.log(`Add Extension:  ${name}`))
+    .catch( error => console.log(`An error occurred: `, error))
+}
 
 let win
 

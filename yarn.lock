@@ -26,6 +26,10 @@
   version "3.0.0"
   resolved "http://registry.npm.taobao.org/7zip-bin/download/7zip-bin-3.0.0.tgz#17416dc542f41511b26a9667b92847d75ef150fe"
 
+"7zip@0.0.6":
+  version "0.0.6"
+  resolved "http://registry.npm.taobao.org/7zip/download/7zip-0.0.6.tgz#9cafb171af82329490353b4816f03347aa150a30"
+
 "@types/node@^8.0.24":
   version "8.9.3"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-8.9.3.tgz#47d00392c5834dd5a095346d72df7ff8995f7365"
@@ -993,6 +997,10 @@ cross-spawn@^5.0.1:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
+cross-unzip@0.0.2:
+  version "0.0.2"
+  resolved "http://registry.npm.taobao.org/cross-unzip/download/cross-unzip-0.0.2.tgz#5183bc47a09559befcf98cc4657964999359372f"
+
 cryptiles@2.x.x:
   version "2.0.5"
   resolved "http://registry.npm.taobao.org/cryptiles/download/cryptiles-2.0.5.tgz#3bdfecdc608147c1c67202fa291e7dca59eaa3b8"
@@ -1273,6 +1281,15 @@ electron-builder@^19.56.0:
     sanitize-filename "^1.6.1"
     update-notifier "^2.3.0"
     yargs "^11.0.0"
+
+electron-devtools-installer@^2.2.3:
+  version "2.2.3"
+  resolved "http://registry.npm.taobao.org/electron-devtools-installer/download/electron-devtools-installer-2.2.3.tgz#58b9a4ec507377bc46e091cd43714188e0c369be"
+  dependencies:
+    "7zip" "0.0.6"
+    cross-unzip "0.0.2"
+    rimraf "^2.5.2"
+    semver "^5.3.0"
 
 electron-download-tf@4.3.4:
   version "4.3.4"
@@ -3695,7 +3712,7 @@ right-align@^0.1.1:
   dependencies:
     align-text "^0.1.1"
 
-rimraf@2, rimraf@^2.2.8, rimraf@^2.5.1, rimraf@^2.6.1:
+rimraf@2, rimraf@^2.2.8, rimraf@^2.5.1, rimraf@^2.5.2, rimraf@^2.6.1:
   version "2.6.2"
   resolved "http://registry.npm.taobao.org/rimraf/download/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
   dependencies:
