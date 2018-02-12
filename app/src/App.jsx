@@ -6,7 +6,7 @@ export default class App extends Component {
   render() {
     return(
       <div className='test'>
-        <p>hello react & electron</p>
+        <p>Hello from electron & react & scss</p>
       </div>
     )
   }
