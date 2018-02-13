@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import {  } from './scss/global.scss';
 import NavBar from './components/NavBar.jsx'
+import Cards from './components/Cards.jsx'
 
 export default class App extends Component {
   constructor(){
@@ -22,9 +23,7 @@ export default class App extends Component {
     return(
       <div>
         <NavBar menus={this.menus} active={1}/>
-        <div>
-
-        </div>
+        <Cards/>
       </div>
     )
   }

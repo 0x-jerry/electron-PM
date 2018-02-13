@@ -1,12 +1,28 @@
 import React, { Component } from 'react'
-import {  } from 'Card.scss'
-
 
 export default class CardBox extends Component {
   render() {
     return (
       <div className='card-box'>
-        
+        <div className='picture'>
+          <img src="" alt=""/>
+        </div>
+        <div className='info-box'>
+          <div className='tags'>
+            <span className='tag'>hsdfsdfVello</span>
+            <span className='tag'>hsdfsdfVello</span>
+            <span className='tag'>hsdfsdfVello</span>
+            <span className='tag'>hsdfsdfVello</span>
+            <span className='tag'>hsdfsdfVello</span>
+            <span className='tag'>hsdfsdfVello</span>
+            <span className='tag'>hsdfsdfVello</span>
+            <span className='tag'>hello</span>
+            <span className='tag'>hello</span>
+          </div>
+          <h3 className='info'>
+            hello
+          </h3>
+        </div>
       </div>
     )
   }
