@@ -33,6 +33,7 @@ let createWindow = () => {
     protocol: 'file:',
     slashes: true
   }))
+  
   if (process.env.NODE_ENV === 'development') loadDevelopTools()
 }
 

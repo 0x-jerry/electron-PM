@@ -1,0 +1,33 @@
+nav{
+  background-color: #f36e2e;
+
+  ul, ol{
+    list-style-type: none;
+    margin-top: 0;
+
+    li{
+      display: inline-block;
+      width: 100px;
+      text-align: center;
+      line-height: 50px;
+      font-size: 1.3rem;
+      color: #ffffff;
+      text-shadow: 0 0 2px rgba($color: #000000, $alpha: 0.6);
+      transition: all 0.4s ease-in-out;
+      border-left: 1px dashed rgba($color: #000000, $alpha: 0.3);
+
+      &:first-child {
+        border-left: none;
+      }
+
+      &.active{
+        background-color: rgba($color: #ffffff, $alpha: 0.2);
+      }
+
+      &:hover{
+        background-color: rgba($color: #ffffff, $alpha: 0.2);
+        cursor: pointer;
+      }
+    }
+  }
+}
