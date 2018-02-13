@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import {  } from './scss/global.scss';
-import NavBar from './components/NavBar/index.jsx'
+import NavBar from './components/NavBar.jsx'
 
 export default class App extends Component {
   constructor(){
@@ -9,10 +9,12 @@ export default class App extends Component {
 
     this.menus = [{
       id: 1,
-      text: 'start'
+      text: '主页',
+      click: () => console.log('click 1')
     },{
       id: 2,
-      text: 'menu'
+      text: '分类',
+      click: () => console.log('click 2')
     }]
   }
 
@@ -20,6 +22,9 @@ export default class App extends Component {
     return(
       <div>
         <NavBar menus={this.menus} active={1}/>
+        <div>
+
+        </div>
       </div>
     )
   }
