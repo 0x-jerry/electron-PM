@@ -1,27 +1,26 @@
 import React, { Component } from 'react'
 
 export default class CardBox extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     return (
       <div className='card-box'>
         <div className='picture'>
-          <img src="/home/cwxyz/Pictures/01.jpg" alt=""/>
+          <img src={this.props.src} />
         </div>
         <div className='info-box'>
           <div className='tags'>
-            <span className='tag'>hsdfsdfVello</span>
-            <span className='tag'>hsdfsdfVello</span>
-            <span className='tag'>hsdfsdfVello</span>
-            <span className='tag'>hsdfsdfVello</span>
-            <span className='tag'>hsdfsdfVello</span>
-            <span className='tag'>hsdfsdfVello</span>
-            <span className='tag'>hsdfsdfVello</span>
-            <span className='tag'>hello</span>
-            <span className='tag'>hello</span>
+            {
+              this.props.tags &&
+              this.props.tags.map( tag => <span className='tag' key={tag}>{tag}</span>)
+            }
           </div>
-          <h3 className='info'>
+          <p className='info'>
             hello
-          </h3>
+          </p>
         </div>
       </div>
     )

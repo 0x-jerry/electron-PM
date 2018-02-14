@@ -1,3 +1,37 @@
 @import './lib/normalize.css';
+@import './base.scss';
 
+::-webkit-scrollbar{
+  width: 10px;
+  border: 1px dashed $color-shadow;
+
+  &:vertical{
+    width: 5px;
+    border-width: 0 1px;
+  }
+
+  &:horizontal{
+    height: 2px;
+    border-width: 1px 0 0;
+  }
+
+}
+
+::-webkit-scrollbar-button{
+  height: 2px;
+  background-color: #000000;
+
+  &:horizontal{
+    width: 2px;
+  }
+
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: $color-blue;
+
+  &:hover{
+    background-color: yellow;
+  }
+}
 
