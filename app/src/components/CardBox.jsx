@@ -5,7 +5,7 @@ export default class CardBox extends Component {
     return (
       <div className='card-box'>
         <div className='picture'>
-          <img src="" alt=""/>
+          <img src="/home/cwxyz/Pictures/01.jpg" alt=""/>
         </div>
         <div className='info-box'>
           <div className='tags'>
