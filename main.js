@@ -2,6 +2,7 @@ const {app, BrowserWindow} = require('electron')
 const url = require('url')
 const path = require('path')
 require('./app/rearEnd/db.js')
+require('./app/rearEnd/readFiles.js')
 
 if (process.env.NODE_ENV === 'development') {
   // hot reload
