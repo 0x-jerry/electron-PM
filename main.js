@@ -1,8 +1,8 @@
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcMain} = require('electron')
 const url = require('url')
 const path = require('path')
+const { readFiles } = require('./app/rearEnd/readFiles.js')
 require('./app/rearEnd/db.js')
-require('./app/rearEnd/readFiles.js')
 
 if (process.env.NODE_ENV === 'development') {
   // hot reload
@@ -35,6 +35,12 @@ let createWindow = () => {
     protocol: 'file:',
     slashes: true
   }))
+
+  ipcMain.on('load-images', (e, arg) => {
+    let picturePath = path.join('/home/cwxyz', 'Pictures')
+    let images = readFiles(picturePath)
+    e.returnValue = images
+  })
   
   if (process.env.NODE_ENV === 'development') loadDevelopTools()
 }

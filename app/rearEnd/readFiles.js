@@ -1,8 +1,6 @@
 const fs = require('fs')
 const path = require('path')
 
-let picturePath = path.join('/home/cwxyz', 'Pictures')
-
 function readFiles(filePath) {
   let images = []
 
@@ -20,3 +18,6 @@ function readFiles(filePath) {
 }
 
 
+module.exports = {
+  readFiles: readFiles
+}
