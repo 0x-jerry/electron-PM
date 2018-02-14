@@ -16,6 +16,7 @@ export default class Cards extends Component {
     $(window).on('resize', () => {
       console.log('window resize')
     })
+
     let path = ipcRenderer.sendSync('load-images', 10)
     this.setState({
       path: path
@@ -23,13 +24,12 @@ export default class Cards extends Component {
   }
 
   render() {
-    console.log(this.state.path)
     return (
       <div className='cards-fixed'>
         <div className='cards'>
           <CardBox src='/home/cwxyz/Pictures/01.jpg' tags={['测试', '唯美', '唯美1', '唯美2', '唯美3', '唯美4', '唯美5', '唯美6', '唯美7', '唯美8', '唯美9', '唯美10', '唯美11']}/>
           {
-            this.state.path && this.state.path.map(p => <CardBox src={p} />)
+            this.state.path && this.state.path.map(p => <CardBox src={p} key={p}/>)
           }
         </div>
       </div>

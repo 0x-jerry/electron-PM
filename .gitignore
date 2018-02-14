@@ -68,3 +68,6 @@ dist/
 
 # sqlite3 database
 *.db
+
+# config
+config.json
