@@ -15,6 +15,10 @@ export default class Input extends Component {
     $(this.inputField).val(this.props.value || '')
   }
 
+  getValue(){
+    return this.inputField.value
+  }
+
   render() {
     return (
       <div className='input-box'>

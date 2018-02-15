@@ -52,10 +52,8 @@ export default class App extends Component {
   render() {
     let content = (
       <Input 
+        ref={(input) => this.pathInput = input}
         tip='路径：' 
-        keyup={(e) => {
-          this.inputPath = e.target.value
-        }}
         value={setting.get('path')}
         placeholder='/home/user/Pictures'/>
     )
@@ -70,7 +68,7 @@ export default class App extends Component {
           text='保存'
           click={() => {
             this.toggleSetting()
-            setting.set('path',this.inputPath)
+            setting.set('path', this.pathInput.getValue())
             ipcRenderer.emit('reload-images')
           }}/>
       </div>
