@@ -40,10 +40,11 @@
   "license": "MIT",
   "dependencies": {
     "better-sqlite3": "^4.1.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "electron-settings": "^3.1.4"
   },
   "devDependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-react": "^6.24.1",

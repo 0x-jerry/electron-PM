@@ -1,8 +1,8 @@
 const fs = require('fs')
 const url = require('url')
 const path = require('path')
-const db = require('./app/rearEnd/db.js')
 const { app, BrowserWindow, ipcMain } = require('electron')
+const db = require('./app/rearEnd/db.js')
 const { initIpcMain } = require('./app/rearEnd/ipcEvents.js')
 
 if (process.env.NODE_ENV === 'development') {
@@ -37,7 +37,7 @@ let createWindow = () => {
     slashes: true
   }))
 
-  initIpcMain(path.join(__dirname, 'config.json'))
+  initIpcMain()
   
   if (process.env.NODE_ENV === 'development') loadDevelopTools()
 }

@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
+const setting = require('electron-settings')
 const { ipcMain } = require('electron')
-const { loadConfig } = require('./util.js')
 
 function readFiles(filePath) {
   let images = []
@@ -19,14 +19,11 @@ function readFiles(filePath) {
   return images
 }
 
-function init(configPath) {
-  let config = loadConfig(configPath)
-
+function init() {
   ipcMain.on('load-images', (e, arg) => {
-    let images = readFiles(config.path)
+    let images = readFiles(setting.get('path', './'))
     e.returnValue = images
   })
-  
 }
 
 module.exports = {
