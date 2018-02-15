@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "NODE_ENV=development webpack",
     "start": "NODE_ENV=development electron .",
-    "dist-l": "NODE_ENV=production webpack && electron-builder -l --x64"
+    "dist-l": "NODE_ENV=production webpack && electron-builder -l --x64",
+    "test": "mocha"
   },
   "build": {
     "appId": "com.cwxyz007.electron-PM",
@@ -54,6 +55,7 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
     "jquery": "^3.3.1",
+    "mocha": "^5.0.1",
     "node-sass": "^4.7.2",
     "prop-types": "^15.6.0",
     "sass-loader": "^6.0.6",
