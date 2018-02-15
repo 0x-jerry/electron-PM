@@ -1,7 +1,10 @@
 const sqlite3 = require('better-sqlite3')
 
 function DataBase() {
-  db = new sqlite3('electronPM.db')
+  if (typeof DataBase.instance === 'object') return DataBase.instance
+
+  let db = new sqlite3('electronPM.db')
+
   db.exec(`CREATE TABLE IF NOT EXISTS tags(
     id integer primary key autoincrement,
     text varchar(20),
@@ -35,6 +38,8 @@ function DataBase() {
   this.insertImage = db.prepare(`INSERT INTO images(path) VALUES (@path)`)
 
   this.close = db.close
+
+  DataBase.instance = this
 }
 
 module.exports = new DataBase()
