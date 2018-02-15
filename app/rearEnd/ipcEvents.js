@@ -4,6 +4,8 @@ const setting = require('electron-settings')
 const { ipcMain } = require('electron')
 
 function readFiles(filePath) {
+  if(!fs.existsSync(filePath)) return null
+
   let images = []
 
   let files = fs.readdirSync(filePath)
@@ -20,7 +22,7 @@ function readFiles(filePath) {
 }
 
 function init() {
-  ipcMain.on('load-images', (e, arg) => {
+  ipcMain.on('load-images-sync', (e, arg) => {
     let images = readFiles(setting.get('path', './'))
     e.returnValue = images
   })

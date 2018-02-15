@@ -12,15 +12,23 @@ export default class Cards extends Component {
     }
   }
 
+  loadImages(){
+    let path = ipcRenderer.sendSync('load-images-sync', 10)
+    this.setState({
+      path: path
+    })
+  }
+
   componentDidMount() {
     $(window).on('resize', () => {
       console.log('window resize')
     })
 
-    let path = ipcRenderer.sendSync('load-images', 10)
-    this.setState({
-      path: path
+    ipcRenderer.on('reload-images', () => {
+      this.loadImages()
     })
+
+    this.loadImages()
   }
 
   render() {

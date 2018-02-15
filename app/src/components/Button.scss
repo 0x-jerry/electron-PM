@@ -1,0 +1,22 @@
+@import '../scss/base.scss';
+
+@mixin button-color($color){
+  border: 1px solid $color;
+  color: $color;
+
+  &:hover{
+    box-shadow: 0 0 6px $color;
+  }
+}
+
+button {
+  background-color: $color-white;
+  padding: 5px 15px;
+  margin: 10px 10px;
+  transition: all 0.4s ease;
+  @include button-color($color-blue);
+
+  &.red{
+    @include button-color($color-danger);
+  }
+}

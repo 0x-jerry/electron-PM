@@ -7,7 +7,7 @@
   width: 100%;
   height: 100%;
   z-index: 100;
-  background-color: $color-deep-shadow;
+  background-color: $color-light-shadow;
 
   .modal-box {
     position: absolute;
@@ -16,7 +16,7 @@
     transform: translate(-50%, -50%);
     width: 80%;
     background-color: $color-white;
-    box-shadow: 0 0 40px $color-shadow;
+    box-shadow: 0 0 80px $color-shadow;
     padding: 0 20px;
 
     .modal-head{
