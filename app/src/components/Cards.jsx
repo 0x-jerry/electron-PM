@@ -17,6 +17,7 @@ export default class Cards extends Component {
     this.setState({
       path: path
     })
+    console.info('reload image and size is ', path.length)
   }
 
   componentDidMount() {

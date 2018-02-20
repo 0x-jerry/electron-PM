@@ -5,10 +5,7 @@ import {  } from './scss/global.scss';
 import $ from 'jquery'
 import NavBar from './components/NavBar.jsx'
 import Cards from './components/Cards.jsx'
-import Modal from './components/Modal.jsx'
-import Input from './components/Input.jsx'
-import Button from './components/Button.jsx'
-import setting from 'electron-settings'
+import Setting from './components/Setting.jsx'
 
 export default class App extends Component {
   constructor(){
@@ -29,7 +26,7 @@ export default class App extends Component {
     this.menus = [{
       id: 1,
       text: '主页',
-      click: () => console.log('click 1')
+      click: () => ipcRenderer.emit('reload-images')
     },{
       id: 2,
       text: '设置',
@@ -50,39 +47,13 @@ export default class App extends Component {
   }
 
   render() {
-    let content = (
-      <Input 
-        ref={(input) => this.pathInput = input}
-        tip='路径：' 
-        value={setting.get('path')}
-        placeholder='/home/user/Pictures'/>
-    )
-
-    let footer = (
-      <div>
-        <Button 
-          text='取消' 
-          color='red'
-          click={() => this.toggleSetting()}/>
-        <Button 
-          text='保存'
-          click={() => {
-            this.toggleSetting()
-            setting.set('path', this.pathInput.getValue())
-            ipcRenderer.emit('reload-images')
-          }}/>
-      </div>
-    )
+    let settingModal = null;
+    if(this.state.activeSetting) settingModal = (<Setting toggle={this.toggleSetting.bind(this)}/>)
 
     return(
       <div>
         <NavBar menus={this.menus} active={1}/>
-        <Modal 
-          ref={(modal) => this.settingModal = modal}
-          head='设置' 
-          content={content} 
-          footer={footer}
-          active={this.state.activeSetting}/>
+        {settingModal}
         <Cards/>
       </div>
     )

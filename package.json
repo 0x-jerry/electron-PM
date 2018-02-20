@@ -4,8 +4,8 @@
   "description": "electron demo",
   "main": "main.js",
   "scripts": {
-    "dev": "NODE_ENV=development webpack",
-    "start": "NODE_ENV=development electron .",
+    "webpack": "NODE_ENV=development webpack",
+    "dev": "NODE_ENV=development electron .",
     "dist-l": "NODE_ENV=production webpack && electron-builder -l --x64",
     "test": "mocha"
   },
