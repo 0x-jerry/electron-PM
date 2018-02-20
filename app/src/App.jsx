@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
+import React, { Component } from 'react'
+import { render } from 'react-dom'
 import { ipcRenderer } from 'electron'
-import {  } from './scss/global.scss';
-import $ from 'jquery'
+import {  } from './scss/global.scss'
 import NavBar from './components/NavBar.jsx'
 import Cards from './components/Cards.jsx'
 import Setting from './components/Setting.jsx'

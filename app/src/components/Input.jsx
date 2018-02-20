@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import $ from 'jquery'
 import {  } from './Input.scss'
 
 export default class Input extends Component {

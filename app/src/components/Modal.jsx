@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {  } from './Modal.scss'
-import $ from 'jquery'
 
 export default class Modal extends Component {
   constructor(props) {

@@ -1,0 +1,15 @@
+@import '../scss/base.scss';
+
+.setting{
+  .paths{
+    .path{
+      p{
+        color: $color-black;
+        display: inline-block;
+      }
+      button{
+        display: inline-block;
+      }
+    }
+  }
+}

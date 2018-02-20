@@ -57,22 +57,24 @@ export default class Setting extends Component {
     let paths = this.state.imagePaths.map((path, index) => (
       <div className="path" data-index={index} key={index}>
         <p>{path}</p>
-        <Button text='-' click={() => {this.removeImagePath(index)}}/>
+        <Button text='X' click={() => {this.removeImagePath(index)}}/>
       </div>
     ))
 
     return (
-      <Modal
-        head= '设置'
-        footer={footer}>
-        <h3>图片路径</h3>
-        <div className='paths'>
-          {paths}
-        </div>
-        <Button 
-          text='添加路径'
-          click={this.addImagePath.bind(this)}/>
-      </Modal>
+      <div className='setting'>
+        <Modal
+          head= '设置'
+          footer={footer}>
+          <h3>图片路径</h3>
+          <div className='paths'>
+            {paths}
+          </div>
+          <Button 
+            text='添加路径'
+            click={this.addImagePath.bind(this)}/>
+        </Modal>
+      </div>
     )
   }
 }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import fs from 'fs'
-import $ from 'jquery'
 
 export default class CardBox extends Component {
   constructor(props) {

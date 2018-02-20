@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import CardBox from './CardBox.jsx'
 import {  } from './Cards.scss' 
-import $ from 'jquery'
 import { ipcRenderer } from 'electron'
 
 export default class Cards extends Component {
