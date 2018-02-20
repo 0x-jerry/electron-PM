@@ -12,7 +12,8 @@ export default class App extends Component {
     super()
 
     this.state = {
-      activeSetting: false
+      activeSetting: false,
+      activeMenuIndex: 0
     }
   }
 
@@ -24,13 +25,19 @@ export default class App extends Component {
 
   componentWillMount() {
     this.menus = [{
-      id: 1,
       text: '主页',
-      click: () => ipcRenderer.emit('reload-images')
+      click: () => {
+        ipcRenderer.emit('reload-images')
+        this.setState({ activeMenuIndex: 0 })
+      }
     },{
-      id: 2,
       text: '设置',
       click: () => this.toggleSetting()
+    },{
+      text: '测试',
+      click: () => {
+        this.setState({ activeMenuIndex: 2 })
+      }
     }]
   }
   
@@ -52,7 +59,7 @@ export default class App extends Component {
 
     return(
       <div>
-        <NavBar menus={this.menus} active={1}/>
+        <NavBar menus={this.menus} active={this.state.activeMenuIndex}/>
         {settingModal}
         <Cards/>
       </div>

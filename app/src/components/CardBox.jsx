@@ -15,7 +15,7 @@ export default class CardBox extends Component {
           <div className='tags'>
             {
               this.props.tags &&
-              this.props.tags.map( tag => <span className='tag' key={tag}>{tag}</span>)
+              this.props.tags.map( (tag, index) => <span className='tag' key={index}>{tag}</span>)
             }
           </div>
           <p className='infos'>

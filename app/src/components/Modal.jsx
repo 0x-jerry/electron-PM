@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
 import {  } from './Modal.scss'
+import $ from 'jquery'
 
 export default class Modal extends Component {
   constructor(props) {
     super(props)
+  }
+
+  componentDidMount(){
+    $(this.content).on('scroll', e => {
+      e.preventDefault()
+    })
   }
 
   render() {
@@ -13,7 +20,7 @@ export default class Modal extends Component {
           <div className="modal-head">
             {this.props.head}
           </div>
-          <div className="modal-content">
+          <div className="modal-content" ref={content => this.content = content}>
             {this.props.children}
           </div>
           <div className="modal-footer">

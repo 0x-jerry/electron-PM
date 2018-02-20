@@ -32,6 +32,8 @@
 
     .modal-content{
       min-height: 100px;
+      max-height: 60vh;
+      overflow: auto;
       padding: 10px 5px;
     }
 

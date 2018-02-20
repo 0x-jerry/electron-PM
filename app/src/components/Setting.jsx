@@ -18,9 +18,12 @@ export default class Setting extends Component {
   addImagePath(){
     remote.dialog.showOpenDialog({
       properties:['openDirectory']
-    }, files => this.setState((prevState, Prop) => ({
-      imagePaths: [... new Set(prevState.imagePaths.concat(files))]
-    })))
+    }, files => {
+      if(!files) return
+      this.setState((prevState, Prop) => ({
+        imagePaths: [... new Set(prevState.imagePaths.concat(files))]
+      }))
+    })
   }
 
   removeImagePath(index){

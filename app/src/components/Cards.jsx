@@ -20,7 +20,7 @@ export default class Cards extends Component {
     console.info('reload image and size is ', path.length)
   }
 
-  componentDidMount() {
+  componentWillMount(){
     $(window).on('resize', () => {
       console.log('window resize')
     })
@@ -38,7 +38,7 @@ export default class Cards extends Component {
         <div className='cards'>
           <CardBox src='/home/cwxyz/Pictures/01.jpg' tags={['测试', '唯美', '唯美1', '唯美2', '唯美3', '唯美4', '唯美5', '唯美6', '唯美7', '唯美8', '唯美9', '唯美10', '唯美11']}/>
           {
-            this.state.path && this.state.path.map(p => <CardBox src={p} key={p}/>)
+            this.state.path && this.state.path.map((url, index) => <CardBox src={url} key={index}/>)
           }
         </div>
       </div>
