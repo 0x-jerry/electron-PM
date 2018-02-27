@@ -4,7 +4,7 @@
   "description": "electron demo",
   "main": "main.js",
   "scripts": {
-    "webpack": "NODE_ENV=development webpack",
+    "webpack": "NODE_ENV=development webpack --watch",
     "dev": "NODE_ENV=development electron .",
     "dist-l": "NODE_ENV=production webpack && electron-builder -l --x64",
     "test": "mocha"
@@ -61,6 +61,7 @@
     "react-dom": "^16.2.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.1",
-    "webpack": "^3.11.0"
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.9"
   }
 }

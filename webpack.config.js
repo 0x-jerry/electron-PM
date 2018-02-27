@@ -1,10 +1,9 @@
 const path = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
-  watch: process.env.NODE_ENV === 'development',
-  target: 'electron',
+  target: 'electron-renderer',
   entry: './app/src/entry.js',
+  mode: 'development',
   output: {
     path: path.resolve(__dirname, 'app/build'),
     publicPath: 'build/',
@@ -43,12 +42,4 @@ module.exports = {
       }
     ]
   },
-
-  plugins: [
-    new ExtractTextPlugin({
-      filename: "[name].[contenthash].css",
-      allChunks: true
-    })
-     
-  ]
 }

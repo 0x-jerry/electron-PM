@@ -22,7 +22,7 @@ function DataBase() {
     tag_id integer references tags (id) 
   )`)
 
-  this.getAllTags = db.prepare('SELECT * FROM tags')
+  this.getAllTags = () => db.prepare('SELECT * FROM tags').all()
 
   /**
    * @param {string} text
@@ -30,7 +30,9 @@ function DataBase() {
    */
   this.insertTag = db.prepare(`INSERT INTO tags(text, color) VALUES (@text, @color)`)
 
-  this.getAllImages = db.prepare(`SELECT * FROM images`)
+  this.getAllImages = () => db.prepare(`SELECT * FROM images`).all()
+
+  this.getTag = (text = '') => db.prepare(`SELECT * FROM tags WHERE text="${text}"`).get()
 
   /**
    * @param {string} path
