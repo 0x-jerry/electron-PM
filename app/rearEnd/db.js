@@ -67,7 +67,12 @@ function DataBase(name = 'electronPM.db') {
   this.getImageTag = (imagePath, tagText) => {
     let image = this.getImage(imagePath)
     let tag = this.getTag(tagText)
-    return db.prepare(`SELECT * FROM image_tag WHERE image_id=@imageId AND tag_id=@tagId`).get({imageId: image.id, tagId: tag.id})
+    let imageTag = db.prepare(`SELECT * FROM image_tag WHERE image_id=@imageId AND tag_id=@tagId`).get({imageId: image.id, tagId: tag.id})
+    let result = {
+      image: db.prepare(`SELECT * FROM images WHERE id=@id`).get({id: imageTag.image_id}),
+      tag: db.prepare(`SELECT * FROM tags WHERE id=@id`).get({id: imageTag.tag_id})
+    }
+    return result
   }
 
   this.insertImageTag = (imagePath, tagText) => {

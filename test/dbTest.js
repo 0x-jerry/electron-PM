@@ -29,8 +29,8 @@ describe('database test', () => {
 
     it('should return a row when given hello, ok', () => {
       let imageTag = db.getImageTag('hello', 'ok')
-      assert.equal(!!imageTag, true)
+      assert.equal(imageTag.image.path, 'hello')
+      assert.equal(imageTag.tag.text, 'ok')
     })
   })
-
 })
