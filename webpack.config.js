@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
   target: 'electron-renderer',
   entry: './app/src/entry.js',
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   output: {
     path: path.resolve(__dirname, 'app/build'),
     publicPath: 'build/',

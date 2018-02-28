@@ -6,7 +6,7 @@
 - [x] 使用 `electron-settings` 保存用户设置
 - [x] 设置界面
 - [x] 在 `info` 中显示图片大小
-- [ ] 图片数据与数据库同步
+- [x] 图片数据与数据库同步
 - [ ] 添加标签的功能
 - [ ] 分页显示图片
 - [ ] 图片搜索
@@ -17,6 +17,7 @@
 
 - [ ] `tag` 和 `info` 抽象成 `components`
 - [ ] `production` 环境打包
+- [ ] `better-sqlite3` 无法在 `windows` 平台使用
 
 ### 视觉
 

@@ -41,6 +41,15 @@ function init() {
 
     e.returnValue = images
   })
+
+  ipcMain.on('add-image-tag', (e, arg) => {
+    try {
+      db.insertImageTag(arg.path, arg.tag)
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
 }
 
 module.exports = {

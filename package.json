@@ -6,7 +6,8 @@
   "scripts": {
     "webpack": "NODE_ENV=development webpack --watch",
     "dev": "NODE_ENV=development electron .",
-    "dist-l": "NODE_ENV=production webpack && electron-builder -l --x64",
+    "build-linux": "NODE_ENV=production webpack --progress && electron-builder -l --x64",
+    "build-win": "NODE_ENV=production webpack --progress && electron-builder -w --x64",
     "test": "mocha"
   },
   "build": {
@@ -33,6 +34,10 @@
       "target": [
         "AppImage"
       ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
     }
   },
   "repository": "'https://github.com/cwxyz007/electron-PM.git'",

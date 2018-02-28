@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import fs from 'fs'
+import { ipcRenderer } from 'electron'
 
 export default class CardBox extends Component {
   constructor(props) {
@@ -23,11 +24,20 @@ export default class CardBox extends Component {
     })
   }
 
+  addTag(){
+    let arg = {
+      path: $(this.image).attr('src'),
+      tag: 'test'
+    }
+    ipcRenderer.send('add-image-tag', arg)
+  }
+
   render() {
     return (
       <div className='card-box'>
         <div className='picture'>
           <img src={this.props.src} ref={img => this.image = img}/>
+          <p className="add-tag" onClick={this.addTag.bind(this)}>添加标签</p>
         </div>
         <div className='info-box'>
           <div className='tags'>
