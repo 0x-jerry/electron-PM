@@ -17,7 +17,8 @@
 
 - [ ] `tag` 和 `info` 抽象成 `components`
 - [ ] `production` 环境打包
-- [ ] `better-sqlite3` 无法在 `windows` 平台使用
+- [ ] `better-sqlite3` 在 `windows` 平台使用需要安装 `windows-build-tools`
+> Install all the required tools and configurations using Microsoft's windows-build-tools using npm install --global --production windows-build-tools from an elevated PowerShell or CMD.exe (run as Administrator).
 
 ### 视觉
 
