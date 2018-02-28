@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const db = require('./db.js')()
 const userSetting = require('electron-settings')
 const { ipcMain } = require('electron')
 
@@ -28,6 +29,14 @@ function init() {
 
     paths.forEach(path => {
       images = images.concat(readFilesSync(path))
+    })
+
+    images.forEach(path => {
+      try {
+        db.insertImage(path)
+      } catch (e) {
+
+      }
     })
 
     e.returnValue = images
