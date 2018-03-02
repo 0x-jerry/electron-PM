@@ -3,6 +3,12 @@
 .setting{
   .paths{
     .path{
+      border-top: dashed 1px $color-shadow;
+
+      &:first-child{
+        border-top: none;
+      }
+
       p{
         color: $color-black;
         display: inline-block;

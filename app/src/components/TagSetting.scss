@@ -10,13 +10,21 @@
   }
 
   .tags {
-    p {
-      color: $color-black;
-      display: inline-block;
-    }
+    .tag{
+      border-top: dashed 1px $color-shadow;
 
-    button {
-      display: inline-block;
+      &:first-child{
+        border-top: none;
+      }
+
+      p {
+        color: $color-black;
+        display: inline-block;
+      }
+
+      button {
+        display: inline-block;
+      }
     }
   }
 }

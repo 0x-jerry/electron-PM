@@ -41,16 +41,16 @@ export default class Setting extends Component {
     let footer = (
       <div>
         <Button 
-          text='取消' 
-          color='red'
-          click={() => this.state.toggle()}/>
-        <Button 
           text='保存'
           click={() => {
             this.state.toggle()
             userSetting.set('paths', this.state.imagePaths)
             ipcRenderer.emit('reload-images')
           }}/>
+        <Button 
+          text='取消' 
+          color='red'
+          click={() => this.state.toggle()}/>
       </div>
     )
 

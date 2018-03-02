@@ -72,7 +72,7 @@ export default class TagSetting extends Component {
     )
 
     let tags = this.state.tags.map((tag, index) => (
-      <div className="tags" data-index={index} key={index}>
+      <div className="tag" data-index={index} key={index}>
         <p>{tag.text}</p>
         <Button text='X' click={() => {this.removeTag(index)}}/>
       </div>
@@ -83,7 +83,7 @@ export default class TagSetting extends Component {
         <Modal
           head='标签'
           footer={footer}>
-          <ul>
+          <ul className='tags'>
             {tags}
           </ul>
         </Modal>
