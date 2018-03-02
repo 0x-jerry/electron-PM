@@ -5,6 +5,7 @@ import {  } from './scss/global.scss'
 import NavBar from './components/NavBar.jsx'
 import Cards from './components/Cards.jsx'
 import Setting from './components/Setting.jsx'
+import TagSetting from './components/TagSetting.jsx'
 
 export default class App extends Component {
   constructor(){
@@ -12,6 +13,7 @@ export default class App extends Component {
 
     this.state = {
       activeSetting: false,
+      activeTagSetting: false,
       activeMenuIndex: 0
     }
   }
@@ -19,6 +21,12 @@ export default class App extends Component {
   toggleSetting(){
     this.setState((prevState, props) => ({
       activeSetting: !prevState.activeSetting
+    }))
+  }
+
+  toggleTagSetting(){
+    this.setState((prevState, props) => ({
+      activeTagSetting: !prevState.activeTagSetting
     }))
   }
 
@@ -31,19 +39,25 @@ export default class App extends Component {
       }
     },{
       text: '设置',
-      click: () => this.toggleSetting()
+      click: () => {
+        this.setState({ activeMenuIndex: 1 })
+        this.toggleSetting()
+      }
     },{
-      text: '测试',
+      text: '标签',
       click: () => {
         this.setState({ activeMenuIndex: 2 })
+        this.toggleTagSetting()
       }
     }]
   }
   
   componentDidMount() {
     $(window).on('keydown', (e) => {
-      if(e.key == 'Escape' && this.state.activeSetting){
-        this.toggleSetting()
+      if(e.key == 'Escape'){
+        if(this.state.activeSetting) this.toggleSetting()
+        
+        if(this.state.activeTagSetting) this.toggleTagSetting()
       }
     })
   }
@@ -54,13 +68,16 @@ export default class App extends Component {
 
   render() {
     let settingModal = null;
+    let tagSettingModal = null;
     if(this.state.activeSetting) settingModal = (<Setting toggle={this.toggleSetting.bind(this)}/>)
+    if(this.state.activeTagSetting) tagSettingModal = (<TagSetting />)
 
     return(
       <div>
         <NavBar menus={this.menus} active={this.state.activeMenuIndex}/>
         {settingModal}
-        <Cards/>
+        {tagSettingModal}
+        <Cards activeSetting={this.toggleTagSetting.bind(this)}/>
       </div>
     )
   }

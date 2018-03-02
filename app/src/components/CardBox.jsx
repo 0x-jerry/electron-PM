@@ -25,11 +25,8 @@ export default class CardBox extends Component {
   }
 
   addTag(){
-    let arg = {
-      path: $(this.image).attr('src'),
-      tag: 'test'
-    }
-    ipcRenderer.send('add-image-tag', arg)
+    console.log('add tag')
+    this.props.tagSettingFunc()
   }
 
   render() {

@@ -50,6 +50,20 @@ function init() {
     }
   })
 
+  ipcMain.on('get-all-tags-sync', (e, arg) => {
+    e.returnValue = db.getAllTags()
+  })
+
+  ipcMain.on('add-tag-sync', (e, arg) => {
+    try{
+      db.insertTag(arg.text, arg.color)
+      e.returnValue = 'ok'
+    } catch (error) {
+      console.log(error)
+      e.returnValue = error
+    }
+  })
+
 }
 
 module.exports = {
