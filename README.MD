@@ -12,7 +12,11 @@
 
 ### windows 
 
-Install all the required tools and configurations using Microsoft's windows-build-tools using npm install --global --production windows-build-tools from an elevated PowerShell or CMD.exe (run as Administrator).
+__Electron - Error: A dynamic link library (DLL) initialization routine failed.__
+
+run `node_modules/.bin/electron-rebuild -f -w better-sqlite3`
+
+> Install all the required tools and configurations using Microsoft's windows-build-tools using `npm install --global --production windows-build-tools` from an elevated PowerShell or CMD.exe (run as Administrator).
 
 ### linux & Mac 
 Just double click
