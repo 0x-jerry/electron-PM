@@ -18,18 +18,6 @@ export default class App extends Component {
     }
   }
 
-  toggleSetting(){
-    this.setState((prevState, props) => ({
-      activeSetting: !prevState.activeSetting
-    }))
-  }
-
-  toggleTagSetting(){
-    this.setState((prevState, props) => ({
-      activeTagSetting: !prevState.activeTagSetting
-    }))
-  }
-
   componentWillMount() {
     this.menus = [{
       text: '主页',
@@ -64,6 +52,18 @@ export default class App extends Component {
 
   componentWillUnmount() {
     $(window).off('keydown')
+  }
+
+  toggleSetting(){
+    this.setState((prevState, props) => ({
+      activeSetting: !prevState.activeSetting
+    }))
+  }
+
+  toggleTagSetting(){
+    this.setState((prevState, props) => ({
+      activeTagSetting: !prevState.activeTagSetting
+    }))
   }
 
   render() {

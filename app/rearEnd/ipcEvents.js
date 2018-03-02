@@ -57,11 +57,16 @@ function init() {
   ipcMain.on('add-tag-sync', (e, arg) => {
     try{
       db.insertTag(arg.text, arg.color)
-      e.returnValue = 'ok'
+      e.returnValue = true
     } catch (error) {
       console.log(error)
-      e.returnValue = error
+      e.returnValue = false
     }
+  })
+
+  ipcMain.on('delete-tag-sync', (e, arg) => {
+    db.deleteTag(arg.text)
+    e.returnValue = true
   })
 
 }

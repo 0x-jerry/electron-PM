@@ -18,7 +18,6 @@ export default class TagSetting extends Component {
   }
 
   updateTags() {
-    console.log(ipcRenderer.sendSync('get-all-tags-sync'))
     this.setState({
       tags: ipcRenderer.sendSync('get-all-tags-sync') || []
     })
@@ -32,6 +31,13 @@ export default class TagSetting extends Component {
     this.updateTags()
   }
 
+  removeTag(index){
+    if(index < 0 || index >= this.state.tags.length) return
+    let tag = this.state.tags.splice(index,1).pop()
+    ipcRenderer.sendSync('delete-tag-sync', tag)
+    this.updateTags()
+  }
+
   render() {
     let footer = (
       <div>
@@ -42,13 +48,20 @@ export default class TagSetting extends Component {
       </div>
     )
 
+    let tags = this.state.tags.map((tag, index) => (
+      <div className="tags" data-index={index} key={index}>
+        <p>{tag.text}</p>
+        <Button text='X' click={() => {this.removeTag(index)}}/>
+      </div>
+    ))
+
     return (
       <div className='tag-setting'>
         <Modal
           head='标签'
           footer={footer}>
           <ul>
-            {this.state.tags.map((tag, index) => <li key={index}>{tag.text}</li>)}
+            {tags}
           </ul>
         </Modal>
       </div>

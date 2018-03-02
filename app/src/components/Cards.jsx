@@ -37,7 +37,7 @@ export default class Cards extends Component {
         <div className='cards'>
           <CardBox src='/home/cwxyz/Pictures/01.jpg' tags={['添加', '唯美', '唯美1', '唯美2', '唯美3', '唯美4', '唯美10', '唯美11']}/>
           {
-            this.state.path && this.state.path.map((url, index) => <CardBox src={url} key={index} tagSettingFunc={this.props.activeSetting}/>)
+            this.state.path && this.state.path.map((url, index) => <CardBox src={url} key={index} />)
           }
         </div>
       </div>

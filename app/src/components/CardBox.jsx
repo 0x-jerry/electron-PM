@@ -24,17 +24,11 @@ export default class CardBox extends Component {
     })
   }
 
-  addTag(){
-    console.log('add tag')
-    this.props.tagSettingFunc()
-  }
-
   render() {
     return (
       <div className='card-box'>
         <div className='picture'>
           <img src={this.props.src} ref={img => this.image = img}/>
-          <p className="add-tag" onClick={this.addTag.bind(this)}>添加标签</p>
         </div>
         <div className='info-box'>
           <div className='tags'>
