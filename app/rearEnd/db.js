@@ -55,7 +55,11 @@ function DataBase(name = 'electronPM.db') {
    */
   this.insertTag = (text, color = '#fff') => db.prepare(`INSERT INTO tags(text, color) VALUES (@text, @color)`).run({text: text, color: color})
 
-  this.deleteTag = (text) => db.prepare(`DELETE FROM tags WHERE text=@text`).run({text: text})
+  this.deleteTag = (text, force = false) => {
+    if (force) db.prepare(`DELETE FROM image_tag WHERE tag_id=@tagId`).run({tagId: this.getTag(text).id})
+
+    db.prepare(`DELETE FROM tags WHERE text=@text`).run({text: text})
+  }
 
   /**
    * @param {string} text

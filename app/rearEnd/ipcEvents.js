@@ -65,8 +65,13 @@ function init() {
   })
 
   ipcMain.on('delete-tag-sync', (e, arg) => {
-    db.deleteTag(arg.text)
-    e.returnValue = true
+    try {
+      db.deleteTag(arg.text, arg.force)
+      e.returnValue = true
+    } catch (error) {
+      console.log(error)
+      e.returnValue = false
+    }
   })
 
 }

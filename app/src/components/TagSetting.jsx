@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ipcRenderer } from 'electron'
+import { ipcRenderer, remote } from 'electron'
 import Modal from './Modal.jsx'
 import Input from './Input.jsx'
 import Button from './Button.jsx'
@@ -33,9 +33,32 @@ export default class TagSetting extends Component {
 
   removeTag(index){
     if(index < 0 || index >= this.state.tags.length) return
-    let tag = this.state.tags.splice(index,1).pop()
-    ipcRenderer.sendSync('delete-tag-sync', tag)
-    this.updateTags()
+    let tag = this.state.tags[index]
+    let state = ipcRenderer.sendSync('delete-tag-sync', {
+      text: tag.text,
+      force: false
+    })
+
+    if(state) {
+      this.updateTags()
+    } else {
+      const options = {
+        type: 'info',
+        title: '警告',
+        message: "这会导致所有图片的标签都删除！",
+        buttons: ['删除', '取消']
+      }
+      remote.dialog.showMessageBox(options, function (index) {
+        if(index == 0){
+          tag.force = true
+          ipcRenderer.sendSync('delete-tag-sync', {
+            text: tag.text,
+            force: true
+          })
+          this.updateTags()
+        }
+      })
+    }
   }
 
   render() {
