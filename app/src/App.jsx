@@ -12,8 +12,6 @@ export default class App extends Component {
     super()
 
     this.state = {
-      activeSetting: false,
-      activeTagSetting: false,
       activeMenuIndex: 0
     }
   }
@@ -29,13 +27,13 @@ export default class App extends Component {
       text: '设置',
       click: () => {
         this.setState({ activeMenuIndex: 1 })
-        this.toggleSetting()
+        this.setting.modal.open()
       }
     },{
       text: '标签',
       click: () => {
         this.setState({ activeMenuIndex: 2 })
-        this.toggleTagSetting()
+        this.tagSetting.modal.open()
       }
     }]
   }
@@ -43,9 +41,8 @@ export default class App extends Component {
   componentDidMount() {
     $(window).on('keydown', (e) => {
       if(e.key == 'Escape'){
-        if(this.state.activeSetting) this.toggleSetting()
-        
-        if(this.state.activeTagSetting) this.toggleTagSetting()
+        this.setting.modal.close()
+        this.tagSetting.modal.close()
       }
     })
   }
@@ -54,30 +51,20 @@ export default class App extends Component {
     $(window).off('keydown')
   }
 
-  toggleSetting(){
-    this.setState((prevState, props) => ({
-      activeSetting: !prevState.activeSetting
-    }))
-  }
-
-  toggleTagSetting(){
-    this.setState((prevState, props) => ({
-      activeTagSetting: !prevState.activeTagSetting
-    }))
-  }
-
   render() {
     let settingModal = null;
     let tagSettingModal = null;
-    if(this.state.activeSetting) settingModal = (<Setting toggle={this.toggleSetting.bind(this)}/>)
-    if(this.state.activeTagSetting) tagSettingModal = (<TagSetting />)
 
     return(
       <div>
-        <NavBar menus={this.menus} active={this.state.activeMenuIndex}/>
-        {settingModal}
-        {tagSettingModal}
-        <Cards activeSetting={this.toggleTagSetting.bind(this)}/>
+        <NavBar 
+          menus={this.menus} 
+          active={this.state.activeMenuIndex}/>
+        <Setting 
+          ref={setting => this.setting = setting} />
+        <TagSetting
+          ref={tagSetting => this.tagSetting = tagSetting} />
+        <Cards />
       </div>
     )
   }

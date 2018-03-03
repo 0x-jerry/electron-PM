@@ -4,6 +4,9 @@ import {  } from './Modal.scss'
 export default class Modal extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      active: false
+    }
   }
 
   componentDidMount(){
@@ -12,7 +15,27 @@ export default class Modal extends Component {
     })
   }
 
+  open(){
+    this.setState({
+      active: true
+    })
+  }
+
+  close(){
+    this.setState({
+      active: false
+    })
+  }
+
+  toggle(){
+    this.setState(prevState => ({
+      active: !prevState.active
+    }))
+  }
+
   render() {
+    if(!this.state.active) return null
+
     return (
       <div className='modal-fixed'>
         <div className="modal-box">

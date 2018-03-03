@@ -81,6 +81,7 @@ export default class TagSetting extends Component {
     return (
       <div className='tag-setting'>
         <Modal
+          ref={modal => this.modal = modal}
           head='标签'
           footer={footer}>
           <ul className='tags'>
