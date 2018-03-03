@@ -9,16 +9,19 @@ export default class NavBar extends Component {
   }
 
   render() {
-    let Menus = this.props.menus.map( (menu, index) => 
-      <NavBtn 
-        key={index} 
-        class={this.props.active == index ? 'active' : ''}
-        click={menu.click}>
-        {menu.text}
-      </NavBtn>)
     return (
       <nav>
-        <ul>{Menus}</ul>
+        <ul>
+          {
+            this.props.menus.map( (menu, index) => 
+              <NavBtn 
+                key={index} 
+                class={this.props.active == index ? 'active' : ''}
+                click={menu.click}>
+                {menu.text}
+              </NavBtn>)
+          }
+        </ul>
       </nav>
     )
   }

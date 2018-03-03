@@ -1,12 +1,12 @@
 const path = require('path')
 
-module.exports = {
+let electronRenderer = {
   target: 'electron-renderer',
-  entry: './app/src/entry.js',
+  entry: path.join(__dirname, 'app', 'src', 'entry.js'),
   mode: process.env.NODE_ENV,
   output: {
     path: path.resolve(__dirname, 'app/build'),
-    publicPath: 'build/',
+    publicPath: path.join(__dirname, 'assets'),
     filename: 'bundle.js'
   },
 
@@ -43,3 +43,5 @@ module.exports = {
     ]
   },
 }
+
+module.exports = [electronRenderer]

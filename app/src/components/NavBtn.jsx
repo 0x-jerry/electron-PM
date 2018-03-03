@@ -3,8 +3,6 @@ import React, { Component } from 'react'
 export default class NavBtn extends Component {
   constructor(props) {
     super(props)
-
-    this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick () {
@@ -14,7 +12,7 @@ export default class NavBtn extends Component {
   render() {
     return (
       <li 
-        onClick={this.handleClick}
+        onClick={this.handleClick.bind(this)}
         className={this.props.class}>
         {this.props.children}
       </li>
