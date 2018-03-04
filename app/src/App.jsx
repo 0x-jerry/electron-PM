@@ -10,10 +10,6 @@ import TagSetting from './components/TagSetting.jsx'
 export default class App extends Component {
   constructor(){
     super()
-
-    this.state = {
-      activeMenuIndex: 0
-    }
   }
 
   componentWillMount() {
@@ -21,34 +17,18 @@ export default class App extends Component {
       text: '主页',
       click: () => {
         ipcRenderer.emit('reload-images')
-        this.setState({ activeMenuIndex: 0 })
       }
     },{
       text: '设置',
       click: () => {
-        this.setState({ activeMenuIndex: 1 })
-        this.setting.modal.open()
+        this.setting.open()
       }
     },{
       text: '标签',
       click: () => {
-        this.setState({ activeMenuIndex: 2 })
-        this.tagSetting.modal.open()
+        this.tagSetting.open()
       }
     }]
-  }
-  
-  componentDidMount() {
-    $(window).on('keydown', (e) => {
-      if(e.key == 'Escape'){
-        this.setting.modal.close()
-        this.tagSetting.modal.close()
-      }
-    })
-  }
-
-  componentWillUnmount() {
-    $(window).off('keydown')
   }
 
   render() {
@@ -58,8 +38,7 @@ export default class App extends Component {
     return(
       <div>
         <NavBar 
-          menus={this.menus} 
-          active={this.state.activeMenuIndex}/>
+          menus={this.menus}/>
         <Setting 
           ref={setting => this.setting = setting} />
         <TagSetting

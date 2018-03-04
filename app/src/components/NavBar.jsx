@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {  } from './Nav.scss'
-import NavBtn from './NavBtn.jsx'
 
 export default class NavBar extends Component {
   
@@ -14,12 +13,16 @@ export default class NavBar extends Component {
         <ul>
           {
             this.props.menus.map( (menu, index) => 
-              <NavBtn 
-                key={index} 
-                class={this.props.active == index ? 'active' : ''}
-                click={menu.click}>
+              <li 
+                key={index}
+                className={0 == index ? 'active' : ''}
+                onClick={e => {
+                  console.log(e.target)
+                  $(e.target).addClass('active').siblings().removeClass('active')
+                  menu.click()
+                }}>
                 {menu.text}
-              </NavBtn>)
+              </li>)
           }
         </ul>
       </nav>

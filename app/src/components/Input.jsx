@@ -18,6 +18,10 @@ export default class Input extends Component {
     return this.inputField.value
   }
 
+  setValue(value = ''){
+    this.inputField.value=value
+  }
+
   render() {
     return (
       <div className='input-box'>

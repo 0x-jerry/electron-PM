@@ -23,6 +23,15 @@ export default class TagSetting extends Component {
     })
   }
 
+  open(){
+    this.tagInput.setValue()
+    this.modal.open()
+  }
+
+  close(){
+    this.modal.close()
+  }
+
   addTag(){
     ipcRenderer.sendSync('add-tag-sync', {
       text: this.tagInput.getValue(),

@@ -8,6 +8,7 @@
   height: 100%;
   z-index: 100;
   background-color: $color-light-shadow;
+  display: none;
 
   .modal-box {
     position: absolute;
@@ -28,6 +29,10 @@
 
       border: 1px solid $color-shadow;
       border-width: 0 0 1px 0;
+
+      button{
+        float: right;
+      }
     }
 
     .modal-content{

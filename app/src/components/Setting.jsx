@@ -11,8 +11,18 @@ export default class Setting extends Component {
     super(props)
     this.state = {
       imagePaths: userSetting.get('paths', []),
-      toggle: props.toggle || (() => console.log('toggle'))
     }
+  }
+
+  open(){
+    this.setState({
+      imagePaths: userSetting.get('paths', []),
+    })
+    this.modal.open()
+  }
+
+  close(){
+    this.modal.close()
   }
 
   addImagePath(){
@@ -43,14 +53,16 @@ export default class Setting extends Component {
         <Button 
           text='保存'
           click={() => {
-            this.state.toggle()
+            this.close()
             userSetting.set('paths', this.state.imagePaths)
             ipcRenderer.emit('reload-images')
           }}/>
         <Button 
           text='取消' 
           color='red'
-          click={() => this.state.toggle()}/>
+          click={() => {
+            this.close()
+          }}/>
       </div>
     )
 

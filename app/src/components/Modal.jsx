@@ -1,48 +1,51 @@
 import React, { Component } from 'react'
 import {  } from './Modal.scss'
+import Button from './Button.jsx'
 
 export default class Modal extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      active: false
-    }
+    this.active = false
   }
 
   componentDidMount(){
-    $(this.content).on('scroll', e => {
-      e.preventDefault()
+    $(this.modalBg).on('click', e => {
+      if(e.target === this.modalBg) this.close()
     })
   }
 
   open(){
-    this.setState({
-      active: true
-    })
+    if(this.active) return
+    this.active = true
+    $(this.modalBg).fadeIn()
   }
 
   close(){
-    this.setState({
-      active: false
-    })
+    if(!this.active) return
+    this.active = false
+    $(this.modalBg).fadeOut()
   }
 
   toggle(){
-    this.setState(prevState => ({
-      active: !prevState.active
-    }))
+    this.active = !this.active
+    if(this.active) this.open()
+    else this.close()
   }
 
   render() {
-    if(!this.state.active) return null
-
     return (
-      <div className='modal-fixed'>
+      <div className='modal-fixed' 
+        ref={modalBg => this.modalBg = modalBg}
+        >
         <div className="modal-box">
           <div className="modal-head">
             {this.props.head}
+            <Button
+              text='x'
+              color='red'
+              click={this.close.bind(this)}/>
           </div>
-          <div className="modal-content" ref={content => this.content = content}>
+          <div className="modal-content">
             {this.props.children}
           </div>
           <div className="modal-footer">
