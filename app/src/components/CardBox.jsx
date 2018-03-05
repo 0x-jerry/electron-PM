@@ -14,10 +14,20 @@ export default class CardBox extends Component {
     $(this.image).on('load', () => {
       this.setState((prevState) => {
         let state = fs.statSync($(this.image).attr('src'))
-        if(state){
-          let size = state.size / 1000;
-          let sizeStr = size >= 1000 ? (size / 1000).toFixed(1) + "MB" : size.toFixed(1) + "KB"
-          prevState.infos.push(sizeStr)
+        if (!state) return console.log('error: ' + $(this.image).attr('src'))
+
+        let size = state.size / 1000;
+        let sizeStr = size >= 1000 ? (size / 1000).toFixed(1) + "MB" : size.toFixed(1) + "KB"
+
+        let sizeInfo = prevState.infos.find(info => info.name == 'size')
+
+        if(sizeInfo) {
+          sizeInfo.text = sizeStr
+        } else {
+          prevState.infos.push({
+            name: 'size',
+            text: sizeStr
+          })
         }
         return {infos: prevState.infos}
       })
@@ -39,7 +49,7 @@ export default class CardBox extends Component {
           </div>
           <p className='infos'>
             {
-              this.state.infos.map((info, index) => <span className='info' key={index}>{info}</span>)
+              this.state.infos.map((info, index) => <span className='info' key={index}>{info.text}</span>)
             }
           </p>
         </div>
