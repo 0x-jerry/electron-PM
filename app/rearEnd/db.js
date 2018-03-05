@@ -26,18 +26,18 @@ function DataBase(name = 'electronPM.db') {
   this.getAllTags = () => db.prepare('SELECT * FROM tags').all()
   this.getAllImages = () => db.prepare(`SELECT * FROM images`).all()
 
-  this.freshImagesIterator = () => this._imagesIterator = db.prepare(`SELECT * FROM images`).iterate()
-  this.nextImages = (number = 10) => {
-    if(!this._imagesIterator) this.freshImagesIterator()
+  // this.freshImagesIterator = () => this._imagesIterator = db.prepare(`SELECT * FROM images`).iterate()
+  // this.getNextImages = (number = 10) => {
+  //   if(!this._imagesIterator) this.freshImagesIterator()
 
-    let images = []
-    for(let i = 0; i < number; i ++){
-      let image = this._imagesIterator.next()
-      if(!image.value) break
-      images.push(image.value)
-    }
-    return images
-  }
+  //   let images = []
+  //   for(let i = 0; i < number; i ++){
+  //     let image = this._imagesIterator.next()
+  //     if(!image.value) break
+  //     images.push(image.value)
+  //   }
+  //   return images
+  // }
 
   /**
    * @param {string} path

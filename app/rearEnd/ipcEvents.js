@@ -23,7 +23,7 @@ function readFilesSync(filePath) {
 }
 
 function init() {
-  ipcMain.on('load-images-sync', (e, arg) => {
+  ipcMain.on('reload-images-sync', (e, arg) => {
     let paths = userSetting.get('paths', ['./'])
     let images = []
 
@@ -51,7 +51,12 @@ function init() {
   })
 
   ipcMain.on('get-all-tags-sync', (e, arg) => {
-    e.returnValue = db.getAllTags()
+    try {
+      e.returnValue = db.getAllTags()
+    } catch (error) {
+      console.log(error)
+      e.returnValue = false
+    }
   })
 
   ipcMain.on('add-tag-sync', (e, arg) => {

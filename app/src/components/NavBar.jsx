@@ -17,7 +17,6 @@ export default class NavBar extends Component {
                 key={index}
                 className={0 == index ? 'active' : ''}
                 onClick={e => {
-                  console.log(e.target)
                   $(e.target).addClass('active').siblings().removeClass('active')
                   menu.click()
                 }}>
