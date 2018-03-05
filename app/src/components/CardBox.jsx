@@ -11,6 +11,11 @@ export default class CardBox extends Component {
     }
   }
 
+  click() {
+    if (!this.props.click) return console.log(this.props.src)
+    this.props.click(this.props.src)
+  }
+
   componentDidMount(){
     $(this.image).on('load', () => {
       let path = $(this.image).attr('src')
@@ -53,7 +58,7 @@ export default class CardBox extends Component {
   render() {
     return (
       <div className='card-box'>
-        <div className='picture'>
+        <div className='picture' onClick={this.click.bind(this)}>
           <img src={this.props.src} ref={img => this.image = img}/>
         </div>
         <div className='info-box'>

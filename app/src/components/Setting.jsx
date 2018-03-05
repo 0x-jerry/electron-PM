@@ -77,7 +77,7 @@ export default class Setting extends Component {
       <div className='setting'>
         <Modal
           ref={modal => this.modal = modal}
-          head= '设置'
+          header= '设置'
           footer={footer}>
           <h3>图片路径</h3>
           <div className='paths'>

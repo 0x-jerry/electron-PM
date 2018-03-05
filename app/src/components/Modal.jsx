@@ -38,8 +38,8 @@ export default class Modal extends Component {
         ref={modalBg => this.modalBg = modalBg}
         >
         <div className="modal-box">
-          <div className="modal-head">
-            {this.props.head}
+          <div className="modal-header">
+            {this.props.header}
             <Button
               text='x'
               color='red'

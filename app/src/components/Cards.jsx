@@ -3,12 +3,14 @@ import CardBox from './CardBox.jsx'
 import {  } from './Cards.scss' 
 import { ipcRenderer } from 'electron'
 import Button from './Button.jsx'
+import CardInfo from './CardInfo.jsx'
 
 export default class Cards extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentPaths: []
+      currentPaths: [],
+      cardInfo: {}
     }
     this.currentPage = 0
   }
@@ -58,7 +60,16 @@ export default class Cards extends Component {
       <div className='cards-fixed'>
         <div className='cards'>
           {
-            this.state.currentPaths.map((url, index) => <CardBox src={url} key={index} />)
+            this.state.currentPaths.map((url, index) => <CardBox 
+              src={url} 
+              key={index} 
+              click={(path) =>{
+                this.setState({
+                  cardInfo: {
+                    src: path
+                  }
+                })
+              }}/>)
           }
         </div>
         <div className="crads-nav">
@@ -73,6 +84,10 @@ export default class Cards extends Component {
               this.nextPage()
             }}/>
         </div>
+
+        <CardInfo 
+          ref={cardInfo => this.cardInfo = cardInfo}
+          src={this.state.cardInfo.src}/>
       </div>
     )
   }
