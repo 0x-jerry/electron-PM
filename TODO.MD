@@ -8,17 +8,21 @@
 - [x] 在 `info` 中显示图片大小
 - [x] 图片数据与数据库同步
 - [x] 标签管理
+- [x] 分页显示图片
 - [ ] 图片预览以及添加标签
-- [ ] 分页显示图片
 - [ ] 图片搜索
-  - [ ] 分类搜索
+- [ ] 分类显示
 - [ ] 识别图片中的主要色调并显示在 `info` 中
+- [ ] 添加 Alert 组件
+
+### 界面重构
 
 ### 优化
 
+- [ ] 阻止 scroll 事件冒泡
 - [ ] `tag` 和 `info` 抽象成 `components`
 - [ ] `production` 环境打包
-- [ ] `better-sqlite3` 在 `windows` 平台使用需要安装 `windows-build-tools`
+- [x] `better-sqlite3` 在 `windows` 平台使用需要安装 `windows-build-tools`
 > Install all the required tools and configurations using Microsoft's windows-build-tools using npm install --global --production windows-build-tools from an elevated PowerShell or CMD.exe (run as Administrator).
 
 ### 视觉
