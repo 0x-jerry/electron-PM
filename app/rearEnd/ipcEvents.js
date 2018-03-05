@@ -79,6 +79,15 @@ function init() {
     }
   })
 
+  ipcMain.on('get-image-tags-sync', (e, arg) => {
+    try {
+      e.returnValue = db.getImageTags(arg.path)
+    } catch (error) {
+      console.log(error)
+      e.returnValue = false
+    }
+  })
+
 }
 
 module.exports = {

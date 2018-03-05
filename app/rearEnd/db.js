@@ -26,19 +26,6 @@ function DataBase(name = 'electronPM.db') {
   this.getAllTags = () => db.prepare('SELECT * FROM tags').all()
   this.getAllImages = () => db.prepare(`SELECT * FROM images`).all()
 
-  // this.freshImagesIterator = () => this._imagesIterator = db.prepare(`SELECT * FROM images`).iterate()
-  // this.getNextImages = (number = 10) => {
-  //   if(!this._imagesIterator) this.freshImagesIterator()
-
-  //   let images = []
-  //   for(let i = 0; i < number; i ++){
-  //     let image = this._imagesIterator.next()
-  //     if(!image.value) break
-  //     images.push(image.value)
-  //   }
-  //   return images
-  // }
-
   /**
    * @param {string} path
    */
@@ -62,9 +49,17 @@ function DataBase(name = 'electronPM.db') {
   }
 
   /**
-   * @param {string} text
+   * @param {string | number} text
    */
-  this.getTag = (text) => db.prepare(`SELECT * FROM tags WHERE text=@text`).get({text: text})
+  this.getTag = (text) => {
+    let tag = null
+    if (typeof text == 'string'){
+      tag = db.prepare(`SELECT * FROM tags WHERE text=@text`).get({text: text})
+    } else {
+      tag = db.prepare(`SELECT * FROM tags WHERE id=@id`).get({id: text})
+    }
+    return tag
+  }
 
   /**
    * @param {string} imagePath
@@ -79,6 +74,14 @@ function DataBase(name = 'electronPM.db') {
       tag: db.prepare(`SELECT * FROM tags WHERE id=@id`).get({id: imageTag.tag_id})
     }
     return result
+  }
+
+  this.getImageTags = (imagePath) => {
+    let image = this.getImage(imagePath)
+    let imageTags = db.prepare(`SELECT * FROM image_tag WHERE image_id=@imageId`).all({imageId: image.id})
+    if (!imageTags) return null
+
+    return imageTags.map(imageTag => this.getTag(+imageTag.tag_id))
   }
 
   this.insertImageTag = (imagePath, tagText) => {
