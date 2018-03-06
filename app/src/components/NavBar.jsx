@@ -18,6 +18,7 @@ export default class NavBar extends Component {
                 className={0 == index ? 'active' : ''}
                 onClick={e => {
                   $(e.target).addClass('active').siblings().removeClass('active')
+                  $('html, body').animate({scrollTop:$(menu.target).offset().top + 'px'})
                   menu.click()
                 }}>
                 {menu.text}

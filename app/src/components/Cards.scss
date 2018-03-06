@@ -1,12 +1,6 @@
 @import '../scss/base.scss';
 
 .cards-fixed{
-  width: calc(100% - 150px);
-  top: 0;
-  left: 150px;
-  overflow: auto;
-  position: absolute;
-
   .cards{
     margin: 20px;
   }

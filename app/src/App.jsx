@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { render } from 'react-dom'
 import { ipcRenderer } from 'electron'
 import {  } from './scss/global.scss'
+import {  } from './App.scss'
 import NavBar from './components/NavBar.jsx'
 import Cards from './components/Cards.jsx'
 import Setting from './components/Setting.jsx'
@@ -10,40 +10,56 @@ import TagSetting from './components/TagSetting.jsx'
 export default class App extends Component {
   constructor(){
     super()
-  }
 
-  componentWillMount() {
     this.menus = [{
       text: '主页',
+      target: '#main',
       click: () => {
         ipcRenderer.emit('reload-images')
-      }
+      },
+      content: (<Cards />)
     },{
       text: '设置',
+      target: '#setting',
       click: () => {
-        this.setting.open()
-      }
+      },
+      content: 'setting'
     },{
       text: '标签',
+      target: '#tag-setting',
       click: () => {
-        this.tagSetting.open()
-      }
+      },
+      content: 'setting'
     }]
   }
 
   render() {
-    let settingModal = null;
-    let tagSettingModal = null;
 
     return(
-      <div>
-        <NavBar 
-          menus={this.menus}/>
-        <Setting 
+      <div className='app'>
+        <div className="nav">
+          <NavBar 
+            menus={this.menus}/>
+        </div>
+        <div id='app-container' className='content'>
+          {
+            this.menus.map((menu, index)=> (
+              <section 
+                key={index}
+                id={menu.target.split('#').pop()}>
+                <div className="container">
+                  {menu.content}
+                </div>
+              </section>
+            ))
+          }
+        </div>
+
+        {/* <Setting 
           ref={setting => this.setting = setting} />
         <TagSetting
           ref={tagSetting => this.tagSetting = tagSetting} />
-        <Cards />
+        <Cards /> */}
       </div>
     )
   }

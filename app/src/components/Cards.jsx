@@ -13,6 +13,7 @@ export default class Cards extends Component {
       cardInfo: {}
     }
     this.currentPage = 0
+    this.pageNumber = props.pageNumber || 9
   }
 
   componentWillMount(){
@@ -24,8 +25,8 @@ export default class Cards extends Component {
   }
 
   updatePage(index = 0) {
-    let startIndex = this.currentPage * 10
-    let endIndex = startIndex + 10
+    let startIndex = this.currentPage * this.pageNumber
+    let endIndex = startIndex + this.pageNumber
 
     this.setState({
       currentPaths: this.allImagesPath.slice(startIndex, endIndex)
@@ -33,7 +34,7 @@ export default class Cards extends Component {
   }
 
   isLastPage(){
-    return this.currentPage * 10 + 10 >= this.allImagesPath.length
+    return (this.currentPage + 1) * this.pageNumber >= this.allImagesPath.length
   }
 
   isFristPage() {
@@ -77,11 +78,13 @@ export default class Cards extends Component {
             text='Back' 
             click ={() => {
               this.backPage()
+              $('body').animate({scrollTop: 0})
             }}/>
           <Button 
             text='Next' 
             click ={() => {
               this.nextPage()
+              $('body').animate({scrollTop: 0})
             }}/>
         </div>
 

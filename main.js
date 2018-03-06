@@ -6,6 +6,7 @@ const db = require('./app/rearEnd/db.js')()
 const { initIpcMain } = require('./app/rearEnd/ipcEvents.js')
 
 if (process.env.NODE_ENV === 'development') {
+  console.log('development')
   // hot reload
   require('electron-reload')([
     path.join(__dirname, 'app', 'src')
