@@ -15,21 +15,23 @@ export default class App extends Component {
       text: '主页',
       target: '#main',
       click: () => {
-        ipcRenderer.emit('reload-images')
+        this.cards.open()
       },
-      content: (<Cards />)
+      content: (<Cards parent='#main' ref={cards => this.cards = cards}/>)
     },{
       text: '设置',
       target: '#setting',
       click: () => {
+        this.setting.open()
       },
-      content: 'setting'
+      content: (<Setting ref={setting => this.setting = setting}/>)
     },{
       text: '标签',
       target: '#tag-setting',
       click: () => {
+        this.tagSetting.open()
       },
-      content: 'setting'
+      content: (<TagSetting ref={tagSetting => this.tagSetting = tagSetting}/>)
     }]
   }
 
@@ -54,12 +56,6 @@ export default class App extends Component {
             ))
           }
         </div>
-
-        {/* <Setting 
-          ref={setting => this.setting = setting} />
-        <TagSetting
-          ref={tagSetting => this.tagSetting = tagSetting} />
-        <Cards /> */}
       </div>
     )
   }

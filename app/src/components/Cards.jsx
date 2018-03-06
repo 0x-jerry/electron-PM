@@ -18,13 +18,17 @@ export default class Cards extends Component {
 
   componentWillMount(){
     ipcRenderer.on('reload-images', () => {
-      this.reloadImages()
+      this._reloadImages()
     })
 
-    this.reloadImages()
+    this._reloadImages()
   }
 
-  updatePage(index = 0) {
+  open() {
+    this._reloadImages()
+  }
+
+  _updatePage(index = 0) {
     let startIndex = this.currentPage * this.pageNumber
     let endIndex = startIndex + this.pageNumber
 
@@ -33,32 +37,32 @@ export default class Cards extends Component {
     })
   }
 
-  isLastPage(){
+  _isLastPage(){
     return (this.currentPage + 1) * this.pageNumber >= this.allImagesPath.length
   }
 
-  isFristPage() {
+  _isFristPage() {
     return this.currentPage <= 0
   }
 
-  nextPage(){
-    if(this.isLastPage()) return
-    this.updatePage(++this.currentPage)
+  _nextPage(){
+    if(this._isLastPage()) return
+    this._updatePage(++this.currentPage)
   }
 
-  backPage() {
-    if(this.isFristPage()) return
-    this.updatePage(--this.currentPage)
+  _backPage() {
+    if(this._isFristPage()) return
+    this._updatePage(--this.currentPage)
   }
 
-  reloadImages(){
+  _reloadImages(){
     this.allImagesPath = ipcRenderer.sendSync('reload-images-sync')
-    this.updatePage()
+    this._updatePage()
   }
 
   render() {
     return (
-      <div className='cards-fixed'>
+      <div className='cards-box'>
         <div className='cards'>
           {
             this.state.currentPaths.map((url, index) => <CardBox 
@@ -73,18 +77,19 @@ export default class Cards extends Component {
               }}/>)
           }
         </div>
+        <div className="line"></div>
         <div className="crads-nav">
           <Button
             text='Back' 
             click ={() => {
-              this.backPage()
-              $('body').animate({scrollTop: 0})
+              this._backPage()
+              $(this.props.parent).animate({scrollTop: 0})
             }}/>
           <Button 
             text='Next' 
             click ={() => {
-              this.nextPage()
-              $('body').animate({scrollTop: 0})
+              this._nextPage()
+              $(this.props.parent).animate({scrollTop: 0})
             }}/>
         </div>
 

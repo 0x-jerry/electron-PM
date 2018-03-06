@@ -11,7 +11,7 @@ export default class CardBox extends Component {
     }
   }
 
-  click() {
+  _click() {
     if (!this.props.click) return console.log(this.props.src)
     this.props.click(this.props.src)
   }
@@ -19,7 +19,7 @@ export default class CardBox extends Component {
   componentDidMount(){
     $(this.image).on('load', () => {
       let path = $(this.image).attr('src')
-      let fileSize = this.getFileSize(path)
+      let fileSize = this._getFileSize(path)
 
       this.setState((prevState) => {
         let sizeInfo = prevState.infos.find(info => info.name == 'size')
@@ -34,18 +34,18 @@ export default class CardBox extends Component {
         }
 
         return {
-          tags: this.getTags(path) || [],
+          tags: this._getTags(path) || [],
           infos: prevState.infos
         }
       })
     })
   }
 
-  getTags(path) {
+  _getTags(path) {
     return ipcRenderer.sendSync('get-image-tags-sync', {path: path})
   }
 
-  getFileSize(path){
+  _getFileSize(path){
     let state = fs.statSync($(this.image).attr('src'))
     if (!state) return console.log('error: ' + $(this.image).attr('src'))
 
@@ -58,7 +58,7 @@ export default class CardBox extends Component {
   render() {
     return (
       <div className='card-box'>
-        <div className='picture' onClick={this.click.bind(this)}>
+        <div className='picture' onClick={this._click.bind(this)}>
           <img src={this.props.src} ref={img => this.image = img}/>
         </div>
         <div className='info-box'>

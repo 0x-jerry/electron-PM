@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { ipcRenderer, remote } from 'electron'
-import Modal from './Modal.jsx'
 import Input from './Input.jsx'
 import Button from './Button.jsx'
 import {  } from './TagSetting.scss' 
@@ -14,33 +13,28 @@ export default class TagSetting extends Component {
   }
 
   componentWillMount(){
-    this.updateTags()
+    this._updateTags()
   }
 
-  updateTags() {
+  open(){
+    this.tagInput.setValue()
+  }
+
+  _updateTags() {
     this.setState({
       tags: ipcRenderer.sendSync('get-all-tags-sync') || []
     })
   }
 
-  open(){
-    this.tagInput.setValue()
-    this.modal.open()
-  }
-
-  close(){
-    this.modal.close()
-  }
-
-  addTag(){
+  _addTag(){
     ipcRenderer.sendSync('add-tag-sync', {
       text: this.tagInput.getValue(),
       color: '#fff'
     })
-    this.updateTags()
+    this._updateTags()
   }
 
-  removeTag(index){
+  _removeTag(index){
     if(index < 0 || index >= this.state.tags.length) return
     let tag = this.state.tags[index]
     let state = ipcRenderer.sendSync('delete-tag-sync', {
@@ -49,7 +43,7 @@ export default class TagSetting extends Component {
     })
 
     if(state) {
-      this.updateTags()
+      this._updateTags()
     } else {
       const options = {
         type: 'info',
@@ -64,39 +58,34 @@ export default class TagSetting extends Component {
             text: tag.text,
             force: true
           })
-          this.updateTags()
+          this._updateTags()
         }
       })
     }
   }
 
   render() {
-    let footer = (
-      <div>
-        <Input 
-          ref={(input) => this.tagInput = input}
-          tip='请输入新标签：'/>
-        <Button text='添加' click={this.addTag.bind(this)}/>
-      </div>
-    )
-
-    let tags = this.state.tags.map((tag, index) => (
-      <span className="tag" data-index={index} key={index}>
-        <p>{tag.text}</p>
-        <Button text='X' click={() => {this.removeTag(index)}}/>
-      </span>
-    ))
 
     return (
       <div className='tag-setting'>
-        <Modal
-          ref={modal => this.modal = modal}
-          header='标签'
-          footer={footer}>
-          <div className='tags'>
-            {tags}
-          </div>
-        </Modal>
+        <h1>标签</h1>
+        <section className="tags">
+          {
+            this.state.tags.map((tag, index) => (
+              <div className="tag" data-index={index} key={index}>
+                <p>{tag.text}</p>
+                <Button text='X' click={() => {this._removeTag(index)}}/>
+              </div>
+            ))
+          }
+        </section>
+        <div className="line"></div>
+        <div>
+          <Input 
+            ref={(input) => this.tagInput = input}
+            tip='请输入新标签：'/>
+          <Button text='添加' click={this._addTag.bind(this)}/>
+        </div>
       </div>
     )
   }
