@@ -20,8 +20,13 @@
 
 ### 优化
 
+- [ ] `tag` 组件
+- [ ] `info` 组件
+- [ ] 分页组件 `pageNav`
 - [ ] 阻止 scroll 事件冒泡
-- [ ] `tag` 和 `info` 抽象成 `components`
+> 阻止事件冒泡： `event.stopPropagation()`
+>
+> 取消事件： `event.preventDefault()`
 - [ ] `production` 环境打包
 - [x] `better-sqlite3` 在 `windows` 平台使用需要安装 `windows-build-tools`
 > Install all the required tools and configurations using Microsoft's windows-build-tools using npm install --global --production windows-build-tools from an elevated PowerShell or CMD.exe (run as Administrator).
