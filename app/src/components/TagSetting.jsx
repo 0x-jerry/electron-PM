@@ -18,7 +18,7 @@ export default class TagSetting extends Component {
   }
 
   open(){
-    this.tagInput.setValue()
+    this._tagInput.setValue()
   }
 
   _updateTags() {
@@ -29,7 +29,7 @@ export default class TagSetting extends Component {
 
   _addTag(){
     ipcRenderer.sendSync('add-tag-sync', {
-      text: this.tagInput.getValue(),
+      text: this._tagInput.getValue(),
       color: '#fff'
     })
     this._updateTags()
@@ -87,7 +87,7 @@ export default class TagSetting extends Component {
         <div className='row'>
           <Input
             class='col'
-            ref={(input) => this.tagInput = input}
+            ref={input => this._tagInput = input}
             tip='请输入新标签：'/>
           <Button 
             class='col'

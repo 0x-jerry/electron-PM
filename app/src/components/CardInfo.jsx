@@ -8,22 +8,27 @@ export default class CardInfo extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      tags: []
+      tags: [],
+      src: ''
     }
   }
 
   componentDidMount() {
-    $(this.image).on('load', () => {
-      let tags = ipcRenderer.sendSync('get-image-tags-sync', {
-        path: this.props.src
-      })
+    this.open(this.props.src)
+  }
 
-      this.setState({
-        tags: tags.map( tag => tag.text)
-      })
-
-      this.modal.open()
+  open(src) {
+    if(!src) return
+    let tags = ipcRenderer.sendSync('get-image-tags-sync', {
+      path: src
     })
+
+    this.setState({
+      tags: tags.map( tag => tag.text),
+      src: src
+    })
+
+    this._modal.open()
   }
 
   render() {
@@ -43,13 +48,12 @@ export default class CardInfo extends Component {
 
     return (
       <Modal 
-        ref={modal => this.modal = modal}
+        ref={modal => this._modal = modal}
         header={header}
         footer={footer}
         className='card-info'>
         <img 
-          ref={image => this.image = image}
-          src={this.props.src} />
+          src={this.state.src} />
       </Modal>
     )
   }

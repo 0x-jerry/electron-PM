@@ -18,8 +18,8 @@ export default class CardBox extends Component {
   }
 
   componentDidMount(){
-    $(this.image).on('load', () => {
-      let path = $(this.image).attr('src')
+    $(this._image).on('load', () => {
+      let path = $(this._image).attr('src')
       let fileSize = this._getFileSize(path)
 
       this.setState((prevState) => {
@@ -47,8 +47,8 @@ export default class CardBox extends Component {
   }
 
   _getFileSize(path){
-    let state = fs.statSync($(this.image).attr('src'))
-    if (!state) return console.log('error: ' + $(this.image).attr('src'))
+    let state = fs.statSync($(this._image).attr('src'))
+    if (!state) return console.log('error: ' + $(this._image).attr('src'))
 
     let size = state.size / 1000;
     let sizeStr = size >= 1000 ? (size / 1000).toFixed(1) + "MB" : size.toFixed(1) + "KB"
@@ -60,7 +60,7 @@ export default class CardBox extends Component {
     return (
       <div className='card-box'>
         <div className='picture' onClick={this._click.bind(this)}>
-          <img src={this.props.src} ref={img => this.image = img}/>
+          <img src={this.props.src} ref={img => this._image = img}/>
         </div>
         <div className='info-box'>
           <div className='tags'>

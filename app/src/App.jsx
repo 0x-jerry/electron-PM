@@ -11,7 +11,7 @@ export default class App extends Component {
   constructor(){
     super()
 
-    this.menus = [{
+    this._menus = [{
       text: '搜索',
       target: '#main',
       click: () => {
@@ -47,11 +47,11 @@ export default class App extends Component {
       <div className='app'>
         <div className="nav">
           <NavBar 
-            menus={this.menus}/>
+            menus={this._menus}/>
         </div>
         <div id='app-container' className='content'>
           {
-            this.menus.map((menu, index)=> (
+            this._menus.map((menu, index)=> (
               menu.content &&  <section
                 key={index}
                 id={menu.target.split('#').pop()}>

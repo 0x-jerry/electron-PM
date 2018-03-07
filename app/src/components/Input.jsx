@@ -7,15 +7,15 @@ export default class Input extends Component {
   }
 
   componentDidMount(){
-    $(this.inputField).val(this.props.value || '')
+    $(this._inputField).val(this.props.value || '')
   }
 
   getValue(){
-    return this.inputField.value
+    return this._inputField.value
   }
 
   setValue(value = ''){
-    this.inputField.value=value
+    this._inputField.value=value
   }
 
   render() {
@@ -24,7 +24,7 @@ export default class Input extends Component {
       <div className={'input-box ' + this.props.class}>
         {tip}
         <input 
-          ref={input => this.inputField = input}
+          ref={input => this._inputField = input}
           type={this.props.type || 'text'}
           className={this.props.type || 'text'}
           placeholder={this.props.placeholder}

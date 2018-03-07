@@ -100,11 +100,7 @@ export default class Cards extends Component {
               src={url} 
               key={index} 
               click={(path) =>{
-                this.setState({
-                  cardInfo: {
-                    src: path
-                  }
-                })
+                this._cardInfo.open(path)
               }}/>)
           }
         </div>
@@ -128,7 +124,8 @@ export default class Cards extends Component {
             }}/>
         </div>
 
-        <CardInfo 
+        <CardInfo
+          ref={cardInfo => this._cardInfo = cardInfo}
           src={this.state.cardInfo.src}/>
       </div>
     )
