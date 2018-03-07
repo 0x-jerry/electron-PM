@@ -77,7 +77,8 @@ export default class Cards extends Component {
         <div className="search-box row"
           style={{display: 'none'}}
           ref={ searchBox => this.searchBox = searchBox}>
-          <Input class='col'/>
+          <Input 
+            class='col'/>
           <Button class='col' text='搜索'/>
         </div>
         <div className='cards'>

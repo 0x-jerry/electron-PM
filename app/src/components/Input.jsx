@@ -7,10 +7,6 @@ export default class Input extends Component {
   }
 
   componentDidMount(){
-    $(this.inputField).on('keyup', e => {
-      if(this.props.keyup) this.props.keyup(e)
-    })
-
     $(this.inputField).val(this.props.value || '')
   }
 
@@ -23,11 +19,10 @@ export default class Input extends Component {
   }
 
   render() {
+    let tip = this.props.tip && (<p className='input-tip'> {this.props.tip} </p>)
     return (
       <div className={'input-box ' + this.props.class}>
-        <p className='input-tip'>
-          {this.props.tip}
-        </p>
+        {tip}
         <input 
           ref={input => this.inputField = input}
           type={this.props.type || 'text'}
