@@ -24,12 +24,12 @@ export default class Input extends Component {
 
   render() {
     return (
-      <div className='input-box'>
+      <div className={'input-box ' + this.props.class}>
         <p className='input-tip'>
           {this.props.tip}
         </p>
         <input 
-          ref={(input) => this.inputField = input}
+          ref={input => this.inputField = input}
           type={this.props.type || 'text'}
           className={this.props.type || 'text'}
           placeholder={this.props.placeholder}

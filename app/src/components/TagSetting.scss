@@ -1,14 +1,6 @@
 @import '../scss/base.scss';
 
 .tag-setting {
-  .input-box {
-    display: inline-block;
-  }
-
-  button {
-    display: inline-block;
-  }
-
   .tags {
     .tag{
       border-top: dashed 1px $color-shadow;
@@ -19,11 +11,9 @@
 
       p {
         color: $color-black;
-        display: inline-block;
       }
 
       button {
-        display: inline-block;
       }
     }
   }

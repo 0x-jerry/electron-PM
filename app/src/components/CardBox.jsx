@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import fs from 'fs'
 import { ipcRenderer } from 'electron'
+import {  } from './CardBox.scss'
 
 export default class CardBox extends Component {
   constructor(props) {

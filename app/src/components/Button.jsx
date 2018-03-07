@@ -9,7 +9,7 @@ export default class Button extends Component {
   render() {
     return (
       <button 
-        className={this.props.color}
+        className={this.props.class}
         disabled={this.props.disabled || false}
         onClick={this.props.click}>
         {this.props.text}

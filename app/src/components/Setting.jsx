@@ -49,9 +49,12 @@ export default class Setting extends Component {
           <div className='paths'>
           {
             this.state.imagePaths.map((path, index) => (
-              <div className="path" data-index={index} key={index}>
-                <p>{path}</p>
-                <Button text='X' click={() => {this._removeImagePath(index)}}/>
+              <div className="row path" data-index={index} key={index}>
+                <p className='col'>{path}</p>
+                <Button 
+                  class='col'
+                  text='X' 
+                  click={() => {this._removeImagePath(index)}}/>
               </div>
             ))
           }

@@ -72,19 +72,26 @@ export default class TagSetting extends Component {
         <section className="tags">
           {
             this.state.tags.map((tag, index) => (
-              <div className="tag" data-index={index} key={index}>
-                <p>{tag.text}</p>
-                <Button text='X' click={() => {this._removeTag(index)}}/>
+              <div className="tag row" data-index={index} key={index}>
+                <p className='col'>{tag.text}</p>
+                <Button 
+                  class='col'
+                  text='X' 
+                  click={() => {this._removeTag(index)}}/>
               </div>
             ))
           }
         </section>
         <div className="line"></div>
-        <div>
-          <Input 
+        <div className='row'>
+          <Input
+            class='col'
             ref={(input) => this.tagInput = input}
             tip='请输入新标签：'/>
-          <Button text='添加' click={this._addTag.bind(this)}/>
+          <Button 
+            class='col'
+            text='添加' 
+            click={this._addTag.bind(this)}/>
         </div>
       </div>
     )

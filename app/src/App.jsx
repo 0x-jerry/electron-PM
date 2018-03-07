@@ -12,6 +12,12 @@ export default class App extends Component {
     super()
 
     this.menus = [{
+      text: '搜索',
+      target: '#main',
+      click: () => {
+        this.cards.openSearchBox()
+      }
+    },{
       text: '主页',
       target: '#main',
       click: () => {
@@ -46,7 +52,7 @@ export default class App extends Component {
         <div id='app-container' className='content'>
           {
             this.menus.map((menu, index)=> (
-              <section 
+              menu.content &&  <section
                 key={index}
                 id={menu.target.split('#').pop()}>
                 <div className="container">

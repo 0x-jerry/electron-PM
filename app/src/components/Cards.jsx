@@ -4,6 +4,7 @@ import {  } from './Cards.scss'
 import { ipcRenderer } from 'electron'
 import Button from './Button.jsx'
 import CardInfo from './CardInfo.jsx'
+import Input from './Input.jsx'
 
 export default class Cards extends Component {
   constructor(props) {
@@ -25,7 +26,17 @@ export default class Cards extends Component {
   }
 
   open() {
+    $(this.props.parent).animate({scrollTop: 0})
     this._reloadImages()
+    this.closeSearchBox()
+  }
+
+  openSearchBox() {
+    $(this.searchBox).slideDown()
+  }
+
+  closeSearchBox() {
+    $(this.searchBox).slideUp()
   }
 
   _updatePage(index = 0) {
@@ -63,6 +74,12 @@ export default class Cards extends Component {
   render() {
     return (
       <div className='cards-box'>
+        <div className="search-box row"
+          style={{display: 'none'}}
+          ref={ searchBox => this.searchBox = searchBox}>
+          <Input class='col'/>
+          <Button class='col' text='搜索'/>
+        </div>
         <div className='cards'>
           {
             this.state.currentPaths.map((url, index) => <CardBox 
