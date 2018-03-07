@@ -6,6 +6,45 @@ import Button from './Button.jsx'
 import CardInfo from './CardInfo.jsx'
 import Input from './Input.jsx'
 
+class Pages {
+  constructor(items = [], perPage = 9) {
+    this._items = items
+    this._currentPage = 0
+    this._perPage = perPage
+  }
+
+  setItems(items){
+    this._items = items
+    this._currentPage = 0
+  }
+
+  currentPageItems(page) {
+    page = page || this._currentPage
+    let startIndex = page * this._perPage
+    let endIndex = startIndex + this._perPage
+
+    return this._items.slice(startIndex, endIndex)
+  }
+
+  isLastPage(){
+    return (this._currentPage + 1) * this._perPage>= this._items
+  }
+
+  isFristPage() {
+    return this._currentPage <= 0
+  }
+
+  nextPage(){
+    if(!this.isLastPage()) ++this._currentPage
+    return this.currentPageItems()
+  }
+
+  backPage() {
+    if(!this._isFristPage()) --this._currentPage
+    return this.currentPageItems()
+  }
+}
+
 export default class Cards extends Component {
   constructor(props) {
     super(props)
@@ -13,8 +52,7 @@ export default class Cards extends Component {
       currentPaths: [],
       cardInfo: {}
     }
-    this.currentPage = 0
-    this.pageNumber = props.pageNumber || 9
+    this._pages = new Pages()
   }
 
   componentWillMount(){
@@ -32,43 +70,18 @@ export default class Cards extends Component {
   }
 
   openSearchBox() {
-    $(this.searchBox).slideDown()
+    $(this._searchBox).slideDown()
   }
 
   closeSearchBox() {
-    $(this.searchBox).slideUp()
-  }
-
-  _updatePage(index = 0) {
-    let startIndex = this.currentPage * this.pageNumber
-    let endIndex = startIndex + this.pageNumber
-
-    this.setState({
-      currentPaths: this.allImagesPath.slice(startIndex, endIndex)
-    })
-  }
-
-  _isLastPage(){
-    return (this.currentPage + 1) * this.pageNumber >= this.allImagesPath.length
-  }
-
-  _isFristPage() {
-    return this.currentPage <= 0
-  }
-
-  _nextPage(){
-    if(this._isLastPage()) return
-    this._updatePage(++this.currentPage)
-  }
-
-  _backPage() {
-    if(this._isFristPage()) return
-    this._updatePage(--this.currentPage)
+    $(this._searchBox).slideUp()
   }
 
   _reloadImages(){
-    this.allImagesPath = ipcRenderer.sendSync('reload-images-sync')
-    this._updatePage()
+    this._pages.setItems(ipcRenderer.sendSync('reload-images-sync'))
+    this.setState({
+      currentPaths: this._pages.currentPageItems()
+    })
   }
 
   render() {
@@ -76,7 +89,7 @@ export default class Cards extends Component {
       <div className='cards-box'>
         <div className="search-box row"
           style={{display: 'none'}}
-          ref={ searchBox => this.searchBox = searchBox}>
+          ref={ searchBox => this._searchBox = searchBox}>
           <Input 
             class='col'/>
           <Button class='col' text='搜索'/>
@@ -100,19 +113,22 @@ export default class Cards extends Component {
           <Button
             text='Back' 
             click ={() => {
-              this._backPage()
+              this.setState({
+                currentPaths: this._pages.backPage()
+              })
               $(this.props.parent).animate({scrollTop: 0})
             }}/>
           <Button 
             text='Next' 
             click ={() => {
-              this._nextPage()
+              this.setState({
+                currentPaths: this._pages.nextPage()
+              })
               $(this.props.parent).animate({scrollTop: 0})
             }}/>
         </div>
 
         <CardInfo 
-          ref={cardInfo => this.cardInfo = cardInfo}
           src={this.state.cardInfo.src}/>
       </div>
     )

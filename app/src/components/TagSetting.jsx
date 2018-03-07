@@ -8,7 +8,8 @@ export default class TagSetting extends Component {
   constructor() {
     super()
     this.state = {
-      tags: []
+      tags: [],
+      inputValue: ''
     }
   }
 
