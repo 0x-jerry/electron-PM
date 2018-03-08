@@ -59,17 +59,20 @@ export default class Setting extends Component {
             ))
           }
           </div>
+        </section>
+        <div className="row">
           <Button 
             text='添加路径'
+            class='col'
             click={this._addImagePath.bind(this)}/>
-        </section>
-        <div className="line"></div>
-        <Button 
-          text='保存'
-          click={() => {
-            userSetting.set('paths', this.state.imagePaths)
-            ipcRenderer.emit('reload-images')
-          }}/>
+          <Button 
+            text='保存'
+            class='col'
+            click={() => {
+              userSetting.set('paths', this.state.imagePaths)
+              ipcRenderer.emit('reload-images')
+            }}/>
+        </div>
       </div>
     )
   }

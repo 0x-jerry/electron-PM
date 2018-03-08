@@ -3,14 +3,14 @@
 .setting{
   .paths{
     .path{
-      border-top: dashed 1px $color-shadow;
-
-      &:first-child{
-        border-top: none;
-      }
-
+      border-bottom: dashed 1px $color-shadow;
+      
       p{
         color: $color-black;
+      }
+
+      button {
+        float: right;
       }
     }
   }

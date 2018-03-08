@@ -80,7 +80,6 @@ export default class TagSetting extends Component {
             ))
           }
         </section>
-        <div className="line"></div>
         <div className='row'>
           <Input
             class='col'
