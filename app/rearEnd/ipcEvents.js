@@ -24,7 +24,7 @@ function readFilesSync(filePath) {
 
 function init() {
   ipcMain.on('reload-images-sync', (e, arg) => {
-    let paths = userSetting.get('paths', ['./'])
+    let paths = userSetting.get('paths', [])
     let images = []
 
     paths.forEach(path => {
