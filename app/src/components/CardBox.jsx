@@ -12,19 +12,24 @@ export default class CardBox extends Component {
     }
   }
 
+  componentDidMount(){
+    ipcRenderer.on('reload-image-info', this._reload.bind(this))
+    $(this._image).on('load', () => {
+      this._reload()
+    })
+  }
+
   _click() {
     if (!this.props.click) return console.log(this.props.src)
     this.props.click(this.props.src)
   }
 
-  componentDidMount(){
-    $(this._image).on('load', () => {
-      this._setImageStyle()
+  _reload() {
+    this._setImageStyle()
 
-      this.setState({
-        tags: this._getTags(),
-        infos: this._getNewInfos()
-      })
+    this.setState({
+      tags: this._getTags(),
+      infos: this._getNewInfos()
     })
   }
 

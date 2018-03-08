@@ -52,7 +52,7 @@ export default class TagSetting extends Component {
       type: 'danger',
       click: () => {
         this._removeTag(index, true)
-        ipcRenderer.emit('reload-image')
+        ipcRenderer.emit('reload-image-info')
       }
     },{
       text: '取消',

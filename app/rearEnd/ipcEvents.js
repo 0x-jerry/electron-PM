@@ -54,7 +54,6 @@ function init() {
     try {
       e.returnValue = db.getAllTags()
     } catch (error) {
-      console.log(error)
       e.returnValue = false
     }
   })
@@ -64,7 +63,6 @@ function init() {
       db.insertTag(arg.text, arg.color)
       e.returnValue = true
     } catch (error) {
-      console.log(error)
       e.returnValue = false
     }
   })
@@ -74,7 +72,6 @@ function init() {
       db.deleteTag(arg.text, arg.force)
       e.returnValue = true
     } catch (error) {
-      console.log(error)
       e.returnValue = false
     }
   })
@@ -83,7 +80,6 @@ function init() {
     try {
       e.returnValue = db.getImageTags(arg.path)
     } catch (error) {
-      console.log(error)
       e.returnValue = false
     }
   })
