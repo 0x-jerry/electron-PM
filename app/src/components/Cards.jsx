@@ -27,7 +27,7 @@ class Pages {
   }
 
   isLastPage(){
-    return (this._currentPage + 1) * this._perPage>= this._items
+    return (this._currentPage + 1) * this._perPage >= this._items.length
   }
 
   isFristPage() {
@@ -71,6 +71,7 @@ export default class Cards extends Component {
 
   openSearchBox() {
     $(this._searchBox).slideDown()
+    $(this.props.parent).animate({scrollTop: 0})
   }
 
   closeSearchBox() {
