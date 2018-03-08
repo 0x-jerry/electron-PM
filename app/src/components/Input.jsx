@@ -8,6 +8,13 @@ export default class Input extends Component {
 
   componentDidMount(){
     $(this._inputField).val(this.props.value || '')
+    if(this.props.onEnter) {
+      $(this._inputField).on('keypress', e => {
+        if(e.key == 'Enter') {
+          this.props.onEnter()
+        }
+      })
+    }
   }
 
   getValue(){

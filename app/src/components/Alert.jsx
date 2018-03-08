@@ -5,6 +5,9 @@ import Button from './Button.jsx'
 export default class Alert extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      buttons: props.buttons
+    }
   }
 
   componentDidMount() {
@@ -13,7 +16,11 @@ export default class Alert extends Component {
     })
   }
 
-  open(){
+  open(buttons = null){
+    if(buttons) this.setState({
+      buttons: buttons
+    })
+
     $(this._alertBg).fadeIn()
   }
 
@@ -37,10 +44,13 @@ export default class Alert extends Component {
           </div>
           <div className="alert-footer">
             {
-              this.props.buttons && this.props.buttons.map((button, index) => (
+              this.state.buttons && this.state.buttons.map((button, index) => (
                 <Button 
                   key={index}
-                  click={button.click}
+                  click={() => {
+                    this.close()
+                    button.click && button.click()
+                  }}
                   class={button.type}
                   text={button.text}/>
               ))
