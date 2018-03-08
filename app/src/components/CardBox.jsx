@@ -11,9 +11,8 @@ export default class CardBox extends Component {
       tags: []
     }
   }
-
+  
   componentDidMount(){
-    ipcRenderer.on('reload-image-info', this._reload.bind(this))
     $(this._image).on('load', () => {
       this._reload()
     })
