@@ -54,7 +54,7 @@ export default class App extends Component {
             this._menus.map((menu, index)=> (
               menu.content &&  <section
                 key={index}
-                id={menu.target.split('#').pop()}>
+                id={ menu.target && menu.target.split('#').pop()}>
                 <div className="container">
                   {menu.content}
                 </div>

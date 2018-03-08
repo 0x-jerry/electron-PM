@@ -42,7 +42,7 @@ let createWindow = () => {
 
   initIpcMain()
   
-  // if (process.env.NODE_ENV === 'development') loadDevelopTools()
+  if (process.env.NODE_ENV === 'development') loadDevelopTools()
 }
 
 app.on('ready', createWindow)

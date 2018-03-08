@@ -1,0 +1,57 @@
+@import '../scss/base.scss';
+
+.alert-bg{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: $color-light-shadow;
+  display: none;
+
+  .alert-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 30%;
+    max-width: 50%;
+    background-color: $color-white;
+    box-shadow: 0 0 80px $color-shadow;
+    padding: 0 20px;
+
+    .alert-header{
+      min-height: 60px;
+      line-height: 60px;
+      font-weight: bold;
+      font-size: 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid $color-shadow;
+
+      .close {
+        float: right;
+      }
+    }
+
+    .alert-content{
+      min-height: 100px;
+      max-height: 60vh;
+      text-align: center;
+      overflow: auto;
+      padding: 10px 0;
+    }
+
+    .alert-footer{
+      padding: 10px 5px;
+      text-align: center;
+
+      button {
+        margin: {
+          left: 20px;
+          right: 20px;
+        }
+      }
+    }
+  }
+}

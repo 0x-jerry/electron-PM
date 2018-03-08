@@ -20,7 +20,7 @@ button {
   transition: all 0.4s ease;
   @include button-color($color-blue);
 
-  &.red{
+  &.red, &.danger{
     @include button-color($color-danger);
   }
 }

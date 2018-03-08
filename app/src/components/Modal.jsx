@@ -15,21 +15,15 @@ export default class Modal extends Component {
   }
 
   open(){
-    if(this._active) return
-    this._active = true
     $(this._modalBg).fadeIn()
   }
 
   close(){
-    if(!this._active) return
-    this._active = false
     $(this._modalBg).fadeOut()
   }
 
   toggle(){
-    this._active = !this._active
-    if(this._active) this.open()
-    else this.close()
+    $(this._modalBg).fadeToggle()
   }
 
   render() {
