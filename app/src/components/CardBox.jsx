@@ -7,7 +7,7 @@ export default class CardBox extends Component {
   constructor(props) {
     super(props)
     this.state= {
-      infos: props.infos || [],
+      infos: [],
       tags: []
     }
   }
@@ -19,31 +19,49 @@ export default class CardBox extends Component {
 
   componentDidMount(){
     $(this._image).on('load', () => {
-      let path = $(this._image).attr('src')
-      let fileSize = this._getFileSize(path)
+      this._setImageStyle()
 
-      this.setState((prevState) => {
-        let sizeInfo = prevState.infos.find(info => info.name == 'size')
-
-        if(sizeInfo) {
-          sizeInfo.text = fileSize
-        } else {
-          prevState.infos.push({
-            name: 'size',
-            text: fileSize
-          })
-        }
-
-        return {
-          tags: this._getTags(path) || [],
-          infos: prevState.infos
-        }
+      this.setState({
+        tags: this._getTags(),
+        infos: this._getNewInfos()
       })
     })
   }
 
-  _getTags(path) {
-    return ipcRenderer.sendSync('get-image-tags-sync', {path: path})
+  _setImageStyle() {
+    let $box = $(this._image).parent()
+    let img = this._image
+
+    if ($box.width() / $box.height() > img.naturalWidth/ img.naturalHeight){
+      $(this._image).css({
+        width: '100%',
+        height: 'auto'
+      })
+    } else {
+      $(this._image).css({
+        width: 'auto',
+        height: '100%'
+      })
+    }
+  }
+
+  _getNewInfos(){
+    return [{
+      name: 'size',
+      text: this._getFileSize()
+    },{
+      name: 'resolution',
+      text: this._getImageResolution()
+    }]
+  }
+
+  _getImageResolution() {
+    return this._image.naturalWidth + '*' + this._image.naturalHeight
+  }
+
+  _getTags() {
+    let path = $(this._image).attr('src')
+    return ipcRenderer.sendSync('get-image-tags-sync', {path: path}) || []
   }
 
   _getFileSize(path){

@@ -53,6 +53,7 @@ export default class CardInfo extends Component {
         footer={footer}
         className='card-info'>
         <img 
+          ref={image => this._image = image}
           src={this.state.src} />
       </Modal>
     )

@@ -40,7 +40,7 @@ class Pages {
   }
 
   backPage() {
-    if(!this._isFristPage()) --this._currentPage
+    if(!this.isFristPage()) --this._currentPage
     return this.currentPageItems()
   }
 }
