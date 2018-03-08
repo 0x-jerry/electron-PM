@@ -90,6 +90,22 @@ function DataBase(name = 'electronPM.db') {
     return db.prepare(`INSERT INTO image_tag(image_id, tag_id) VALUES (@imageId, @tagId)`).run({imageId: image.id, tagId:tag.id})
   }
 
+  let begin = db.prepare('BEGIN');
+  let commit = db.prepare('COMMIT');
+  let rollback = db.prepare('ROLLBACK');
+    
+  this.transaction = (func) => {
+    return (...arg) => {
+      begin.run()
+      try {
+        func(...args)
+        commit.run()
+      } finally {
+        if (db.inTransaction) rollback.run()
+      }
+    }
+  }
+
   this.close = () => db.close()
 
   DataBase.instance = this

@@ -19,16 +19,21 @@ export default class CardInfo extends Component {
 
   open(src) {
     if(!src) return
-    let tags = ipcRenderer.sendSync('get-image-tags-sync', {
-      path: src
-    })
 
     this.setState({
-      tags: tags.map( tag => tag.text),
+      tags: this._getTags(src),
       src: src
     })
 
     this._modal.open()
+  }
+
+  _getTags(path) {
+    let tags = ipcRenderer.sendSync('get-image-tags-sync', {
+      path: path
+    }) || []
+
+    return tags.map( tag => tag.text)
   }
 
   render() {

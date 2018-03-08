@@ -31,12 +31,10 @@ function init() {
       images = images.concat(readFilesSync(path))
     })
 
-    images.forEach(path => {
-      try {
+    db.transaction(() => {
+      images.forEach(path => {
         db.insertImage(path)
-      } catch (e) {
-
-      }
+      })
     })
 
     e.returnValue = images
