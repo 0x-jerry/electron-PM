@@ -70,6 +70,7 @@ export default class Cards extends Component {
   }
 
   openSearchBox() {
+    this._searchInput.setValue()
     $(this._searchBox).slideDown()
     $(this.props.parent).animate({scrollTop: 0})
   }
@@ -79,7 +80,28 @@ export default class Cards extends Component {
   }
 
   _reloadImages(){
-    this._pages.setItems(ipcRenderer.sendSync('reload-images-sync'))
+    this._images= ipcRenderer.sendSync('reload-images-sync')
+    this._pages.setItems(this._images)
+    this.setState({
+      currentPaths: this._pages.currentPageItems()
+    })
+  }
+
+  _search(string, type = 'name') {
+    switch (type) {
+      case 'name':
+        this._searchByName(string)
+        break;
+    
+      default:
+        break;
+    }
+  }
+
+  _searchByName(name){
+    let images= ipcRenderer.sendSync('reload-images-sync')
+    this._images = images.filter( e => !!e.match(name))
+    this._pages.setItems(this._images)
     this.setState({
       currentPaths: this._pages.currentPageItems()
     })
@@ -92,6 +114,8 @@ export default class Cards extends Component {
           style={{display: 'none'}}
           ref={ searchBox => this._searchBox = searchBox}>
           <Input 
+            ref={searchInput => this._searchInput = searchInput}
+            onEnter={() => this._search(this._searchInput.getValue())}
             class='col'/>
           <Button class='col' text='搜索'/>
         </div>

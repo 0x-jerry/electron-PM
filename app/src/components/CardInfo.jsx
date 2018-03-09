@@ -37,9 +37,7 @@ export default class CardInfo extends Component {
   }
 
   render() {
-    let header = 'Image'
-    if(this.props.src)
-      header = this.props.src.split('/').pop().split('.').shift()
+    let header = this.state.src || 'Image'
 
     let footer = (
       <div className='tags'>
