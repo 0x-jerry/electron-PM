@@ -5,45 +5,7 @@ import { ipcRenderer } from 'electron'
 import Button from './Button.jsx'
 import CardInfo from './CardInfo.jsx'
 import Input from './Input.jsx'
-
-class Pages {
-  constructor(items = [], perPage = 9) {
-    this._items = items
-    this._currentPage = 0
-    this._perPage = perPage
-  }
-
-  setItems(items){
-    this._items = items
-    this._currentPage = 0
-  }
-
-  currentPageItems(page) {
-    page = page || this._currentPage
-    let startIndex = page * this._perPage
-    let endIndex = startIndex + this._perPage
-
-    return this._items.slice(startIndex, endIndex)
-  }
-
-  isLastPage(){
-    return (this._currentPage + 1) * this._perPage >= this._items.length
-  }
-
-  isFristPage() {
-    return this._currentPage <= 0
-  }
-
-  nextPage(){
-    if(!this.isLastPage()) ++this._currentPage
-    return this.currentPageItems()
-  }
-
-  backPage() {
-    if(!this.isFristPage()) --this._currentPage
-    return this.currentPageItems()
-  }
-}
+import PageNav from './PageNav.jsx'
 
 export default class Cards extends Component {
   constructor(props) {
@@ -52,14 +14,15 @@ export default class Cards extends Component {
       currentPaths: [],
       cardInfo: {}
     }
-    this._pages = new Pages()
   }
 
   componentWillMount(){
     ipcRenderer.on('reload-images', () => {
       this._reloadImages()
     })
+  }
 
+  componentDidMount() {
     this._reloadImages()
   }
 
@@ -81,9 +44,9 @@ export default class Cards extends Component {
 
   _reloadImages(){
     this._images= ipcRenderer.sendSync('reload-images-sync')
-    this._pages.setItems(this._images)
+    this._pageNav.setItems(this._images)
     this.setState({
-      currentPaths: this._pages.currentPageItems()
+      currentPaths: this._pageNav.currentPageItems()
     })
   }
 
@@ -101,9 +64,9 @@ export default class Cards extends Component {
   _searchByName(name){
     let images= ipcRenderer.sendSync('reload-images-sync')
     this._images = images.filter( e => !!e.match(name))
-    this._pages.setItems(this._images)
+    this._pageNav.setItems(this._images)
     this.setState({
-      currentPaths: this._pages.currentPageItems()
+      currentPaths: this._pageNav.currentPageItems()
     })
   }
 
@@ -117,7 +80,10 @@ export default class Cards extends Component {
             ref={searchInput => this._searchInput = searchInput}
             onEnter={() => this._search(this._searchInput.getValue())}
             class='col'/>
-          <Button class='col' text='搜索'/>
+          <Button 
+            class='col' 
+            click={() => this._search(this._searchInput.getValue())}
+            text='搜索'/>
         </div>
         <div className='cards'>
           {
@@ -131,24 +97,15 @@ export default class Cards extends Component {
         </div>
         <div className="line"></div>
         <div className="crads-nav">
-          <Button
-            text='Back' 
-            click ={() => {
+          <PageNav
+            click={(data) => {
               this.setState({
-                currentPaths: this._pages.backPage()
+                currentPaths: data
               })
               $(this.props.parent).animate({scrollTop: 0})
-            }}/>
-          <Button 
-            text='Next' 
-            click ={() => {
-              this.setState({
-                currentPaths: this._pages.nextPage()
-              })
-              $(this.props.parent).animate({scrollTop: 0})
-            }}/>
+            }}
+            ref={nav => this._pageNav = nav}/>
         </div>
-
         <CardInfo
           ref={cardInfo => this._cardInfo = cardInfo}
           src={this.state.cardInfo.src}/>
