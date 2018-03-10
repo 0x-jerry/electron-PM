@@ -11,6 +11,11 @@
   &:active{
     box-shadow: 0 0 1px $color;
   }
+
+  &.active {
+    background-color: $color;
+    color: $color-white
+  }
 }
 
 button {

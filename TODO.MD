@@ -25,10 +25,11 @@
 ### 优化
 
 - [x] `sqlite` 大量插入优化速度
+- [x] 分页组件 `pageNav`
+- [ ] 控制 app 的最小宽高
 - [ ] 设置页面保存提示
 - [ ] `tag` 组件
 - [ ] `info` 组件
-- [ ] 分页组件 `pageNav`
 - [ ] 阻止 scroll 事件冒泡
 > 阻止事件冒泡： `event.stopPropagation()`
 >
