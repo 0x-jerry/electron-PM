@@ -14,6 +14,7 @@
     "appId": "com.cwxyz007.electron-PM",
     "productName": "electron-PM",
     "files": [
+      "build/*",
       "app/build",
       "app/rearEnd",
       "app/index.html",
