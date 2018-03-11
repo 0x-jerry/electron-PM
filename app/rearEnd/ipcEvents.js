@@ -33,9 +33,9 @@ function init() {
 
     db.transaction(() => {
       images.forEach(path => {
-        db.insertImage(path)
+        if(!db.getImage(path)) db.insertImage(path)
       })
-    })
+    })()
 
     e.returnValue = images
   })

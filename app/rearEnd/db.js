@@ -94,12 +94,17 @@ function DataBase(name = 'electronPM.db') {
   let commit = db.prepare('COMMIT');
   let rollback = db.prepare('ROLLBACK');
     
+  /**
+   * @return {Function}
+   */
   this.transaction = (func) => {
-    return (...arg) => {
+    return (...args) => {
       begin.run()
       try {
         func(...args)
         commit.run()
+      } catch(error) {
+        console.log(error)
       } finally {
         if (db.inTransaction) rollback.run()
       }

@@ -13,7 +13,7 @@ export default class CardBox extends Component {
   }
   
   componentDidMount(){
-    $(this._image).on('load', () => {
+    $(this._image).on('load update', () => {
       this._reload()
     })
   }
