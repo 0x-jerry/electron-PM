@@ -66,7 +66,10 @@ export default class TagSetting extends Component {
 
     return (
       <div className='tag-setting'>
-        <h1>标签</h1>
+        <h1>
+          <i className="fa fa-tag"></i>&nbsp;标签
+        </h1>
+        <div className="line"></div>
         <section className="tags">
           {
             this.state.tags.map((tag, index) => (
@@ -81,7 +84,7 @@ export default class TagSetting extends Component {
             ))
           }
         </section>
-        <div className='row'>
+        {/* <div className='row'>
           <Input
             class='col'
             ref={input => this._tagInput = input}
@@ -96,7 +99,7 @@ export default class TagSetting extends Component {
           ref={alert => this._alert = alert}
           header='警告'>
           这会导致所有图片的标签都删除！
-        </Alert>
+        </Alert> */}
       </div>
     )
   }

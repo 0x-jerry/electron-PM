@@ -27,6 +27,6 @@ button {
   @include button-color($color-blue);
 
   &.red, &.danger{
-    @include button-color($color-danger);
+    @include button-color($color-red);
   }
 }

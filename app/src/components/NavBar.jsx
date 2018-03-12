@@ -57,9 +57,9 @@ export default class NavBar extends Component {
           <div className="icon">
             <img src="assets/logo.png" alt="logo"/>
           </div>
-          <h5 className="text">
+          <h4 className="text">
             E-Photo
-          </h5>
+          </h4>
         </a>
         {
           this.props.menus.map( (menu, index) => 
@@ -70,9 +70,9 @@ export default class NavBar extends Component {
               <div className="icon">
                 <i className={"fas fa-" + menu.icon}></i>
               </div>
-              <h5 className="text">
+              <h4 className="text">
                 {menu.text}
-              </h5>
+              </h4>
             </a>)
         }
         <div 
