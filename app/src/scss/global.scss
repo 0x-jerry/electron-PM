@@ -9,7 +9,7 @@ div, h1, h2, h3, h4, h5, h6, p, span, ul, ol, li{
 }
 
 h1, h2, h3, h4, h5, h6, p {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: Helvetica, Tahoma, Arial, STXihei, “华文细黑”, “Microsoft YaHei”, “微软雅黑”, SimSun, “宋体”, Heiti, “黑体”, sans-serif
 }
 
 ::-webkit-scrollbar{
@@ -48,10 +48,24 @@ h1, h2, h3, h4, h5, h6, p {
 
 html, body {
   overflow: hidden;
+  line-height: 2;
 }
 
 a, button {
   outline: none;
+}
+
+input{
+  border: 1px solid $color-shadow;
+  border-width: 0 0 1px 0;
+  background-color: transparent;
+  transition: all 0.4s ease;
+  display: inline-block;
+
+  &:focus{
+    outline: none;
+    border-color: $color-blue;
+  }
 }
 
 .container {

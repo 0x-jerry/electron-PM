@@ -7,16 +7,34 @@
 
   .tags {
     text-align: center;
-    // .tag{
-    //   // border-bottom: dashed 1px $color-shadow;
 
-    //   p {
-    //     color: $color-black;
-    //   }
+    .add-tag {
+      display: inline-block;
+      border: 1px solid $color-blue;
+      padding: 0 5px;
+      border-radius: 13px;
+      height: 26px;
+      line-height: 26px;
 
-    //   button {
-    //     float: right;
-    //   }
-    // }
+      input {
+        margin: 0 10px;
+        width: fit-content;
+        color: $color-blue;
+        border-bottom: 1px solid transparent;
+        border-width: 0 0 1px 0;
+
+        &::placeholder{
+          color: lighten($color: $color-blue, $amount: 10);
+        }
+
+        &:focus {
+          border-color: $color-blue;
+        }
+      }
+
+      .icon {
+        color: $color-blue;
+      }
+    }
   }
 }

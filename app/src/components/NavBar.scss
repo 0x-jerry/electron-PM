@@ -72,7 +72,6 @@
       width: $btn-height;
       height: $btn-height;
       border-radius: $btn-height / 2;
-      line-height: $btn-height;
       text-align: center;
       background-color: $color-white;
       color: $color-black;
@@ -82,7 +81,6 @@
     }
 
     .text{
-      line-height: $btn-height;
       margin: 0 10px;
       transition: all 0.4s ease;
     }

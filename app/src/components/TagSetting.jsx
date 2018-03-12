@@ -10,8 +10,7 @@ export default class TagSetting extends Component {
   constructor() {
     super()
     this.state = {
-      tags: [],
-      inputValue: ''
+      tags: []
     }
   }
 
@@ -20,7 +19,7 @@ export default class TagSetting extends Component {
   }
 
   open(){
-    this._tagInput.setValue()
+
   }
 
   _updateTags() {
@@ -29,13 +28,15 @@ export default class TagSetting extends Component {
     })
   }
 
-  _addTag(){
+  _addTag(input){
+    let $input = $(input)
+
     ipcRenderer.sendSync('add-tag-sync', {
-      text: this._tagInput.getValue(),
+      text: $input.val(),
       color: '#fff'
     })
     this._updateTags()
-    this._tagInput.setValue()
+    $input.val('')
   }
 
   _removeTag(index, force = false){
@@ -59,7 +60,6 @@ export default class TagSetting extends Component {
     }]
 
     this._alert.open(buttons)
-
   }
 
   render() {
@@ -73,33 +73,29 @@ export default class TagSetting extends Component {
         <section className="tags">
           {
             this.state.tags.map((tag, index) => (
-              <div className="tag row" data-index={index} key={index}>
-                <Tag text={tag.text}/>
-                {/* <p className='col'>{tag.text}</p>
-                <Button 
-                  class='col'
-                  text='X' 
-                  click={() => {this._removeTag(index)}}/> */}
-              </div>
+              <Tag 
+                deleteFunc={() => this._removeTag(index)}
+                key={index}>
+                {tag.text}
+              </Tag>
             ))
           }
+          <div className="add-tag">
+            <input
+              onKeyPress={e => e.key == 'Enter' && this._addTag(e.currentTarget)}
+              placeholder='添加标签' type="text" size='6'/>
+            <span
+              onClick={e => this._addTag($(e.currentTarget).siblings('input'))}
+              className="icon">
+              <i className="fas fa-plus"></i>
+            </span>
+          </div>
         </section>
-        {/* <div className='row'>
-          <Input
-            class='col'
-            ref={input => this._tagInput = input}
-            onEnter={this._addTag.bind(this)}
-            tip='请输入新标签：'/>
-          <Button 
-            class='col'
-            text='添加' 
-            click={this._addTag.bind(this)}/>
-        </div>
         <Alert
           ref={alert => this._alert = alert}
           header='警告'>
           这会导致所有图片的标签都删除！
-        </Alert> */}
+        </Alert>
       </div>
     )
   }
