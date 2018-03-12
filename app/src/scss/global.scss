@@ -4,6 +4,7 @@
 div, h1, h2, h3, h4, h5, h6, p, span, ul, ol, li{
   user-select: none;
   cursor: default;
+  color: $color-black;
 }
 
 ::-webkit-scrollbar{
@@ -61,6 +62,7 @@ a, button {
 }
 
 .row {
+  display: block;
   .col {
     display: inline-block;
   }

@@ -2,14 +2,14 @@ const fs = require('fs')
 const url = require('url')
 const path = require('path')
 const { app, BrowserWindow, ipcMain } = require('electron')
-const db = require('./app/rearEnd/db.js')()
-const { initIpcMain } = require('./app/rearEnd/ipcEvents.js')
+const db = require('./app/main/db.js')()
+const { initIpcMain } = require('./app/main/ipcEvents.js')
 
 if (process.env.NODE_ENV === 'development') {
   console.log('development')
   // hot reload
   require('electron-reload')([
-    path.join(__dirname, 'app', 'src')
+    path.join(__dirname, 'app')
   ], {
     electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
   })

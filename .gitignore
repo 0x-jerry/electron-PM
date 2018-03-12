@@ -71,3 +71,6 @@ dist/
 
 # config
 config.json
+
+# design
+design/

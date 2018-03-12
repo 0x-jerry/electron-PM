@@ -12,12 +12,14 @@ export default class App extends Component {
     super()
 
     this._menus = [{
+      icon: 'search',
       text: '搜索',
       target: '#main',
       click: () => {
         this.cards.openSearchBox()
       }
     },{
+      icon: 'home',
       text: '主页',
       target: '#main',
       click: () => {
@@ -25,6 +27,7 @@ export default class App extends Component {
       },
       content: (<Cards parent='#main' ref={cards => this.cards = cards}/>)
     },{
+      icon: 'cog',
       text: '设置',
       target: '#setting',
       click: () => {
@@ -32,6 +35,7 @@ export default class App extends Component {
       },
       content: (<Setting ref={setting => this.setting = setting}/>)
     },{
+      icon: 'tag',
       text: '标签',
       target: '#tag-setting',
       click: () => {

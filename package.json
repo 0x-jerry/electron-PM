@@ -17,7 +17,7 @@
     "files": [
       "build/*",
       "app/build",
-      "app/rearEnd",
+      "app/main",
       "app/index.html",
       "main.js"
     ],

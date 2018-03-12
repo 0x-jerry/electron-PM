@@ -6,7 +6,6 @@ let electronRenderer = {
   mode: process.env.NODE_ENV,
   output: {
     path: path.resolve(__dirname, 'app/build'),
-    publicPath: path.join(__dirname, 'assets'),
     filename: 'bundle.js'
   },
 

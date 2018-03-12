@@ -4,16 +4,14 @@
   .nav{
     position: fixed;
     top: 0px;
-    width: 150px;
     height: 100vh;
-    box-shadow: 0 0 20px $color-shadow;
+    z-index: 100;
   }
 
   .content{
     position: absolute;
-    width: calc(100% - 150px);
     top: 0;
-    left: 150px;
+    left: 60px;
     overflow: hidden;
     
     &>section {

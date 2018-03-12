@@ -15,13 +15,21 @@ export default class NavBar extends Component {
     }, 150))
   }
 
-  _menuClick(e, index) {
+  _menuClick(e) {
+    $(this._navBar).toggleClass('expand')
+  }
+
+  _menuClose(e) {
+    $(this._navBar).removeClass('expand')
+  }
+
+  _menuBtnClick(e, index) {
     if(index < 0 || index > this.props.menus.length) return
 
     this._activeIndex = index
     let menu = this.props.menus[index]
 
-    $(e.target).addClass('active').siblings().removeClass('active')
+    $(e.currentTarget).addClass('active').siblings().removeClass('active')
     if(menu.target) $('html, body').animate({scrollTop:$(menu.target).offset().top + 'px'})
 
     menu.click()
@@ -29,18 +37,42 @@ export default class NavBar extends Component {
 
   render() {
     return (
-      <nav>
-        <ul>
-          {
-            this.props.menus.map( (menu, index) => 
-              <li 
-                key={index}
-                className={this._activeIndex == index ? 'active' : ''}
-                onClick={e => this._menuClick(e, index)}>
+      <nav 
+        ref={navBar => this._navBar = navBar}
+        className='nav-bar'>
+        <a 
+          onClick={this._menuClick.bind(this)}
+          className='nav-btn menu row'>
+          <div className="icon">
+            <i className="fas fa-2x fa-bars"></i>
+          </div>
+        </a>
+        <a 
+          className='nav-btn logo row'>
+          <div className="icon col">
+            <img src="assets/logo.png" alt="logo"/>
+          </div>
+          <h4 className="text col">
+            主题
+          </h4>
+        </a>
+        {
+          this.props.menus.map( (menu, index) => 
+            <a
+              key={index}
+              className={'nav-btn row ' + (this._activeIndex == index ? 'active' : '')}
+              onClick={e => this._menuBtnClick(e, index)}>
+              <div className="icon col">
+                <i className={"fas fa-lg fa-" + menu.icon}></i>
+              </div>
+              <h4 className="text col">
                 {menu.text}
-              </li>)
-          }
-        </ul>
+              </h4>
+            </a>)
+        }
+        <div 
+          onClick={e => {this._menuClose()}}
+          className="nav-bg"></div>
       </nav>
     )
   }
