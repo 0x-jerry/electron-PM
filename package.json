@@ -1,7 +1,7 @@
 {
-  "name": "electro-PM",
+  "name": "E-P-M",
   "version": "1.0.0",
-  "description": "electron demo",
+  "description": "electron Photo Manager",
   "main": "main.js",
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
@@ -17,6 +17,7 @@
     "files": [
       "build/*",
       "app/build",
+      "app/assets",
       "app/main",
       "app/index.html",
       "main.js"

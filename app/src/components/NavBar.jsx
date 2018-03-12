@@ -58,7 +58,7 @@ export default class NavBar extends Component {
             <img src="assets/logo.png" alt="logo"/>
           </div>
           <h4 className="text">
-            E-Photo
+            E-P-M
           </h4>
         </a>
         {
