@@ -51,7 +51,7 @@ export default class App extends Component {
       <div className='app'>
         <div className="nav">
           <NavBar 
-            activeIndex={1}
+            activeIndex={3}
             menus={this._menus}/>
         </div>
         <div id='app-container' className='content'>

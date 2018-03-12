@@ -10,9 +10,14 @@ export default class NavBar extends Component {
 
   componentDidMount() {
     $(window).resize(_.debounce(() => {
-      let menu = this.props.menus[this._activeIndex]
-      if(menu.target) $('html, body').animate({scrollTop:$(menu.target).offset().top + 'px'})
-    }, 150))
+      this._scrollToActive()
+    }, 200))
+    this._scrollToActive()
+  }
+
+  _scrollToActive() {
+    let menu = this.props.menus[this._activeIndex]
+    if(menu.target) $('html, body').animate({scrollTop:$(menu.target).offset().top + 'px'})
   }
 
   _menuClick(e) {
@@ -71,7 +76,7 @@ export default class NavBar extends Component {
             </a>)
         }
         <div 
-          onClick={e => {this._menuClose()}}
+          onClick={this._menuClose.bind(this)}
           className="nav-bg"></div>
       </nav>
     )

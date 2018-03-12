@@ -4,6 +4,7 @@ import {  } from './TagSetting.scss'
 import Input from './Input.jsx'
 import Button from './Button.jsx'
 import Alert from './Alert.jsx'
+import Tag from './Tag.jsx'
 
 export default class TagSetting extends Component {
   constructor() {
@@ -70,11 +71,12 @@ export default class TagSetting extends Component {
           {
             this.state.tags.map((tag, index) => (
               <div className="tag row" data-index={index} key={index}>
-                <p className='col'>{tag.text}</p>
+                <Tag text={tag.text}/>
+                {/* <p className='col'>{tag.text}</p>
                 <Button 
                   class='col'
                   text='X' 
-                  click={() => {this._removeTag(index)}}/>
+                  click={() => {this._removeTag(index)}}/> */}
               </div>
             ))
           }
