@@ -42,32 +42,32 @@ export default class NavBar extends Component {
         className='nav-bar'>
         <a 
           onClick={this._menuClick.bind(this)}
-          className='nav-btn menu row'>
+          className='nav-btn menu'>
           <div className="icon">
-            <i className="fas fa-2x fa-bars"></i>
+            <i className="fas fa-lg fa-bars"></i>
           </div>
         </a>
         <a 
-          className='nav-btn logo row'>
-          <div className="icon col">
+          className='nav-btn logo'>
+          <div className="icon">
             <img src="assets/logo.png" alt="logo"/>
           </div>
-          <h4 className="text col">
-            主题
-          </h4>
+          <h5 className="text">
+            E-Photo
+          </h5>
         </a>
         {
           this.props.menus.map( (menu, index) => 
             <a
               key={index}
-              className={'nav-btn row ' + (this._activeIndex == index ? 'active' : '')}
+              className={'nav-btn ' + (this._activeIndex == index ? 'active' : '')}
               onClick={e => this._menuBtnClick(e, index)}>
-              <div className="icon col">
-                <i className={"fas fa-lg fa-" + menu.icon}></i>
+              <div className="icon">
+                <i className={"fas fa-" + menu.icon}></i>
               </div>
-              <h4 className="text col">
+              <h5 className="text">
                 {menu.text}
-              </h4>
+              </h5>
             </a>)
         }
         <div 

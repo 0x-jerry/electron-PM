@@ -7,6 +7,10 @@ div, h1, h2, h3, h4, h5, h6, p, span, ul, ol, li{
   color: $color-black;
 }
 
+h1, h2, h3, h4, h5, h6, p {
+  font-family: 'Courier New', Courier, monospace;
+}
+
 ::-webkit-scrollbar{
   width: 10px;
   border: 1px dashed $color-shadow;
@@ -59,11 +63,4 @@ a, button {
   width: 100%;
   height: 0;
   margin: auto;
-}
-
-.row {
-  display: block;
-  .col {
-    display: inline-block;
-  }
 }

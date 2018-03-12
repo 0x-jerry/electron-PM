@@ -13,14 +13,14 @@ export default class App extends Component {
 
     this._menus = [{
       icon: 'search',
-      text: '搜索',
+      text: '搜 索',
       target: '#main',
       click: () => {
         this.cards.openSearchBox()
       }
     },{
       icon: 'home',
-      text: '主页',
+      text: '主 页',
       target: '#main',
       click: () => {
         this.cards.open()
@@ -28,7 +28,7 @@ export default class App extends Component {
       content: (<Cards parent='#main' ref={cards => this.cards = cards}/>)
     },{
       icon: 'cog',
-      text: '设置',
+      text: '设 置',
       target: '#setting',
       click: () => {
         this.setting.open()
@@ -36,7 +36,7 @@ export default class App extends Component {
       content: (<Setting ref={setting => this.setting = setting}/>)
     },{
       icon: 'tag',
-      text: '标签',
+      text: '标 签',
       target: '#tag-setting',
       click: () => {
         this.tagSetting.open()

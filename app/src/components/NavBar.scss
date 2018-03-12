@@ -1,9 +1,9 @@
 @import '../scss/base.scss';
 
 .nav-bar{
-  $min-width: 60px;
+  $min-width: 50px;
   $max-width: 150px;
-  $btn-height: 50px;
+  $btn-height: 30px;
 
   height: 100%;
   width: $min-width;
@@ -23,9 +23,9 @@
   .nav-btn{
     height: $btn-height;
     width: $max-width;
-    margin: 15px 0;
-    padding: 1px 0;
-    position: relative;
+    margin: 20px 0px;
+    display: flex;
+    flex-direction: row;
 
     &.active, &:hover {
       .icon {
@@ -41,11 +41,12 @@
     &.menu{
       margin: {
         top: 10px;
-        bottom: 20px;
+        bottom: 40px;
       }
 
       .icon{
         background-color: transparent;
+        border-radius: 0;
 
         &:hover {
           background-color: transparent;
@@ -68,23 +69,20 @@
     }
 
     .icon {
-      $icon-size: 40px;
-      width: $icon-size;
-      height: $icon-size;
-      border-radius: $icon-size / 2;
-      line-height: $icon-size;
+      width: $btn-height;
+      height: $btn-height;
+      border-radius: $btn-height / 2;
+      line-height: $btn-height;
       text-align: center;
       background-color: $color-white;
       color: $color-black;
       margin: 0 10px;
       transition: all 0.4s ease;
+      overflow: hidden;
     }
 
     .text{
-      height: $btn-height;
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%);
+      line-height: $btn-height;
       margin: 0 10px;
       transition: all 0.4s ease;
     }
