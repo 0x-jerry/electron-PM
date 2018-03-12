@@ -1,6 +1,6 @@
 let assert = require('assert')
-let db = require('../app/rearEnd/db.js')('electronTest.db')
-let db1 = require('../app/rearEnd/db.js')('electronTest.db')
+let db = require('../app/main/db.js')('electronTest.db')
+let db1 = require('../app/main/db.js')('electronTest.db')
 
 describe('database test', () => {
   it('should return true when instance two object', () => {
