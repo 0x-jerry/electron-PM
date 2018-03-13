@@ -26,20 +26,9 @@ export default class Cards extends Component {
     this._reloadImages()
   }
 
-  open() {
+  open () {
     $(this.props.parent).animate({scrollTop: 0})
     this._reloadImages()
-    this.closeSearchBox()
-  }
-
-  openSearchBox() {
-    this._searchInput.setValue()
-    $(this._searchBox).slideDown()
-    $(this.props.parent).animate({scrollTop: 0})
-  }
-
-  closeSearchBox() {
-    $(this._searchBox).slideUp()
   }
 
   _reloadImages(){
@@ -48,17 +37,6 @@ export default class Cards extends Component {
     this.setState({
       currentPaths: this._pageNav.currentPageItems()
     })
-  }
-
-  _search(string, type = 'name') {
-    switch (type) {
-      case 'name':
-        this._searchByName(string)
-        break;
-    
-      default:
-        break;
-    }
   }
 
   _searchByName(name){
@@ -73,21 +51,6 @@ export default class Cards extends Component {
   render() {
     return (
       <div className='cards-box'>
-        <div className="search-box"
-          style={{display: 'none'}}
-          ref={ searchBox => this._searchBox = searchBox}>
-          <div className="row">
-            <Input 
-              ref={searchInput => this._searchInput = searchInput}
-              onEnter={() => this._search(this._searchInput.getValue())}
-              class='col'/>
-            <Button 
-              class='col' 
-              click={() => this._search(this._searchInput.getValue())}
-              text='搜索'/>
-          </div>
-          <div className="line"></div>
-        </div>
         <div className='cards'>
           {
             this.state.currentPaths.map((url, index) => <CardBox 

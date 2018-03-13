@@ -12,13 +12,6 @@ export default class App extends Component {
     super()
 
     this._menus = [{
-      icon: 'search',
-      text: '搜 索',
-      target: '#main',
-      click: () => {
-        this.cards.openSearchBox()
-      }
-    },{
       icon: 'home',
       text: '主 页',
       target: '#main',
@@ -51,7 +44,7 @@ export default class App extends Component {
       <div className='app'>
         <div className="nav">
           <NavBar 
-            activeIndex={1}
+            activeIndex={0}
             menus={this._menus}/>
         </div>
         <div id='app-container' className='content'>
@@ -60,9 +53,7 @@ export default class App extends Component {
               menu.content &&  <section
                 key={index}
                 id={ menu.target && menu.target.split('#').pop()}>
-                <div className="container">
-                  {menu.content}
-                </div>
+                {menu.content}
               </section>
             ))
           }
