@@ -6,13 +6,15 @@ import Button from './Button.jsx'
 import CardInfo from './CardInfo.jsx'
 import Input from './Input.jsx'
 import PageNav from './PageNav.jsx'
+import SearchBox from './SearchBox.jsx'
 
 export default class Cards extends Component {
   constructor(props) {
     super(props)
     this.state = {
       currentPaths: [],
-      cardInfo: {}
+      cardInfo: {},
+      focus: true
     }
   }
 
@@ -28,7 +30,17 @@ export default class Cards extends Component {
 
   open () {
     $(this.props.parent).animate({scrollTop: 0})
+    this.setState({
+      focus: true
+    })
     this._reloadImages()
+  }
+
+  blur() {
+    this.setState({
+      focus: false
+    })
+    this._searchBox.close()
   }
 
   _reloadImages(){
@@ -39,10 +51,8 @@ export default class Cards extends Component {
     })
   }
 
-  _searchByName(name){
-    let images= ipcRenderer.sendSync('reload-images-sync')
-    this._images = images.filter( e => !!e.match(name))
-    this._pageNav.setItems(this._images)
+  _searchResult(items) {
+    this._pageNav.setItems(items)
     this.setState({
       currentPaths: this._pageNav.currentPageItems()
     })
@@ -51,6 +61,11 @@ export default class Cards extends Component {
   render() {
     return (
       <div className='cards-box'>
+        <SearchBox 
+          ref={box => this._searchBox = box}
+          focus={this.state.focus}
+          searchFunc={this._searchResult.bind(this)}
+          items={ipcRenderer.sendSync('reload-images-sync')}/>
         <div className='cards'>
           {
             this.state.currentPaths.map((url, index) => <CardBox 

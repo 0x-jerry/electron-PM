@@ -21,5 +21,9 @@
 
   .search-icon {
     margin: 0 10px;
+
+    &:hover{
+      color: darken($color: $color-black, $amount: 20)
+    }
   }
 }

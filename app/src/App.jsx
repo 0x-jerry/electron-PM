@@ -25,6 +25,7 @@ export default class App extends Component {
       target: '#setting',
       click: () => {
         this.setting.open()
+        this.cards.blur()
       },
       content: (<Setting ref={setting => this.setting = setting}/>)
     },{
@@ -33,6 +34,7 @@ export default class App extends Component {
       target: '#tag-setting',
       click: () => {
         this.tagSetting.open()
+        this.cards.blur()
       },
       content: (<TagSetting ref={tagSetting => this.tagSetting = tagSetting}/>)
     }]

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {  } from './SearchBox.scss'
 
 export default class SearchBox extends Component {
   constructor(props) {
@@ -6,24 +7,40 @@ export default class SearchBox extends Component {
     this._items = props.items || []
   }
 
+  componentDidMount() {
+    $(window).on('keydown', e => {
+      if(!this.props.focus) return
+      if(e.ctrlKey) {
+        if(e.key == 'f') {
+          this.open()
+        }
+      }
+
+      if(e.key == 'Escape') {
+        this.close()
+      }
+
+    })
+  }
+
   open() {
     $(this._searchBox).addClass('active')
     $(this._searchInput).val('')
+    $(this._searchInput).focus()
   }
 
   close() {
     $(this._searchBox).removeClass('active')
-  }
-
-  toggle() {
-    $(this._searchBox).toggleClass('active')
+    $(this._searchBox).one('transitionend', () => {
+      this.props.searchFunc && this.props.searchFunc(this._items)
+    })
   }
 
   _search() {
     let string = this._searchInput.value
     let items = this._items.filter(item => !!item.match(string))
 
-    this.props.result && this.props.result(items)
+    this.props.searchFunc && this.props.searchFunc(items)
   }
 
 
