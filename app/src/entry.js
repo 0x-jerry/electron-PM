@@ -12,3 +12,5 @@ render(
   <App/>,
   document.getElementById('app')
 )
+
+$('button, input, a').attr('tabindex', -1)

@@ -12,8 +12,8 @@
     "test": "mocha"
   },
   "build": {
-    "appId": "com.cwxyz007.electron-PM",
-    "productName": "electron-PM",
+    "appId": "com.cwxyz007.E-P-M",
+    "productName": "E-P-M",
     "files": [
       "build/*",
       "app/build",

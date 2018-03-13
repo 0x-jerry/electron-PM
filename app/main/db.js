@@ -1,6 +1,7 @@
 const sqlite3 = require('better-sqlite3')
 
-function DataBase(name = 'electronPM.db') {
+function DataBase(name) {
+  if (!name) return console.error('database must have a name')
   if (typeof DataBase.instance === 'object' && DataBase.instance._db.name === name) return DataBase.instance
 
   let db = new sqlite3(name)
@@ -116,4 +117,13 @@ function DataBase(name = 'electronPM.db') {
   DataBase.instance = this
 }
 
-module.exports = (name) => new DataBase(name)
+module.exports = (name) => {
+  if (!name) {
+    const path = require('path')
+    const { app } = require('electron')
+    let defaultPath = path.join(app.getPath('userData'), 'sqlite.db')
+    name = defaultPath
+  }
+
+  return new DataBase(name)
+}

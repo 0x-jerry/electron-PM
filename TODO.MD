@@ -29,11 +29,10 @@
 - [x] `sqlite` 大量插入优化速度
 - [x] 分页组件 `pageNav`
 - [x] `logo` 大小更改为 512x512
-- [ ] 修改 database 存储路径
+- [x] 修改 database 存储路径
+- [x] `tag` 组件
 - [ ] 控制 app 的最小宽高
 - [ ] 设置页面保存提示
-- [ ] `tag` 组件
-- [ ] `info` 组件
 - [ ] 阻止 scroll 事件冒泡
 > 阻止事件冒泡： `event.stopPropagation()`
 >
@@ -41,6 +40,7 @@
 - [ ] `production` 环境打包
 - [x] `better-sqlite3` 在 `windows` 平台使用需要安装 `windows-build-tools`
 > Install all the required tools and configurations using Microsoft's windows-build-tools using npm install --global --production windows-build-tools from an elevated PowerShell or CMD.exe (run as Administrator).
+- [ ] ~~`info` 组件~~
 
 ### 视觉
 
