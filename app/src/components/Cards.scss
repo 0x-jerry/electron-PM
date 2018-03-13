@@ -1,8 +1,37 @@
 @import '../scss/base.scss';
 
 .cards-box{
+  padding: 20px;
 
-  .cards {
-    min-height: 80vh;
+  .scroll-to-top {
+    $size: 35px;
+    position: fixed;
+    z-index: 50;
+    bottom: -$size - 10px;
+    right: 20px;
+    width: $size;
+    height: $size;
+    border-radius: $size / 2;
+    overflow: hidden;
+    box-shadow: 0 0 10px $color-shadow;
+    transition: all 0.4s ease;
+
+    &.active {
+      bottom: 20px;
+    }
+
+    &:hover {
+      background-color: $color-blue;
+      .icon {
+        color: $color-white;
+      }
+    }
+    
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 }

@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { ipcRenderer, remote } from 'electron'
 import {  } from './TagSetting.scss' 
-import Input from './Input.jsx'
-import Button from './Button.jsx'
 import Alert from './Alert.jsx'
 import Tag from './Tag.jsx'
 

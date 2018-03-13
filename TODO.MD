@@ -31,7 +31,7 @@
 - [x] `logo` 大小更改为 512x512
 - [x] 修改 database 存储路径
 - [x] `tag` 组件
-- [ ] 控制 app 的最小宽高
+- [x] 控制 app 的最小宽高
 - [ ] 设置页面保存提示
 - [ ] 阻止 scroll 事件冒泡
 > 阻止事件冒泡： `event.stopPropagation()`

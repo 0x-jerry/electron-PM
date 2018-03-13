@@ -84,7 +84,7 @@ export default class CardBox extends Component {
         <div className='picture' onClick={this._click.bind(this)}>
           <img src={this.props.src} ref={img => this._image = img}/>
         </div>
-        <div className='info-box'>
+        {/* <div className='info-box'>
           <div className='tags'>
             {
               this.state.tags.map( (tag, index) => <span className='tag' key={index}>{tag.text}</span>)
@@ -95,7 +95,7 @@ export default class CardBox extends Component {
               this.state.infos.map((info, index) => <span className='info' key={index}>{info.text}</span>)
             }
           </p>
-        </div>
+        </div> */}
       </div>
     )
   }
