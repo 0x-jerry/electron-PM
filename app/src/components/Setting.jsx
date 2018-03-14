@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {  } from './Setting.scss'
 import { ipcRenderer, remote } from 'electron'
 import userSetting from 'electron-settings'
-import Button from './Button.jsx'
 
 export default class Setting extends Component {
   constructor(props){
@@ -18,14 +17,23 @@ export default class Setting extends Component {
     })
   }
 
+  _saveImagePath(paths) {
+    userSetting.set('paths', paths)
+    ipcRenderer.emit('reload-images')
+  }
+
   _addImagePath(){
     remote.dialog.showOpenDialog({
       properties:['openDirectory']
     }, files => {
       if(!files) return
-      this.setState((prevState, Prop) => ({
-        imagePaths: [... new Set(prevState.imagePaths.concat(files))]
-      }))
+      this.setState((prevState, Prop) => {
+        let paths = [... new Set(prevState.imagePaths.concat(files))]
+        this._saveImagePath(paths)
+        return {
+          imagePaths: paths
+        }
+      })
     })
   }
 
@@ -34,6 +42,7 @@ export default class Setting extends Component {
 
     this.setState(prevState => {
       prevState.imagePaths.splice(index,1)
+      this._saveImagePath(prevState.imagePaths)
       return {
         imagePaths: prevState.imagePaths
       }
@@ -43,36 +52,30 @@ export default class Setting extends Component {
   render() {
     return (
       <div className='setting'>
-        <h1>设置</h1>
+        <h1>
+          <i className="fas fa-cog"></i>&nbsp;设置
+        </h1>
+        <div className="line"></div>
         <section>
-          <h3>图片路径</h3>
-          <div className='paths'>
-          {
-            this.state.imagePaths.map((path, index) => (
-              <div className="row path" data-index={index} key={index}>
-                <p className='col'>{path}</p>
-                <Button 
-                  class='col'
-                  text='X' 
-                  click={() => {this._removeImagePath(index)}}/>
-              </div>
-            ))
-          }
-          </div>
+          <h2>图片路径</h2>
+          <ul className='paths'>
+            {
+              this.state.imagePaths.map((path, index) => (
+                <li className="path" data-index={index} key={index}>
+                  <button onClick={() => this._removeImagePath(index)}>
+                    <i className="fas fa-times"></i>
+                  </button>
+                  <span>{path}</span>
+                </li>
+              ))
+            }
+            <li className='add-path'>
+              <button onClick={this._addImagePath.bind(this)}>
+                添加路径
+              </button>
+            </li>
+          </ul>
         </section>
-        <div className="row">
-          <Button 
-            text='添加路径'
-            class='col'
-            click={this._addImagePath.bind(this)}/>
-          <Button 
-            text='保存'
-            class='col'
-            click={() => {
-              userSetting.set('paths', this.state.imagePaths)
-              ipcRenderer.emit('reload-images')
-            }}/>
-        </div>
       </div>
     )
   }

@@ -1,6 +1,8 @@
 @import '../scss/base.scss';
 
 .tag-setting {
+  padding: 0 20px;
+
   h1{
     text-align: center;
   }
@@ -20,8 +22,7 @@
         margin: 0 10px;
         width: fit-content;
         color: $color-blue;
-        border-bottom: 1px solid transparent;
-        border-width: 0 0 1px 0;
+        border: none;
 
         &::placeholder{
           color: lighten($color: $color-blue, $amount: 10);

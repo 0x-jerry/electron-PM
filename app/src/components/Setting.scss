@@ -1,17 +1,59 @@
 @import '../scss/base.scss';
 
 .setting{
-  .paths{
-    .path{
-      border-bottom: dashed 1px $color-shadow;
-      
-      p{
-        color: $color-black;
+  padding: 0 20px;
+
+  h1 {
+    text-align: center;
+  }
+
+  button {
+    border-radius: 2px;
+    color: $color-white;
+    background-color: $color-blue;
+    border: none;
+    padding: 7px 22px;
+    transition: all 0.2s ease;
+
+    &:hover{
+      box-shadow: 0 0 10px $color-blue;
+    }
+
+    &:active {
+      box-shadow: 0 0 1px $color-blue;
+    }
+  }
+
+  ul.paths {
+
+    li.path {
+      list-style-type: none;
+
+      &:hover {
+        color: $color-blue;
       }
 
       button {
-        float: right;
+        $size: 25px;
+        padding: 0;
+        margin-right: 10px;
+        width: $size;
+        height: $size;
+        color: inherit;
+        border-color: inherit;
+        background-color: $color-white;
+        border-radius: $size / 2;
+
+        &:hover{
+          color: $color-red;
+          box-shadow: 0 0 0 transparent;
+        }
       }
+    }
+
+    li.add-path {
+      padding-left: 33px;
+      list-style-type: none;
     }
   }
 }

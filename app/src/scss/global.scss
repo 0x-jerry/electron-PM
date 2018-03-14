@@ -4,12 +4,12 @@
 div, h1, h2, h3, h4, h5, h6, p, span, ul, ol, li{
   user-select: none;
   cursor: default;
-  color: $color-black;
   vertical-align: middle;
 }
 
-h1, h2, h3, h4, h5, h6, p {
-  font-family: Helvetica, Tahoma, Arial, STXihei, “华文细黑”, “Microsoft YaHei”, “微软雅黑”, SimSun, “宋体”, Heiti, “黑体”, sans-serif
+h1, h2, h3, h4, h5, h6, p, a, button, li {
+  font-family: Helvetica, Tahoma, Arial, STXihei, “华文细黑”, “Microsoft YaHei”, “微软雅黑”, SimSun, “宋体”, Heiti, “黑体”, sans-serif;
+  color: $color-black;
 }
 
 ::-webkit-scrollbar{
@@ -53,6 +53,19 @@ html, body {
 
 a, button {
   outline: none;
+  background-color: transparent;
+
+  &:hover {
+    color: darken($color: $color-black, $amount: 20);
+  }
+  
+  &:active {
+    color: $color-black;
+  }
+}
+
+button {
+  border: 1px solid $color-shadow;
 }
 
 input{
