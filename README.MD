@@ -4,9 +4,23 @@
 
 使用 `electron` 框架制作的图片管理软件
 
+## Download
+
+[windows]()
+
+[linux]()
+
+## Preview 
+
+![](./images/01.png)
+![](./images/02.png)
+![](./images/03.png)
+
+## TODO
+
 [TODO](./TODO.MD)
 
-## How to use
+## Development
 
 ---
 
@@ -18,8 +32,6 @@ run `node_modules/.bin/electron-rebuild -f -w better-sqlite3`
 
 > Install all the required tools and configurations using Microsoft's windows-build-tools using `npm install --global --production windows-build-tools` from an elevated PowerShell or CMD.exe (run as Administrator).
 
-### linux & Mac 
-Just double click
 
 ## 使用技术
 
