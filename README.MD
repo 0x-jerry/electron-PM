@@ -6,9 +6,9 @@
 
 ## Download
 
-[windows]()
+[Linux](https://github.com/cwxyz007/electron-PM/releases/download/v0.2.0-beta/E-P-M-0.2.0-x86_64.AppImage)
 
-[linux]()
+[Win](https://github.com/cwxyz007/electron-PM/releases/download/v0.2.0-beta/E-P-M.Setup.0.2.0.exe)
 
 ## Preview 
 
