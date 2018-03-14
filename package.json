@@ -5,10 +5,10 @@
   "main": "main.js",
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
-    "webpack": "cross-env NODE_ENV=development webpack --watch",
-    "dev": "cross-env NODE_ENV=development electron .",
-    "build-linux": "cross-env NODE_ENV=production webpack --progress && electron-builder -l --x64",
-    "build-win": "cross-env NODE_ENV=production webpack --progress && electron-builder -w --x64",
+    "start": "cross-env NODE_ENV=development electron .",
+    "dev": "cross-env NODE_ENV=development webpack --watch",
+    "release-linux": "cross-env NODE_ENV=production webpack --progress && electron-builder -l --x64",
+    "release-win": "cross-env NODE_ENV=production webpack --progress && electron-builder -w --x64",
     "test": "mocha"
   },
   "build": {

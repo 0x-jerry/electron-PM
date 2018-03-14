@@ -2,11 +2,14 @@ const path = require('path')
 
 let electronRenderer = {
   target: 'electron-renderer',
-  entry: path.join(__dirname, 'app', 'src', 'entry.js'),
+  entry: {
+    app: path.join(__dirname, 'app', 'src', 'entry.js'),
+    vendors: path.join(__dirname, 'app', 'src', 'vendors.js')
+  },
   mode: process.env.NODE_ENV,
   output: {
     path: path.resolve(__dirname, 'app/build'),
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
 
   module: {
