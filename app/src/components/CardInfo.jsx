@@ -28,13 +28,31 @@ export default class CardInfo extends Component {
     $(this._cardInfoBox).addClass('active')
   }
 
-  _getTags(path) {
-    path = path || $(this._image).attr('src')
+  close() {
+    $(this._cardInfoBox).removeClass('active')
+    this._closeTagsPage()
+  }
+
+  _closeTagsPage() {
+    $(this._newTagsBox).remove('active')
+  }
+
+  _getTags(src) {
     let tags = ipcRenderer.sendSync('get-image-tags-sync', {
-      path: path
+      path: src || this.state.src
     }) || []
 
     return tags.map( tag => tag.text)
+  }
+
+  _updateTags() {
+    let tags = this._getTags()
+
+    this.setState({
+      tags: tags
+    })
+
+    $(`img[src='${path}']`).trigger('update')
   }
 
   _getAllTags() {
@@ -43,32 +61,21 @@ export default class CardInfo extends Component {
   }
 
   _addImageTag(value) {
-    let path = $(this._image).attr('src')
     ipcRenderer.send('add-image-tag', {
-      path: path,
+      path: this.state.src,
       tag: value
     })
 
-    this.setState({
-      tags: this._getTags()
-    })
-
-    $(`img[src='${path}']`).trigger('update')
+    this._updateTags()
   }
 
   _deleteImageTag(value) {
-    let path = $(this._image).attr('src')
-
     ipcRenderer.send('delete-image-tag', {
-      path: path,
+      path: this.state.src,
       tag: value
     })
-
-    this.setState({
-      tags: this._getTags()
-    })
-
-    $(`img[src='${path}']`).trigger('update')
+    
+    this._updateTags()
   }
 
   render() {

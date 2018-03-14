@@ -58,6 +58,7 @@ export default class Cards extends Component {
     })
     this._searchBox.close()
     $(this._scrollBox).removeClass('active')
+    this._cardInfo.close()
   }
 
   _loadMoreImgae(){
