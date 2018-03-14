@@ -15,10 +15,12 @@
 - [x] 给图片添加标签
 - [x] 图片搜索
 - [x] 第一次打开时，提示添加路径
+- [ ] ~~识别图片中的主要色调并显示在 `info` 中~~
 - [ ] 分类显示
 - [ ] 多语言支持
 - [ ] 颜色主题
-- [ ] 识别图片中的主要色调并显示在 `info` 中
+- [ ] Cards 组件顶部显示信息
+- [ ] 搜索没有图片时不一样的提示，非默认页面
 
 ### Bug
 
@@ -33,7 +35,7 @@
 - [x] 修改 database 存储路径
 - [x] `tag` 组件
 - [x] 控制 app 的最小宽高
-- [ ] 设置页面保存提示
+- [ ] 搜索按回车则显示结果，ESC 则显示之前的结果
 - [ ] 阻止 scroll 事件冒泡
 > 阻止事件冒泡： `event.stopPropagation()`
 >
@@ -42,6 +44,7 @@
 - [x] `better-sqlite3` 在 `windows` 平台使用需要安装 `windows-build-tools`
 > Install all the required tools and configurations using Microsoft's windows-build-tools using npm install --global --production windows-build-tools from an elevated PowerShell or CMD.exe (run as Administrator).
 - [ ] ~~`info` 组件~~
+- [ ] ~~设置页面保存提示~~
 
 ### 视觉
 
