@@ -1,92 +1,91 @@
 @import '../scss/base.scss';
 
-.nav-bar{
-  $min-width: 50px;
+.nav-box {
   $max-width: 150px;
-  $btn-height: 30px;
-
   height: 100%;
-  width: $min-width;
-  padding-top: 1px;
-  background-color: lighten($color: $color-blue, $amount: 30);
-  transition: all 0.4s ease;
-  overflow-x: hidden;
 
   &.expand {
-    width: $max-width;
-
-    .nav-bg{
+    .nav-bar{
+      width: $max-width;
+    }
+    .nav-bg {
       left: $max-width;
     }
   }
 
-  .nav-btn{
-    height: $btn-height;
-    width: $max-width;
-    margin: 20px 0px;
-    display: flex;
-    flex-direction: row;
+  .nav-bar {
+    $min-width: 50px;
+    $btn-height: 30px;
+    height: 100%;
+    width: $min-width;
+    padding-top: 1px;
+    background-color: lighten($color: $color-blue, $amount: 30);
+    transition: all 0.4s ease;
+    overflow: hidden;
 
-    &.active, &:hover {
-      .icon {
-        background-color: $color-blue;
-        color: $color-white;
-      }
+    .nav-btn {
+      height: $btn-height;
+      width: $max-width;
+      margin: 20px 0px;
+      display: flex;
+      flex-direction: row;
 
-      .text {
-        color: $color-blue;
-      }
-    }
-
-    &.menu{
-      margin: {
-        top: 10px;
-        bottom: 40px;
-      }
-
-      .icon{
-        background-color: transparent;
-        border-radius: 0;
-
-        &:hover {
-          background-color: transparent;
+      &.active,
+      &:hover {
+        .icon {
+          background-color: $color-blue;
+          color: $color-white;
+        }
+        .text {
           color: $color-blue;
         }
       }
-    }
 
-    &.logo {
-      .icon{
-        &:hover{
-          background-color: transparent;
+      &.menu {
+        margin: {
+          top: 10px;
+          bottom: 40px;
         }
-
-        &>img{
-          width: 100%;
-          height: 100%;
+        .icon {
+          background-color: transparent;
+          border-radius: 0;
+          &:hover {
+            background-color: transparent;
+            color: $color-blue;
+          }
         }
       }
-    }
 
-    .icon {
-      width: $btn-height;
-      height: $btn-height;
-      border-radius: $btn-height / 2;
-      text-align: center;
-      background-color: $color-white;
-      color: $color-black;
-      margin: 0 10px;
-      transition: all 0.4s ease;
-      overflow: hidden;
-    }
-
-    .text{
-      margin: 0 10px;
-      transition: all 0.4s ease;
+      &.logo {
+        .icon {
+          &:hover {
+            background-color: transparent;
+          }
+          &>img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+      .icon {
+        width: $btn-height;
+        height: $btn-height;
+        border-radius: $btn-height / 2;
+        text-align: center;
+        background-color: $color-white;
+        color: $color-black;
+        margin: 0 10px;
+        transition: all 0.4s ease;
+        overflow: hidden;
+      }
+      .text {
+        margin: 0 10px;
+        transition: all 0.4s ease;
+      }
     }
   }
 
-  .nav-bg{
+  .nav-bg {
     position: fixed;
     top: 0;
     left: 100%;

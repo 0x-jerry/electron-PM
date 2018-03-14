@@ -21,11 +21,11 @@ export default class NavBar extends Component {
   }
 
   _menuClick(e) {
-    $(this._navBar).toggleClass('expand')
+    $(this._navBox).toggleClass('expand')
   }
 
   _menuClose(e) {
-    $(this._navBar).removeClass('expand')
+    $(this._navBox).removeClass('expand')
   }
 
   _menuBtnClick(e, index) {
@@ -42,43 +42,47 @@ export default class NavBar extends Component {
 
   render() {
     return (
-      <nav 
-        ref={navBar => this._navBar = navBar}
-        className='nav-bar'>
-        <a 
-          onClick={this._menuClick.bind(this)}
-          className='nav-btn menu'>
-          <div className="icon">
-            <i className="fas fa-lg fa-bars"></i>
-          </div>
-        </a>
-        <a 
-          className='nav-btn logo'>
-          <div className="icon">
-            <img src="assets/logo.png" alt="logo"/>
-          </div>
-          <h4 className="text">
-            E-P-M
-          </h4>
-        </a>
-        {
-          this.props.menus.map( (menu, index) => 
-            <a
-              key={index}
-              className={'nav-btn ' + (this._activeIndex == index ? 'active' : '')}
-              onClick={e => this._menuBtnClick(e, index)}>
-              <div className="icon">
-                <i className={"fas fa-" + menu.icon}></i>
-              </div>
-              <h4 className="text">
-                {menu.text}
-              </h4>
-            </a>)
-        }
+      <div 
+        ref={box => this._navBox = box}
+        className="nav-box">
+        <nav 
+          className='nav-bar'>
+          <a 
+            onClick={this._menuClick.bind(this)}
+            className='nav-btn menu'>
+            <div className="icon">
+              <i className="fas fa-lg fa-bars"></i>
+            </div>
+          </a>
+          <a 
+            className='nav-btn logo'>
+            <div className="icon">
+              <img src="assets/logo.png" alt="logo"/>
+            </div>
+            <h4 className="text">
+              E-P-M
+            </h4>
+          </a>
+          {
+            this.props.menus.map( (menu, index) => 
+              <a
+                key={index}
+                className={'nav-btn ' + (this._activeIndex == index ? 'active' : '')}
+                onClick={e => this._menuBtnClick(e, index)}>
+                <div className="icon">
+                  <i className={"fas fa-" + menu.icon}></i>
+                </div>
+                <h4 className="text">
+                  {menu.text}
+                </h4>
+              </a>)
+          }
+        </nav>
         <div 
           onClick={this._menuClose.bind(this)}
-          className="nav-bg"></div>
-      </nav>
+          className="nav-bg">
+        </div>
+      </div>
     )
   }
 }
