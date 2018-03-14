@@ -11,6 +11,12 @@ export default class Setting extends Component {
     }
   }
 
+  componentDidMount() {
+    ipcRenderer.on('setting-add-image-path', ()=>{
+      this._addImagePath()
+    })
+  }
+
   open(){
     this.setState({
       imagePaths: userSetting.get('paths', []),

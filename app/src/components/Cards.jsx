@@ -86,6 +86,32 @@ export default class Cards extends Component {
   }
 
   render() {
+    let cardsContent = (
+      <div className="default-show">
+        <button
+          onClick={() => ipcRenderer.emit('setting-add-image-path')}
+          className="logo">
+          <img src="assets/logo.png" alt=""/>
+        </button>
+        <button 
+          onClick={() => ipcRenderer.emit('setting-add-image-path')}
+          className='add-path'>
+          <h1>点击添加文件路径</h1>
+        </button>
+      </div>
+    )
+
+    if(this.state.currentPaths.length > 1) {
+      cardsContent = this.state.currentPaths.map((url, index) => (
+        <CardBox 
+          src={url} 
+          key={index} 
+          click={(path) =>{
+            this._cardInfo.open(path)
+          }}/>)
+      )
+    }
+
     return (
       <div 
         ref={box => this._cardBox = box}
@@ -96,14 +122,7 @@ export default class Cards extends Component {
           searchFunc={this._searchResult.bind(this)}
           items={ipcRenderer.sendSync('reload-images-sync')}/>
         <div className='cards'>
-          {
-            this.state.currentPaths.map((url, index) => <CardBox 
-              src={url} 
-              key={index} 
-              click={(path) =>{
-                this._cardInfo.open(path)
-              }}/>)
-          }
+          {cardsContent}
         </div>
         <div
           ref={box => this._scrollBox = box}

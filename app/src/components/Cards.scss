@@ -3,6 +3,39 @@
 .cards-box{
   padding: 20px;
 
+  .cards {
+    .default-show {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items:center;
+      justify-content:center;
+
+      .logo {
+        width: 200px;
+        margin: 50px;
+        border: none;
+        transform: rotate(45deg);
+        opacity: 0.8;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .add-path {
+        border: none;
+        h1 {
+          color: inherit;
+        }
+      }
+    }
+  }
+
   .scroll-to-top {
     $size: 35px;
     position: fixed;
