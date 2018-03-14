@@ -33,8 +33,12 @@ export default class CardInfo extends Component {
     this._closeTagsPage()
   }
 
+  _openTagsPage() {
+    $(this._newTagsBox).addClass('active')
+  }
+
   _closeTagsPage() {
-    $(this._newTagsBox).remove('active')
+    $(this._newTagsBox).removeClass('active')
   }
 
   _getTags(src) {
@@ -85,10 +89,7 @@ export default class CardInfo extends Component {
         className="card-info-box">
         <h3 className='title'>
           <button 
-            onClick={() => {
-              $(this._cardInfoBox).removeClass('active')
-              $(this._newTagsBox).removeClass('active')
-            }}
+            onClick={this.close.bind(this)}
             className='close'>
             <i className="fa fa-2x fa-caret-right"></i>
           </button>
@@ -111,9 +112,7 @@ export default class CardInfo extends Component {
             ref={box => this._newTagsBox = box}
             className="all-tags">
             <button 
-              onClick={() => {
-                $(this._newTagsBox).removeClass('active')
-              }}
+              onClick={this._closeTagsPage.bind(this)}
               className="close-all-tags">
               <i className="fas fa-lg fa-caret-right"></i>
             </button>
@@ -123,7 +122,7 @@ export default class CardInfo extends Component {
                   disabled={true}
                   clickFunc={() => {
                     this._addImageTag(value)
-                    $(this._newTagsBox).removeClass('active')
+                    this._closeTagsPage()
                   }}
                   key={index}>
                   {value}
@@ -143,9 +142,7 @@ export default class CardInfo extends Component {
             ))
           }
           <button 
-            onClick={() => {
-              $(this._newTagsBox).addClass('active')
-            }}
+            onClick={this._openTagsPage.bind(this)}
             className="add-tag">
             <i className="fas fa-plus"></i>
           </button>
