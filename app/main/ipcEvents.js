@@ -42,7 +42,15 @@ function init() {
 
   ipcMain.on('add-image-tag', (e, arg) => {
     try {
-      db.insertImageTag(arg.path, arg.tag)
+      if(!db.getImageTag(arg.path, arg.tag)) db.insertImageTag(arg.path, arg.tag)
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
+  ipcMain.on('delete-image-tag', (e,arg) => {
+    try {
+      db.deleteImageTag(arg.path, arg.tag)
     } catch (error) {
       console.log(error)
     }

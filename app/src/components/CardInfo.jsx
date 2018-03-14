@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import Modal from './Modal.jsx'
 import path from 'path'
 import { ipcRenderer } from 'electron'
 import {  } from './CardInfo.scss'
-import Button from './Button.jsx'
+import Tag from './Tag.jsx';
 
 export default class CardInfo extends Component {
   constructor(props) {
@@ -26,7 +25,7 @@ export default class CardInfo extends Component {
       src: src
     })
 
-    this._modal.open()
+    $(this._cardInfoBox).addClass('active')
   }
 
   _getTags(path) {
@@ -44,7 +43,6 @@ export default class CardInfo extends Component {
   }
 
   _addImageTag(value) {
-    $(this._taglist).hide()
     let path = $(this._image).attr('src')
     ipcRenderer.send('add-image-tag', {
       path: path,
@@ -58,49 +56,94 @@ export default class CardInfo extends Component {
     $(`img[src='${path}']`).trigger('update')
   }
 
-  render() {
-    let header = this.state.src || 'Image'
+  _deleteImageTag(value) {
+    let path = $(this._image).attr('src')
 
-    let footer = (
-      <div className='tags'>
-        {
-          this.state.tags.map( (tag, index) => (<span
-            className='tag'
-            key={index}>{tag}</span>))
-        }
-        <Button 
-          text='添加标签'
-          click={() => {
-            $(this._taglist).show()
-          }}/>
-        <div 
-          ref={tags => this._taglist = tags}
-          style={{display: 'none'}}
-          className="new-tags">
+    ipcRenderer.send('delete-image-tag', {
+      path: path,
+      tag: value
+    })
+
+    this.setState({
+      tags: this._getTags()
+    })
+
+    $(`img[src='${path}']`).trigger('update')
+  }
+
+  render() {
+    return (
+      <div 
+        ref={box => this._cardInfoBox = box}
+        className="card-info-box">
+        <h3 className='title'>
+          <button 
+            onClick={() => {
+              $(this._cardInfoBox).removeClass('active')
+              $(this._newTagsBox).removeClass('active')
+            }}
+            className='close'>
+            <i className="fa fa-2x fa-caret-right"></i>
+          </button>
+          <span className='name'>
+            {path.parse(this.state.src).name}
+          </span>
+          <button className='open-file'>
+            <i className="fas fa-image"></i>
+          </button>
+        </h3>
+        <div className="picture">
+          <img 
+            ref={image => this._image = image}
+            src={this.state.src} 
+            alt="picture"/>
+        </div>
+        <div className="line"></div>
+        <div className="tags">
+          <div 
+            ref={box => this._newTagsBox = box}
+            className="all-tags">
+            <button 
+              onClick={() => {
+                $(this._newTagsBox).removeClass('active')
+              }}
+              className="close-all-tags">
+              <i className="fas fa-lg fa-caret-right"></i>
+            </button>
+            {
+              this._getAllTags().map((value, index) => (
+                <Tag
+                  disabled={true}
+                  clickFunc={() => {
+                    this._addImageTag(value)
+                    $(this._newTagsBox).removeClass('active')
+                  }}
+                  key={index}>
+                  {value}
+                </Tag>
+              ))
+            }
+          </div>
           {
-            this._getAllTags().map((value, index) => {
-              return <Button 
-                text={value}
-                key={index}
-                click={() => {
-                  this._addImageTag(value)
-                }}/>
-            })
+            this.state.tags.map((value, index) => (
+              <Tag 
+                deleteFunc={() => {
+                  this._deleteImageTag(value)
+                }}
+                key={index}>
+                {value}
+              </Tag>
+            ))
           }
+          <button 
+            onClick={() => {
+              $(this._newTagsBox).addClass('active')
+            }}
+            className="add-tag">
+            <i className="fas fa-plus"></i>
+          </button>
         </div>
       </div>
-    )
-
-    return (
-      <Modal 
-        ref={modal => this._modal = modal}
-        header={header}
-        footer={footer}
-        className='card-info'>
-        <img 
-          ref={image => this._image = image}
-          src={this.state.src} />
-      </Modal>
     )
   }
 }

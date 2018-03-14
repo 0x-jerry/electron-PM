@@ -70,6 +70,9 @@ function DataBase(name) {
     let image = this.getImage(imagePath)
     let tag = this.getTag(tagText)
     let imageTag = db.prepare(`SELECT * FROM image_tag WHERE image_id=@imageId AND tag_id=@tagId`).get({imageId: image.id, tagId: tag.id})
+
+    if(!imageTag) return null
+
     let result = {
       image: db.prepare(`SELECT * FROM images WHERE id=@id`).get({id: imageTag.image_id}),
       tag: db.prepare(`SELECT * FROM tags WHERE id=@id`).get({id: imageTag.tag_id})
@@ -89,6 +92,12 @@ function DataBase(name) {
     let image = this.getImage(imagePath)
     let tag = this.getTag(tagText)
     return db.prepare(`INSERT INTO image_tag(image_id, tag_id) VALUES (@imageId, @tagId)`).run({imageId: image.id, tagId:tag.id})
+  }
+
+  this.deleteImageTag = (imagePath, tagText) => {
+    let image = this.getImage(imagePath)
+    let tag = this.getTag(tagText)
+    return db.prepare(`DELETE FROM image_tag WHERE image_id=@imageId AND tag_id=@tagId`).run({imageId: image.id, tagId:tag.id})
   }
 
   let begin = db.prepare('BEGIN');

@@ -1,7 +1,6 @@
-const fs = require('fs')
 const url = require('url')
 const path = require('path')
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow} = require('electron')
 const db = require('./app/main/db.js')()
 const { initIpcMain } = require('./app/main/ipcEvents.js')
 

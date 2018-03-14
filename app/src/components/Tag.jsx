@@ -7,8 +7,8 @@ export default class Tag extends Component {
   }
 
   _click(e) {
+    if(this.props.clickFunc) this.props.clickFunc()
     if(this.props.disabled) return
-
     $(e.currentTarget).toggleClass('delete').siblings().removeClass('delete')
   }
 
