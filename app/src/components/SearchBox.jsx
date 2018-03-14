@@ -5,6 +5,9 @@ export default class SearchBox extends Component {
   constructor(props) {
     super(props)
     this._items = props.items || []
+    this.state = {
+      result: []
+    }
   }
 
   componentDidMount() {
@@ -25,7 +28,6 @@ export default class SearchBox extends Component {
 
   open() {
     $(this._searchBox).addClass('active')
-    $(this._searchInput).val('')
     $(this._searchInput).focus()
   }
 
@@ -34,31 +36,48 @@ export default class SearchBox extends Component {
     $(this._searchBox).one('transitionend', () => {
       this.props.searchFunc && this.props.searchFunc(this._items)
     })
+
+    $(this._searchInput).blur()
+    $(this._searchInput).val('')
+    this.setState({
+      result: []
+    })
   }
 
   _search() {
     let string = this._searchInput.value
-    let items = this._items.filter(item => !!item.match(string))
+    if(string == '') return
+
+    let items = this._items.filter(item => !!item.split('/').pop().match(string))
+
+    this.setState({
+      result: items.map(item => item.split('/').pop())
+    })
 
     this.props.searchFunc && this.props.searchFunc(items)
   }
-
 
   render() {
     return (
       <div className="search-box"
         ref={ searchBox => this._searchBox = searchBox}>
-        <input 
-          ref={input => this._searchInput = input}
-          className='search-input'
-          placeholder='Search'
-          onKeyPress={e => e.key == 'Enter' && this._search()}
-          type="text"/>
-        <a 
-          onClick={e => this._search()}
-          className='search-icon'>
-          <i className="fas fa-search"></i>
-        </a>
+        <div className="input-box">
+          <input 
+            ref={input => this._searchInput = input}
+            className='search-input'
+            placeholder='Search'
+            onKeyUp={this._search.bind(this)}
+            type="text"/>
+          <a 
+            className='search-icon'>
+            <i className="fas fa-search"></i>
+          </a>
+        </div>
+        <ul className="search-result">
+          {
+            this.state.result.map((value, index) => <li key={index}> {value} </li>)
+          }
+        </ul>
       </div>
     )
   }

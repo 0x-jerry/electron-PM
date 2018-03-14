@@ -1,7 +1,11 @@
 @import '../scss/base.scss';
 
 .search-box{
+  $width: 218px;
   position: fixed;
+  width: $width;
+  max-height: 500px;
+  overflow: hidden;
   z-index: 100;
   top: 20px;
   right: -300px;
@@ -20,10 +24,22 @@
   }
 
   .search-icon {
-    margin: 0 10px;
+    margin-left: 10px;
 
     &:hover{
       color: darken($color: $color-black, $amount: 20)
+    }
+  }
+
+  ul.search-result {
+    max-width: $width;
+    margin: 0;
+    list-style: none;
+    padding: 0;
+
+    li {
+      line-height: 1em;
+      margin: 4px 0;
     }
   }
 }
