@@ -16,11 +16,12 @@
 - [x] 图片搜索
 - [x] 第一次打开时，提示添加路径
 - [ ] ~~识别图片中的主要色调并显示在 `info` 中~~
-- [ ] 分类显示
+- [ ] 添加使用说明页面
+- [ ] 设置里面开关实时搜索
+- [ ] 分 `tag` 显示
 - [ ] 多语言支持
 - [ ] 颜色主题
 - [ ] Cards 组件顶部显示信息
-- [ ] 搜索没有图片时不一样的提示，非默认页面
 
 ### Bug
 
@@ -35,22 +36,20 @@
 - [x] 修改 database 存储路径
 - [x] `tag` 组件
 - [x] 控制 app 的最小宽高
-- [ ] 搜索按回车则显示结果，ESC 则显示之前的结果
-- [ ] 阻止 scroll 事件冒泡
-> 阻止事件冒泡： `event.stopPropagation()`
->
-> 取消事件： `event.preventDefault()`
-- [ ] `production` 环境打包
 - [x] `better-sqlite3` 在 `windows` 平台使用需要安装 `windows-build-tools`
 > Install all the required tools and configurations using Microsoft's windows-build-tools using npm install --global --production windows-build-tools from an elevated PowerShell or CMD.exe (run as Administrator).
 - [ ] ~~`info` 组件~~
 - [ ] ~~设置页面保存提示~~
+- [ ] 图片数量过多时，略有卡顿
+- [ ] 搜索没有图片时不一样的提示，非默认页面
+- [ ] 搜索按回车则显示结果，ESC 则显示之前的结果
+- [ ] `production` 环境打包
 
-### 视觉
+### UI & UX
 
 - [x] `logo` 设计
 - [x] 主题设计
 - [x] 图片按比例计算显示，目标为充满边框
 - [x] 图片详情页设计
-- [ ] 屏幕缩放时，图片整体居中
-
+- [x] 屏幕缩放时，图片整体居中
+- [ ] 动画效果设计
