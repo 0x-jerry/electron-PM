@@ -96,7 +96,11 @@ export default class CardInfo extends Component {
           <span className='name'>
             {path.parse(this.state.src).name}
           </span>
-          <button className='open-file'>
+          <button 
+            onClick={() => {
+              ipcRenderer.send('open-file', {path: $(this._image).attr('src')})
+            }}
+            className='open-file'>
             <i className="fas fa-image"></i>
           </button>
         </h3>

@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const db = require('./db.js')()
 const userSetting = require('electron-settings')
-const { ipcMain } = require('electron')
+const { ipcMain, shell } = require('electron')
 
 function readFilesSync(filePath) {
   if(!fs.existsSync(filePath)) return null
@@ -88,6 +88,10 @@ function init() {
     } catch (error) {
       e.returnValue = false
     }
+  })
+
+  ipcMain.on('open-file', (e, arg) => {
+    shell.openItem(arg.path)
   })
 
 }
