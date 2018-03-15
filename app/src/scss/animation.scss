@@ -1,0 +1,8 @@
+@mixin anim-ease {
+  transition: all 0.2s ease;
+}
+
+.anim-ease {
+  @include anim-ease()
+}
+
