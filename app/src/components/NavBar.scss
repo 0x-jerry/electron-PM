@@ -20,7 +20,6 @@
     width: $min-width;
     padding-top: 1px;
     background-color: lighten($color: $color-blue, $amount: 30);
-    transition: all 0.4s ease;
     overflow: hidden;
 
     .nav-btn {
@@ -75,12 +74,10 @@
         background-color: $color-white;
         color: $color-black;
         margin: 0 10px;
-        transition: all 0.4s ease;
         overflow: hidden;
       }
       .text {
         margin: 0 10px;
-        transition: all 0.4s ease;
       }
     }
   }
@@ -92,6 +89,5 @@
     width: 100vw;
     height: 100vh;
     background-color: $color-shadow;
-    transition: all 0.4s ease;
   }
 }

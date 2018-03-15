@@ -86,7 +86,7 @@ export default class CardInfo extends Component {
     return (
       <div 
         ref={box => this._cardInfoBox = box}
-        className="card-info-box">
+        className="card-info-box anim-ease">
         <h3 className='title'>
           <button 
             onClick={this.close.bind(this)}
@@ -114,10 +114,10 @@ export default class CardInfo extends Component {
         <div className="tags">
           <div 
             ref={box => this._newTagsBox = box}
-            className="all-tags">
+            className="all-tags anim-ease">
             <button 
               onClick={this._closeTagsPage.bind(this)}
-              className="close-all-tags">
+              className="close-all-tags anim-ease">
               <i className="fas fa-lg fa-caret-right"></i>
             </button>
             {
@@ -147,7 +147,7 @@ export default class CardInfo extends Component {
           }
           <button 
             onClick={this._openTagsPage.bind(this)}
-            className="add-tag">
+            className="add-tag anim-ease">
             <i className="fas fa-plus"></i>
           </button>
         </div>

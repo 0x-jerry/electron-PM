@@ -131,7 +131,7 @@ export default class Cards extends Component {
             $(e.currentTarget).removeClass('active')
             $(this.props.parent).animate({scrollTop: 0})
           }}
-          className="scroll-to-top">
+          className="scroll-to-top anim-ease">
           <div className="icon">
             <i className="fas fa-lg fa-angle-up"></i>
           </div>

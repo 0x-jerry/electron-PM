@@ -49,7 +49,6 @@
     border-radius: $size / 2;
     overflow: hidden;
     box-shadow: 0 0 10px $color-shadow;
-    transition: all 0.4s ease;
 
     &.active {
       bottom: 20px;

@@ -46,7 +46,7 @@ export default class NavBar extends Component {
         ref={box => this._navBox = box}
         className="nav-box">
         <nav 
-          className='nav-bar'>
+          className='nav-bar anim-ease'>
           <a 
             onClick={this._menuClick.bind(this)}
             className='nav-btn menu'>
@@ -69,10 +69,10 @@ export default class NavBar extends Component {
                 key={index}
                 className={'nav-btn ' + (this._activeIndex == index ? 'active' : '')}
                 onClick={e => this._menuBtnClick(e, index)}>
-                <div className="icon">
+                <div className="icon anim-ease">
                   <i className={"fas fa-" + menu.icon}></i>
                 </div>
-                <h4 className="text">
+                <h4 className="text anim-ease">
                   {menu.text}
                 </h4>
               </a>)
@@ -80,7 +80,7 @@ export default class NavBar extends Component {
         </nav>
         <div 
           onClick={this._menuClose.bind(this)}
-          className="nav-bg">
+          className="nav-bg anim-ease">
         </div>
       </div>
     )

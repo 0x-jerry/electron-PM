@@ -59,7 +59,7 @@ export default class SearchBox extends Component {
 
   render() {
     return (
-      <div className="search-box"
+      <div className="search-box anim-ease"
         ref={ searchBox => this._searchBox = searchBox}>
         <div className="input-box">
           <input 

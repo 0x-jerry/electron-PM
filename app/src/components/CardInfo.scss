@@ -11,7 +11,6 @@
   height: 100vh;
   width: $width;
   background-color: #fff;
-  transition: all 0.4s ease;
 
   &.active {
     right: 0;
@@ -75,7 +74,6 @@
       position: absolute;
       width: $width - 30px;
       right: -$width - 30 - 10;
-      transition: all 0.4s ease;
       background-color: $color-white;
 
       &.active {
@@ -91,7 +89,6 @@
         border-radius: 50%;
         border: 1px solid $color-blue;
         color: $color-blue;
-        transition: all 0.4s ease;
 
         &:hover {
           background-color: $color-blue;
@@ -113,7 +110,6 @@
       border-radius: 50%;
       border: 1px solid $color-blue;
       color: $color-blue;
-      transition: all 0.4s ease;
 
       &:hover {
         background-color: $color-blue;

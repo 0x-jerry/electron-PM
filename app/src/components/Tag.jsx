@@ -20,12 +20,12 @@ export default class Tag extends Component {
     return (
       <div 
         onClick={e => this._click(e)}
-        className='tag'>
+        className='tag anim-ease'>
         <i className="fas fa-tag"></i>
         <span className="text">{this.props.children}</span>
         <div 
           onClick={e => this._delete(e)}
-          className="close">
+          className="close anim-ease">
           <i className="fas fa-times"></i>
         </div>
       </div>

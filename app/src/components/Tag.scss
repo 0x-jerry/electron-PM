@@ -19,7 +19,6 @@
   height: $tag-height;
   width: auto;
   border-radius: $tag-height / 2;
-  transition: all 0.2s ease;
   font-size: small;
   line-height: $tag-height;
   font-weight: 200;
@@ -49,6 +48,5 @@
     width: 0px;
     overflow: hidden;
     color: $color-white;
-    transition: all 0.2s ease;
   }
 }

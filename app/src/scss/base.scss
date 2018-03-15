@@ -10,5 +10,12 @@ $color-yellow: #ff0;
 $color-black: #737373;
 
 // animation
+@mixin anim-ease {
+  transition: all 0.2s ease;
+}
+
+.anim-ease {
+  @include anim-ease()
+}
 
 
