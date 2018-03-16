@@ -14,7 +14,7 @@ h1, h2, h3, h4, h5, h6, p, a, button, li {
 }
 
 ::-webkit-scrollbar{
-  width: 10px;
+  width: 20px;
   border: 1px dashed $color-shadow;
 
   &:vertical{
@@ -31,7 +31,7 @@ h1, h2, h3, h4, h5, h6, p, a, button, li {
 
 ::-webkit-scrollbar-button{
   height: 2px;
-  background-color: #000000;
+  background-color: $color-black;
 
   &:horizontal{
     width: 2px;
@@ -43,7 +43,7 @@ h1, h2, h3, h4, h5, h6, p, a, button, li {
   background-color: $color-blue;
 
   &:hover{
-    background-color: yellow;
+    background-color: darken($color: $color-blue, $amount: 10);
   }
 }
 

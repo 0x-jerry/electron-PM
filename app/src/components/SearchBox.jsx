@@ -21,9 +21,6 @@ export default class SearchBox extends Component {
 
       if(e.key == 'Escape') {
         this.close()
-        $(this._searchBox).one('transitionend', () => {
-          this.props.searchFunc && this.props.searchFunc(this._items)
-        })
       }
     })
   }

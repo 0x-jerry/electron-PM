@@ -16,6 +16,11 @@ export default class CardInfo extends Component {
 
   componentDidMount() {
     this.open(this.props.src)
+    $(window).on('keyup', e => {
+      if (e.key === 'Escape') {
+        $(this._cardInfoBox).removeClass('active')
+      }
+    })
   }
 
   open(src) {

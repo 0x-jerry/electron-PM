@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ipcRenderer } from 'electron'
+import { ipcRenderer, remote  } from 'electron'
 import {  } from './scss/global.scss'
 import {  } from './App.scss'
 import NavBar from './components/NavBar'
@@ -38,6 +38,16 @@ export default class App extends Component {
       },
       content: (<TagSetting ref={tagSetting => this.tagSetting = tagSetting}/>)
     }]
+  }
+
+  componentDidMount() {
+    $(window).keydown(e => {
+      if(e.key === 'F12') {
+        let webContents = remote.getCurrentWebContents()
+        if(!webContents.isDevToolsOpened()) webContents.openDevTools()
+        else webContents.closeDevTools()
+      }
+    })
   }
 
   render() {

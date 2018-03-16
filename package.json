@@ -1,6 +1,6 @@
 {
   "name": "E-P-M",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "Electron Photo Manager",
   "main": "main.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "appId": "com.cwxyz007.E-P-M",
     "productName": "E-P-M",
     "files": [
-      "build/*",
+      "build/**/*",
       "app/build",
       "app/assets",
       "app/main",
