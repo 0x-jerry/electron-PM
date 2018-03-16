@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { ipcRenderer, remote } from 'electron'
 import {  } from './TagSetting.scss' 
 import Alert from './Alert.jsx'
 import Tag from './Tag.jsx'
+import dbTool from './tools/dbTool.js'
 
 export default class TagSetting extends Component {
   constructor() {
@@ -22,17 +22,14 @@ export default class TagSetting extends Component {
 
   _updateTags() {
     this.setState({
-      tags: ipcRenderer.sendSync('get-all-tags-sync') || []
+      tags: dbTool.getAllTags()
     })
   }
 
   _addTag(input){
     let $input = $(input)
 
-    ipcRenderer.sendSync('add-tag-sync', {
-      text: $input.val(),
-      color: '#fff'
-    })
+    dbTool.addTag($input.val())
     this._updateTags()
     $input.val('')
   }
@@ -40,10 +37,7 @@ export default class TagSetting extends Component {
   _removeTag(index, force = false){
     if(index < 0 || index >= this.state.tags.length) return
     let tag = this.state.tags[index]
-    let state = ipcRenderer.sendSync('delete-tag-sync', {
-      text: tag.text,
-      force: force
-    })
+    let state = dbTool.deleteTag(tag.text, force)
 
     if(state) return this._updateTags()
 

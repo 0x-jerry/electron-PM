@@ -4,6 +4,7 @@ import {  } from './Cards.scss'
 import { ipcRenderer } from 'electron'
 import CardInfo from './CardInfo.jsx'
 import SearchBox from './SearchBox.jsx'
+import dbTool from './tools/dbTool.js'
 
 export default class Cards extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ export default class Cards extends Component {
 
     this._loadNumber = 6
     this._startImageNumber =  12
-    this._allImagePath = ipcRenderer.sendSync('reload-images-sync')
+    this._allImagePath = dbTool.getAllImages()
   }
 
   componentWillMount(){
@@ -72,8 +73,8 @@ export default class Cards extends Component {
     })
   }
 
-  _reloadImages(items){
-    this._allImagePath = ipcRenderer.sendSync('reload-images-sync')
+  _reloadImages(){
+    this._allImagePath = dbTool.reloadImages()
     this.setState({
       currentPaths: this._allImagePath.slice(0, this._startImageNumber)
     })
@@ -121,7 +122,7 @@ export default class Cards extends Component {
           ref={box => this._searchBox = box}
           focus={this.state.focus}
           searchFunc={this._searchResult.bind(this)}
-          items={ipcRenderer.sendSync('reload-images-sync')}/>
+          items={dbTool.getAllImages()}/>
         <div className='cards'>
           {cardsContent}
         </div>

@@ -40,6 +40,15 @@ function init() {
     e.returnValue = images
   })
 
+  ipcMain.on('get-all-images-sync', (e, arg) => {
+    try {
+      e.returnValue = db.getAllImages().map(item => item.path)
+    } catch (error) {
+      console.log(error);
+      e.returnValue = false
+    }
+  })
+
   ipcMain.on('add-image-tag', (e, arg) => {
     try {
       if(!db.getImageTag(arg.path, arg.tag)) db.insertImageTag(arg.path, arg.tag)
@@ -93,7 +102,6 @@ function init() {
   ipcMain.on('open-file', (e, arg) => {
     shell.openItem(arg.path)
   })
-
 }
 
 module.exports = {

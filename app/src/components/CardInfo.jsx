@@ -3,6 +3,7 @@ import path from 'path'
 import { ipcRenderer } from 'electron'
 import {  } from './CardInfo.scss'
 import Tag from './Tag.jsx';
+import dbTool from './tools/dbTool.js'
 
 export default class CardInfo extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ export default class CardInfo extends Component {
     if(!src) return
 
     this.setState({
-      tags: this._getTags(src),
+      tags: dbTool.getTagsByImage(src).map(tag => tag.text),
       src: src
     })
 
@@ -41,44 +42,27 @@ export default class CardInfo extends Component {
     $(this._newTagsBox).removeClass('active')
   }
 
-  _getTags(src) {
-    let tags = ipcRenderer.sendSync('get-image-tags-sync', {
-      path: src || this.state.src
-    }) || []
-
-    return tags.map( tag => tag.text)
-  }
-
   _updateTags() {
-    let tags = this._getTags()
-
     this.setState({
-      tags: tags
+      tags: dbTool.getTagsByImage(this.state.src).map(tag => tag.text)
     })
 
     $(`img[src='${path}']`).trigger('update')
   }
 
   _getAllTags() {
-    let tags = ipcRenderer.sendSync('get-all-tags-sync').map( tag => tag.text)
+    let tags = dbTool.getAllTags().map( tag => tag.text)
     return tags
   }
 
   _addImageTag(value) {
-    ipcRenderer.send('add-image-tag', {
-      path: this.state.src,
-      tag: value
-    })
+    dbTool.addTagByImage(this.state.src, value)
 
     this._updateTags()
   }
 
   _deleteImageTag(value) {
-    ipcRenderer.send('delete-image-tag', {
-      path: this.state.src,
-      tag: value
-    })
-    
+    dbTool.deleteTagByImage(this.state.src, value)
     this._updateTags()
   }
 
