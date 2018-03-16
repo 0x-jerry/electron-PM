@@ -13,6 +13,7 @@ export default class NavBar extends Component {
       this._scrollToActive()
     }, 200))
     this._scrollToActive()
+    $(this._navBox).addClass('show')
   }
 
   _scrollToActive() {
@@ -44,7 +45,7 @@ export default class NavBar extends Component {
     return (
       <div 
         ref={box => this._navBox = box}
-        className="nav-box">
+        className="nav-box anim-ease">
         <nav 
           className='nav-bar anim-ease'>
           <a 

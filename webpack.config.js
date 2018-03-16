@@ -6,10 +6,16 @@ let electronRenderer = {
     app: path.join(__dirname, 'app', 'src', 'entry.js'),
     vendors: path.join(__dirname, 'app', 'src', 'vendors.js')
   },
+
   mode: process.env.NODE_ENV,
+
   output: {
     path: path.resolve(__dirname, 'app/build'),
     filename: '[name].js'
+  },
+
+  resolve: {
+    extensions: ['.jsx', '.js', '.json']
   },
 
   module: {
@@ -18,7 +24,8 @@ let electronRenderer = {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         options: {
-          presets: ['react']
+          presets: ['react'],
+          compact: false
         }
       },
       {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import CardBox from './CardBox.jsx'
+import CardBox from './CardBox'
 import {  } from './Cards.scss' 
 import { ipcRenderer } from 'electron'
-import CardInfo from './CardInfo.jsx'
-import SearchBox from './SearchBox.jsx'
+import CardInfo from './CardInfo'
+import SearchBox from './SearchBox'
 import dbTool from './tools/dbTool.js'
 
 export default class Cards extends Component {
@@ -50,6 +50,11 @@ export default class Cards extends Component {
   open () {
     this.setState({
       focus: true
+    })
+
+    this._allImagePath = dbTool.getAllImages()
+    this.setState({
+      currentPaths: this._allImagePath.slice(0, this._startImageNumber)
     })
   }
 
@@ -103,7 +108,7 @@ export default class Cards extends Component {
       </div>
     )
 
-    if(this.state.currentPaths.length > 1) {
+    if(this.state.currentPaths.length > 0) {
       cardsContent = this.state.currentPaths.map((url, index) => (
         <CardBox 
           src={url} 

@@ -34,7 +34,7 @@ function getTagsByImage(path) {
     path: path
   }) || []
 
-  return tags.map(tag => tag.text)
+  return tags
 }
 
 /**

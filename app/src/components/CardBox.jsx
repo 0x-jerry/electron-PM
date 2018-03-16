@@ -8,6 +8,10 @@ export default class CardBox extends Component {
   }
   
   componentDidMount(){
+    $(this._image).on('load', () => {
+      $(this._cardBox).addClass('show')
+    })
+
     $(this._image).contextmenu((e) => {
       console.log('content menu', e);
     })
@@ -23,7 +27,9 @@ export default class CardBox extends Component {
 
   render() {
     return (
-      <div className='card-box anim-ease'>
+      <div
+        ref={box => this._cardBox = box}
+        className='card-box anim-ease'>
         <div className='picture' onClick={this._click.bind(this)}>
           <img 
             src={this.props.src} 

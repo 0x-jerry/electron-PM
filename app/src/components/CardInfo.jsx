@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import path from 'path'
 import { ipcRenderer } from 'electron'
 import {  } from './CardInfo.scss'
-import Tag from './Tag.jsx';
-import dbTool from './tools/dbTool.js'
+import Tag from './Tag';
+import dbTool from './tools/dbTool'
 
 export default class CardInfo extends Component {
   constructor(props) {

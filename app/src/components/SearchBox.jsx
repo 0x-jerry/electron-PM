@@ -21,8 +21,10 @@ export default class SearchBox extends Component {
 
       if(e.key == 'Escape') {
         this.close()
+        $(this._searchBox).one('transitionend', () => {
+          this.props.searchFunc && this.props.searchFunc(this._items)
+        })
       }
-
     })
   }
 
@@ -33,9 +35,6 @@ export default class SearchBox extends Component {
 
   close() {
     $(this._searchBox).removeClass('active')
-    $(this._searchBox).one('transitionend', () => {
-      this.props.searchFunc && this.props.searchFunc(this._items)
-    })
 
     $(this._searchInput).blur()
     $(this._searchInput).val('')
@@ -44,7 +43,9 @@ export default class SearchBox extends Component {
     })
   }
 
-  _search() {
+  _search(e) {
+    if(e.key === 'Enter') return this.close()
+
     let string = this._searchInput.value
     if(string == '') return
 

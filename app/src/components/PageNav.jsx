@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {  } from './PageNav.scss'
-import Button from './Button.jsx'
+import Button from './Button'
 
 export default class PageNav extends Component {
   constructor(props) {

@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { ipcRenderer } from 'electron'
 import {  } from './scss/global.scss'
 import {  } from './App.scss'
-import NavBar from './components/NavBar.jsx'
-import Cards from './components/Cards.jsx'
-import Setting from './components/Setting.jsx'
-import TagSetting from './components/TagSetting.jsx'
+import NavBar from './components/NavBar'
+import Cards from './components/Cards'
+import Setting from './components/Setting'
+import TagSetting from './components/TagSetting'
 
 export default class App extends Component {
   constructor(){
