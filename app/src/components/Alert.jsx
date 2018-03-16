@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {  } from './Alert.scss'
-import Button from './Button.jsx'
+import ReactDOM from 'react-dom'
 
 export default class Alert extends Component {
   constructor(props) {
@@ -33,31 +33,33 @@ export default class Alert extends Component {
   }
 
   render() {
-    return (
+    return ReactDOM.createPortal((
       <div className='alert-bg' ref={alert => this._alertBg = alert}>
         <div className="alert-box">
           <div className="alert-header">
             {this.props.header || 'Header'}
           </div>
+          <div className="line"></div>
           <div className="alert-content">
             {this.props.children || 'Content'}
           </div>
           <div className="alert-footer">
             {
               this.state.buttons && this.state.buttons.map((button, index) => (
-                <Button 
+                <button
                   key={index}
-                  click={() => {
+                  onClick={() => {
                     this.close()
                     button.click && button.click()
                   }}
-                  class={button.type}
-                  text={button.text}/>
+                  className={button.type}>
+                  {button.text}
+                </button>
               ))
             }
           </div>
         </div>
       </div>
-    )
+    ), $('body')[0])
   }
 }

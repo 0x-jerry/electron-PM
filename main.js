@@ -31,7 +31,7 @@ let createWindow = () => {
   win = new BrowserWindow({
     width: 800,
     height: 600,
-    icon: path.join(__dirname, 'app', 'assets', 'logo.png')
+    icon: path.join(__dirname, 'build', 'icons', '512x512.png')
   })
 
   win.loadURL(url.format({

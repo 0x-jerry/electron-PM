@@ -18,8 +18,9 @@
     min-width: 30%;
     max-width: 50%;
     background-color: $color-white;
-    box-shadow: 0 0 80px $color-shadow;
-    padding: 0 20px;
+    box-shadow: 0 0 60px $color-shadow;
+    padding: 0 40px;
+    border-radius: 4px;
 
     .alert-header{
       min-height: 60px;
@@ -27,11 +28,17 @@
       font-weight: bold;
       font-size: 1.5rem;
       text-align: center;
-      border-bottom: 1px solid $color-shadow;
 
       .close {
         float: right;
       }
+    }
+
+    .line {
+      border: 1px solid $color-shadow;
+      border-width: 1px 0 0;
+      margin: 0 auto;
+      width: 50%;
     }
 
     .alert-content{
@@ -43,13 +50,35 @@
     }
 
     .alert-footer{
-      padding: 10px 5px;
+      padding: 10px 0px 30px;
       text-align: center;
 
       button {
-        margin: {
-          left: 20px;
-          right: 20px;
+        border-radius: 2px;
+        color: $color-white;
+        background-color: $color-blue;
+        border: none;
+        padding: 7px 22px;
+        margin: 0 20px;
+
+        &:hover{
+          box-shadow: 0 0 10px $color-blue;
+        }
+
+        &:active {
+          box-shadow: 0 0 1px $color-blue;
+        }
+
+        &.danger {
+          background-color: $color-red;
+
+          &:hover{
+            box-shadow: 0 0 10px $color-red;
+          }
+
+          &:active {
+            box-shadow: 0 0 1px $color-red;
+          }
         }
       }
     }
