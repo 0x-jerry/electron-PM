@@ -4,7 +4,7 @@ import {  } from './Cards.scss'
 import { ipcRenderer } from 'electron'
 import CardInfo from './CardInfo'
 import SearchBox from './SearchBox'
-import dbTool from './tools/dbTool.js'
+import dbTool from '../tools/dbTool.js'
 
 export default class Cards extends Component {
   constructor(props) {

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {  } from './TagSetting.scss' 
 import Alert from './Alert'
 import Tag from './Tag'
-import dbTool from './tools/dbTool'
+import dbTool from '../tools/dbTool'
 
 export default class TagSetting extends Component {
   constructor() {
