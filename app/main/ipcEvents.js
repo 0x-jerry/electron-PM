@@ -103,6 +103,10 @@ function init() {
     shell.openItem(arg.path)
   })
 
+  ipcMain.on('open-folder', (e, arg) => {
+    shell.showItemInFolder(arg.path)
+  })
+
   ipcMain.on('save-file', (e, arg) => {
     dialog.showSaveDialog({
       title: 'save as',

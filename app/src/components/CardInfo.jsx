@@ -92,6 +92,13 @@ export default class CardInfo extends Component {
             className='open-file'>
             <i className="fas fa-image"></i>
           </button>
+          <button 
+            onClick={() => {
+              ipcRenderer.send('open-folder', {path: $(this._image).attr('src')})
+            }}
+            className='open-file-folder'>
+            <i className="fas fa-folder"></i>
+          </button>
         </h3>
         <div className="picture">
           <img 
