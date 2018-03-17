@@ -11,14 +11,14 @@ export default class CardBox extends Component {
     $(this._image).on('load', () => {
       $(this._cardBox).addClass('show')
     })
-
-    $(this._image).contextmenu((e) => {
-      console.log('content menu', e);
-    })
   }
 
-  _click() {
-    if (this.props.click) this.props.click(this.props.src)
+  _click(e) {
+    if (this.props.click) this.props.click(e, this.props.src)
+  }
+
+  _contextMenu(e) {
+    if (this.props.contextmenuFunc) this.props.contextmenuFunc(e)
   }
 
   _reload() {
@@ -30,7 +30,10 @@ export default class CardBox extends Component {
       <div
         ref={box => this._cardBox = box}
         className='card-box anim-ease'>
-        <div className='picture' onClick={this._click.bind(this)}>
+        <div 
+          className='picture' 
+          onContextMenu={this._contextMenu.bind(this)} 
+          onClick={this._click.bind(this)}>
           <img 
             src={this.props.src} 
             ref={img => this._image = img}

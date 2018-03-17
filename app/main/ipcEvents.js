@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const db = require('./db.js')()
 const userSetting = require('electron-settings')
-const { ipcMain, shell } = require('electron')
+const { ipcMain, shell, nativeImage, dialog } = require('electron')
 
 function readFilesSync(filePath) {
   if(!fs.existsSync(filePath)) return null
@@ -101,6 +101,26 @@ function init() {
 
   ipcMain.on('open-file', (e, arg) => {
     shell.openItem(arg.path)
+  })
+
+  ipcMain.on('save-file', (e, arg) => {
+    dialog.showSaveDialog({
+      title: 'save as',
+      defaultPath: userSetting.get('last-open-path', null),
+      filters: [{
+        name: 'Images', extensions: ['png', 'jpg']
+      }]
+    }, (p) => {
+      if (!p) return
+      userSetting.set('last-open-path', p)
+      let ext = path.extname(p)
+      let image = nativeImage.createFromPath(arg.path)
+      let data = ext == '.png' ? image.toPNG() : image.toJPEG(90)
+
+      fs.writeFile(p, data, (error) => {
+        error && console.log(error)
+      })
+    })
   })
 }
 
