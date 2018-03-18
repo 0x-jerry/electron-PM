@@ -21,7 +21,8 @@
         "semi": "off",
         "no-underscore-dangle": "off",
         "react/no-array-index-key": "warn",
-        "react/jsx-filename-extension": "warn"
+        "react/jsx-filename-extension": "warn",
+        "import/prefer-default-export": "warn"
     },
     "globals": {
         "_": true

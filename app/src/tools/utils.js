@@ -1,24 +1,22 @@
 /**
- * 
- * @param {string} text 
+ *
+ * @param {string} text
  * @param {function} click
  * @param {function} close
  */
 function notify(text, click, close) {
-  let notification = new Notification($('title').text(), {
+  const notification = new Notification($('title').text(), {
     body: text,
-    icon: './assets/logo.png'
+    icon: './assets/logo.png',
   })
 
   notification.onclick = () => {
-    click && click()
+    if (click) click()
   }
 
   notification.onclose = () => {
-    close && click()
+    if (close) close()
   }
 }
 
-export {
-  notify
-}
+export { notify }

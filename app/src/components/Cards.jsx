@@ -1,27 +1,37 @@
+import { ipcRenderer, clipboard } from 'electron'
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import CardBox from './CardBox'
-import {  } from './Cards.scss' 
-import { ipcRenderer, clipboard} from 'electron'
+import { } from './Cards.scss'
 import CardInfo from './CardInfo'
 import SearchBox from './SearchBox'
-import dbTool from '../tools/dbTool.js'
+import dbTool from '../tools/dbTool'
 import ContextMenu from './ContextMenu'
+
+const propTypes = {
+  parent: PropTypes.string.isRequired,
+}
+
+const defaultProps = {
+
+}
 
 export default class Cards extends Component {
   constructor(props) {
     super(props)
     this.state = {
       currentPaths: [],
-      cardInfo: {},
-      focus: true
+      focus: true,
     }
 
     this._loadNumber = 6
-    this._startImageNumber =  12
+    this._startImageNumber = 12
     this._allImagePath = dbTool.getAllImages()
+
+    this._searchResult = this._searchResult.bind(this)
   }
 
-  componentWillMount(){
+  componentWillMount() {
     ipcRenderer.on('reload-images', () => {
       this._reloadImages()
     })
@@ -31,65 +41,64 @@ export default class Cards extends Component {
     this._reloadImages()
 
     $(this.props.parent).scroll(_.debounce(() => {
-      let $box = $(this._cardBox)
-      let max = $box.outerHeight() - window.innerHeight
+      const $box = $(this._cardBox)
+      const max = $box.outerHeight() - window.innerHeight
 
-      if(-$box.offset().top >= max - 400) {
+      if (-$box.offset().top >= max - 400) {
         this._loadMoreImgae()
       }
 
-      if(-$box.offset().top > window.innerHeight) {
-        let $scrollBox = $(this._scrollBox)
-        if(!$scrollBox.hasClass('active')) $scrollBox.addClass('active')
+      if (-$box.offset().top > window.innerHeight) {
+        const $scrollBox = $(this._scrollBox)
+        if (!$scrollBox.hasClass('active')) $scrollBox.addClass('active')
       } else {
         $(this._scrollBox).removeClass('active')
       }
-
     }, 100))
   }
 
-  open () {
+  open() {
     this.setState({
-      focus: true
+      focus: true,
     })
 
     this._allImagePath = dbTool.getAllImages()
     this.setState({
-      currentPaths: this._allImagePath.slice(0, this._startImageNumber)
+      currentPaths: this._allImagePath.slice(0, this._startImageNumber),
     })
   }
 
   blur() {
     this.setState({
-      focus: false
+      focus: false,
     })
     this._searchBox.close()
     $(this._scrollBox).removeClass('active')
     this._cardInfo.close()
   }
 
-  _loadMoreImgae(){
-    this.setState(prevState => {
-      let maxlength = prevState.currentPaths.length + this._loadNumber
-      if (maxlength > this._allImagePath.length) return
-      
+  _loadMoreImgae() {
+    this.setState((prevState) => {
+      const maxlength = prevState.currentPaths.length + this._loadNumber
+      if (maxlength > this._allImagePath.length) return false
+
       return {
-        currentPaths: this._allImagePath.slice(0, maxlength)
+        currentPaths: this._allImagePath.slice(0, maxlength),
       }
     })
   }
 
-  _reloadImages(){
+  _reloadImages() {
     this._allImagePath = dbTool.reloadImages()
     this.setState({
-      currentPaths: this._allImagePath.slice(0, this._startImageNumber)
+      currentPaths: this._allImagePath.slice(0, this._startImageNumber),
     })
   }
 
   _searchResult(items) {
     this._allImagePath = items
     this.setState({
-      currentPaths: this._allImagePath.slice(0, this._startImageNumber)
+      currentPaths: this._allImagePath.slice(0, this._startImageNumber),
     })
   }
 
@@ -98,71 +107,79 @@ export default class Cards extends Component {
       <div className="default-show">
         <button
           onClick={() => ipcRenderer.emit('setting-add-image-path')}
-          className="logo">
-          <img src="assets/logo.png" alt=""/>
+          className="logo"
+        >
+          <img src="assets/logo.png" alt="" />
         </button>
-        <button 
+        <button
           onClick={() => ipcRenderer.emit('setting-add-image-path')}
-          className='add-path'>
+          className="add-path"
+        >
           <h1>点击添加文件路径</h1>
         </button>
       </div>
     )
 
-    if(this.state.currentPaths.length > 0) {
+    if (this.state.currentPaths.length > 0) {
       cardsContent = this.state.currentPaths.map((url, index) => (
-        <CardBox 
-          src={url} 
-          key={index} 
+        <CardBox
+          src={url}
+          key={index}
           contextmenuFunc={(e) => {
             this._contextMenu.open({
               x: e.clientX,
               y: e.clientY,
-              menus:[{
+              menus: [{
                 text: 'copy',
                 click: () => {
                   clipboard.writeImage(url)
-                }
+                },
               }, {
                 text: 'save as',
                 click: () => {
-                  ipcRenderer.send('save-file', {path: url})
-                }
-              }]
+                  ipcRenderer.send('save-file', { path: url })
+                },
+              }],
             })
           }}
-          click={(e, path) =>{
+          click={(e, path) => {
             this._cardInfo.open(path)
-          }}/>)
-      )
+          }}
+        />))
     }
 
     return (
-      <div 
-        ref={box => this._cardBox = box}
-        className='cards-box'>
-        <SearchBox 
-          ref={box => this._searchBox = box}
+      <div
+        ref={(box) => { this._cardBox = box }}
+        className="cards-box"
+      >
+        <SearchBox
+          ref={(box) => { this._searchBox = box }}
           focus={this.state.focus}
-          searchFunc={this._searchResult.bind(this)}
-          items={dbTool.getAllImages()}/>
-        <div className='cards'>
+          searchFunc={this._searchResult}
+          items={dbTool.getAllImages()}
+        />
+        <div className="cards">
           {cardsContent}
         </div>
-        <div
-          ref={box => this._scrollBox = box}
-          onClick={e => {
+        <button
+          ref={(box) => { this._scrollBox = box }}
+          onClick={(e) => {
             $(e.currentTarget).removeClass('active')
-            $(this.props.parent).animate({scrollTop: 0})
+            $(this.props.parent).animate({ scrollTop: 0 })
           }}
-          className="scroll-to-top anim-ease">
+          className="scroll-to-top anim-ease"
+        >
           <div className="icon">
-            <i className="fas fa-lg fa-angle-up"></i>
+            <i className="fas fa-lg fa-angle-up" />
           </div>
-        </div>
-        <CardInfo ref={cardInfo => this._cardInfo = cardInfo}/>
-        <ContextMenu ref={contextmenu => this._contextMenu = contextmenu} />
+        </button>
+        <CardInfo ref={(cardInfo) => { this._cardInfo = cardInfo }} />
+        <ContextMenu ref={(contextmenu) => { this._contextMenu = contextmenu }} />
       </div>
     )
   }
 }
+
+Cards.propTypes = propTypes
+Cards.defaultProps = defaultProps
