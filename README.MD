@@ -6,7 +6,7 @@
 
 ## Download
 
-[Download](https://github.com/cwxyz007/electron-PM/releases)
+<a href="https://github.com/cwxyz007/electron-PM/releases" target="_blank">Download</a>
 
 ## Preview 
 
@@ -18,22 +18,9 @@
 
 [TODO](./TODO.MD)
 
-## Development
+## Dependencies
 
----
-
-### windows 
-
-__Electron - Error: A dynamic link library (DLL) initialization routine failed.__
-
-run `node_modules/.bin/electron-rebuild -f -w better-sqlite3`
-
-> Install all the required tools and configurations using Microsoft's windows-build-tools using `npm install --global --production windows-build-tools` from an elevated PowerShell or CMD.exe (run as Administrator).
-
-
-## 使用技术
-
-- Electron
-- React
-- Scss
-- Sqlite3
+- <a href="https://github.com/electron/electron" target="_blank">Electron</a>
+- <a href="https://github.com/JoshuaWise/better-sqlite3" target="_blank">Better-sqlite3</a>
+- <a href="https://github.com/sass/node-sass" target="_blank">Sass</a>
+- <a href="https://github.com/facebook/react" target="_blank">React</a>
