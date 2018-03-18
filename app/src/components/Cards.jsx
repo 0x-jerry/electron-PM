@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import CardBox from './CardBox'
 import {  } from './Cards.scss' 
-import { ipcRenderer, clipboard} from 'electron'
+import { ipcRenderer, clipboard } from 'electron'
 import CardInfo from './CardInfo'
 import SearchBox from './SearchBox'
-import dbTool from '../tools/dbTool.js'
+import dbTool from '../tools/dbTool'
 import ContextMenu from './ContextMenu'
+import { contextmenu } from '../tools/utils'
 
 export default class Cards extends Component {
   constructor(props) {
@@ -115,21 +116,7 @@ export default class Cards extends Component {
           src={url} 
           key={index} 
           contextmenuFunc={(e) => {
-            this._contextMenu.open({
-              x: e.clientX,
-              y: e.clientY,
-              menus:[{
-                text: 'copy',
-                click: () => {
-                  clipboard.writeImage(url)
-                }
-              }, {
-                text: 'save as',
-                click: () => {
-                  ipcRenderer.send('save-file', {path: url})
-                }
-              }]
-            })
+            contextmenu()
           }}
           click={(e, path) =>{
             this._cardInfo.open(path)

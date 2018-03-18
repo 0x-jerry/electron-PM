@@ -8,3 +8,4 @@ render(
 )
 
 $('button, input, a').attr('tabindex', -1)
+$('img').attr('draggable', false)
