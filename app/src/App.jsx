@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import { ipcRenderer, remote  } from 'electron'
-import {  } from './scss/global.scss'
-import {  } from './App.scss'
+import { remote } from 'electron'
+import { } from './scss/global.scss'
+import { } from './App.scss'
 import NavBar from './components/NavBar'
 import Cards from './components/Cards'
 import Setting from './components/Setting'
 import TagSetting from './components/TagSetting'
 
 export default class App extends Component {
-  constructor(){
+  constructor() {
     super()
 
     this._menus = [{
@@ -18,8 +18,8 @@ export default class App extends Component {
       click: () => {
         this.cards.open()
       },
-      content: (<Cards parent='#main' ref={cards => this.cards = cards}/>)
-    },{
+      content: (<Cards parent="#main" ref={(cards) => { this.cards = cards }} />),
+    }, {
       icon: 'cog',
       text: '设 置',
       target: '#setting',
@@ -27,8 +27,8 @@ export default class App extends Component {
         this.setting.open()
         this.cards.blur()
       },
-      content: (<Setting ref={setting => this.setting = setting}/>)
-    },{
+      content: (<Setting ref={(setting) => { this.setting = setting }} />),
+    }, {
       icon: 'tag',
       text: '标 签',
       target: '#tag-setting',
@@ -36,35 +36,37 @@ export default class App extends Component {
         this.tagSetting.open()
         this.cards.blur()
       },
-      content: (<TagSetting ref={tagSetting => this.tagSetting = tagSetting}/>)
+      content: (<TagSetting ref={(tagSetting) => { this.tagSetting = tagSetting }} />),
     }]
   }
 
   componentDidMount() {
-    $(window).keydown(e => {
-      if(e.key === 'F12') {
-        let webContents = remote.getCurrentWebContents()
-        if(!webContents.isDevToolsOpened()) webContents.openDevTools()
+    $(window).keydown((e) => {
+      if (e.key === 'F12') {
+        const webContents = remote.getCurrentWebContents()
+        if (!webContents.isDevToolsOpened()) webContents.openDevTools()
         else webContents.closeDevTools()
       }
     })
   }
 
   render() {
-
-    return(
-      <div className='app'>
+    return (
+      <div className="app">
         <div className="nav">
-          <NavBar 
+          <NavBar
             activeIndex={0}
-            menus={this._menus}/>
+            menus={this._menus}
+          />
         </div>
-        <div id='app-container' className='content'>
+        <div id="app-container" className="content">
           {
-            this._menus.map((menu, index)=> (
-              menu.content &&  <section
+            this._menus.map((menu, index) => (
+              menu.content &&
+              <section
                 key={index}
-                id={ menu.target && menu.target.split('#').pop()}>
+                id={menu.target && menu.target.split('#').pop()}
+              >
                 {menu.content}
               </section>
             ))

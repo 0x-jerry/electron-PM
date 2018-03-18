@@ -1,10 +1,14 @@
 {
+    "extends": [
+        "airbnb"
+    ],
     "env": {
         "browser": true,
         "commonjs": true,
         "es6": true,
         "node": true,
-        "jquery": true
+        "jquery": true,
+        "mocha": true
     },
     "parserOptions": {
         "ecmaFeatures": {
@@ -14,15 +18,12 @@
         "sourceType": "module"
     },
     "rules": {
-        "no-const-assign": "warn",
-        "no-this-before-super": "warn",
-        "no-undef": "warn",
-        "no-unreachable": "warn",
-        "no-unused-vars": "warn",
-        "constructor-super": "warn",
-        "valid-typeof": "warn"
+        "semi": "off",
+        "no-underscore-dangle": "off",
+        "react/no-array-index-key": "warn",
+        "react/jsx-filename-extension": "warn"
     },
     "globals": {
-       "_": true
+        "_": true
     }
 }
