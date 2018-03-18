@@ -1,11 +1,23 @@
 import React, { Component } from 'react'
-import {  } from './NavBar.scss'
+import PropTypes from 'prop-types'
+import { } from './NavBar.scss'
+
+const propTypes = {
+  activeIndex: PropTypes.number,
+  menus: PropTypes.arrayOf(PropTypes.any).isRequired,
+}
+
+const defaultProps = {
+  activeIndex: 0,
+}
 
 export default class NavBar extends Component {
-  
-  constructor(props){
+  constructor(props) {
     super(props)
-    this._activeIndex = props.activeIndex || 0
+    this._activeIndex = props.activeIndex
+
+    this._menuClick = this._menuClick.bind(this)
+    this._menuClose = this._menuClose.bind(this)
   }
 
   componentDidMount() {
@@ -17,75 +29,81 @@ export default class NavBar extends Component {
   }
 
   _scrollToActive() {
-    let menu = this.props.menus[this._activeIndex]
-    if(menu.target) $('html, body').animate({scrollTop:$(menu.target).offset().top + 'px'})
+    const menu = this.props.menus[this._activeIndex]
+    if (menu.target) $('html, body').animate({ scrollTop: `${$(menu.target).offset().top}px` })
   }
 
-  _menuClick(e) {
+  _menuClick() {
     $(this._navBox).toggleClass('expand')
   }
 
-  _menuClose(e) {
+  _menuClose() {
     $(this._navBox).removeClass('expand')
   }
 
   _menuBtnClick(e, index) {
-    if(index < 0 || index > this.props.menus.length) return
+    if (index < 0 || index > this.props.menus.length) return
 
     this._activeIndex = index
-    let menu = this.props.menus[index]
+    const menu = this.props.menus[index]
 
     $(e.currentTarget).addClass('active').siblings().removeClass('active')
-    if(menu.target) $('html, body').animate({scrollTop:$(menu.target).offset().top + 'px'})
+    if (menu.target) $('html, body').animate({ scrollTop: `${$(menu.target).offset().top}px` })
 
     menu.click()
   }
 
   render() {
     return (
-      <div 
-        ref={box => this._navBox = box}
-        className="nav-box anim-ease">
-        <nav 
-          className='nav-bar anim-ease'>
-          <a 
-            onClick={this._menuClick.bind(this)}
-            className='nav-btn menu'>
+      <div
+        ref={(box) => { this._navBox = box }}
+        className="nav-box anim-ease"
+      >
+        <nav
+          className="nav-bar anim-ease"
+        >
+          <button
+            onClick={this._menuClick}
+            className="nav-btn menu"
+          >
             <div className="icon">
-              <i className="fas fa-lg fa-bars"></i>
+              <i className="fas fa-lg fa-bars" />
             </div>
-          </a>
-          <a 
-            className='nav-btn logo'>
+          </button>
+          <button
+            className="nav-btn logo"
+          >
             <div className="icon">
-              <img src="assets/logo.png" alt="logo"/>
+              <img src="assets/logo.png" alt="logo" />
             </div>
             <h4 className="text">
               E-P-M
             </h4>
-          </a>
+          </button>
           {
-            this.props.menus.map( (menu, index) => 
-              <a
+            this.props.menus.map((menu, index) => (
+              <button
                 key={index}
-                className={'nav-btn ' + (this._activeIndex == index ? 'active' : '')}
-                onClick={e => this._menuBtnClick(e, index)}>
+                className={`nav-btn ${this._activeIndex === index ? 'active' : ''}`}
+                onClick={e => this._menuBtnClick(e, index)}
+              >
                 <div className="icon anim-ease">
-                  <i className={"fas fa-" + menu.icon}></i>
+                  <i className={`fas fa-${menu.icon}`} />
                 </div>
                 <h4 className="text anim-ease">
                   {menu.text}
                 </h4>
-              </a>)
+              </button>))
           }
         </nav>
-        <div 
-          onClick={this._menuClose.bind(this)}
-          className="nav-bg anim-ease">
-        </div>
+        <button
+          onClick={this._menuClose}
+          className="nav-bg anim-ease"
+        />
       </div>
     )
   }
 }
 
-
+NavBar.propTypes = propTypes
+NavBar.defaultProps = defaultProps

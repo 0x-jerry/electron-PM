@@ -27,11 +27,11 @@ export default class CardBox extends Component {
   }
 
   _click(e) {
-    if (this.props.click) this.props.click(e, this.props.src)
+    this.props.click(e, this.props.src)
   }
 
   _contextMenu(e) {
-    if (this.props.contextmenu) this.props.contextmenu(e)
+    this.props.contextmenu(e)
   }
 
   render() {

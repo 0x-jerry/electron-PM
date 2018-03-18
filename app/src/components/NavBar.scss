@@ -18,6 +18,12 @@
     }
   }
 
+  button {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+
   .nav-bar {
     $min-width: 50px;
     $btn-height: 30px;
@@ -74,6 +80,7 @@
       .icon {
         width: $btn-height;
         height: $btn-height;
+        line-height: $btn-height;
         border-radius: $btn-height / 2;
         text-align: center;
         background-color: $color-white;
@@ -93,6 +100,6 @@
     left: 100%;
     width: 100vw;
     height: 100vh;
-    background-color: $color-shadow;
+    background-color: transparent;
   }
 }

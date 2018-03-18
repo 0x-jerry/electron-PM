@@ -1,4 +1,4 @@
-import { ipcRenderer, clipboard } from 'electron'
+import { ipcRenderer } from 'electron'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import CardBox from './CardBox'
@@ -6,7 +6,7 @@ import { } from './Cards.scss'
 import CardInfo from './CardInfo'
 import SearchBox from './SearchBox'
 import dbTool from '../tools/dbTool'
-import ContextMenu from './ContextMenu'
+import { contextmenu } from '../tools/utils'
 
 const propTypes = {
   parent: PropTypes.string.isRequired,
@@ -125,22 +125,8 @@ export default class Cards extends Component {
         <CardBox
           src={url}
           key={index}
-          contextmenuFunc={(e) => {
-            this._contextMenu.open({
-              x: e.clientX,
-              y: e.clientY,
-              menus: [{
-                text: 'copy',
-                click: () => {
-                  clipboard.writeImage(url)
-                },
-              }, {
-                text: 'save as',
-                click: () => {
-                  ipcRenderer.send('save-file', { path: url })
-                },
-              }],
-            })
+          contextmenu={() => {
+            contextmenu()
           }}
           click={(e, path) => {
             this._cardInfo.open(path)
@@ -175,7 +161,6 @@ export default class Cards extends Component {
           </div>
         </button>
         <CardInfo ref={(cardInfo) => { this._cardInfo = cardInfo }} />
-        <ContextMenu ref={(contextmenu) => { this._contextMenu = contextmenu }} />
       </div>
     )
   }

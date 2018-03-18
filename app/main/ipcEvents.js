@@ -2,10 +2,16 @@ const fs = require('fs')
 const path = require('path')
 const db = require('./db.js')()
 const userSetting = require('electron-settings')
-const { ipcMain, shell, nativeImage, dialog } = require('electron')
+const {
+  shell,
+  dialog,
+  ipcMain,
+  nativeImage,
+  BrowserWindow
+} = require('electron')
 
 function readFilesSync(filePath) {
-  if(!fs.existsSync(filePath)) return null
+  if (!fs.existsSync(filePath)) return null
 
   let images = []
 
@@ -33,7 +39,7 @@ function init() {
 
     db.transaction(() => {
       images.forEach(path => {
-        if(!db.getImage(path)) db.insertImage(path)
+        if (!db.getImage(path)) db.insertImage(path)
       })
     })()
 
@@ -51,13 +57,13 @@ function init() {
 
   ipcMain.on('add-image-tag', (e, arg) => {
     try {
-      if(!db.getImageTag(arg.path, arg.tag)) db.insertImageTag(arg.path, arg.tag)
+      if (!db.getImageTag(arg.path, arg.tag)) db.insertImageTag(arg.path, arg.tag)
     } catch (error) {
       console.log(error)
     }
   })
 
-  ipcMain.on('delete-image-tag', (e,arg) => {
+  ipcMain.on('delete-image-tag', (e, arg) => {
     try {
       db.deleteImageTag(arg.path, arg.tag)
     } catch (error) {
@@ -74,7 +80,7 @@ function init() {
   })
 
   ipcMain.on('add-tag-sync', (e, arg) => {
-    try{
+    try {
       db.insertTag(arg.text, arg.color)
       e.returnValue = true
     } catch (error) {
@@ -112,7 +118,8 @@ function init() {
       title: 'save as',
       defaultPath: userSetting.get('last-open-path', null),
       filters: [{
-        name: 'Images', extensions: ['png', 'jpg']
+        name: 'Images',
+        extensions: ['png', 'jpg']
       }]
     }, (p) => {
       if (!p) return
@@ -124,6 +131,33 @@ function init() {
       fs.writeFile(p, data, (error) => {
         error && console.log(error)
       })
+    })
+  })
+
+  ipcMain.on('context-menu', (e, arg) => {
+    let parentWin = BrowserWindow.getFocusedWindow()
+    let cursor = require('electron').screen.getCursorScreenPoint()
+
+    let win = new BrowserWindow({
+      show: false,
+      frame: process.env.NODE_ENV === 'development',
+      width: 200,
+      height: 300,
+      x: cursor.x,
+      y: cursor.y,
+      resizable: false,
+      parent: parentWin
+    })
+
+    win.loadURL(`file://${__dirname}/utils/contextmenu.html`)
+
+    win.once('ready-to-show', () => {
+      win.show()
+    })
+
+    win.on('blur', () => {
+      win.close()
+      win = null
     })
   })
 }
