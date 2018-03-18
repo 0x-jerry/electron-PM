@@ -1,5 +1,5 @@
 const fs = require('fs')
-const path = require('path')
+const Path = require('path')
 const db = require('./db.js')()
 const userSetting = require('electron-settings')
 const {
@@ -7,21 +7,22 @@ const {
   dialog,
   ipcMain,
   nativeImage,
-  BrowserWindow
+  BrowserWindow,
 } = require('electron')
+const electron = require('electron')
 
 function readFilesSync(filePath) {
   if (!fs.existsSync(filePath)) return null
 
-  let images = []
+  const images = []
 
-  let files = fs.readdirSync(filePath)
+  const files = fs.readdirSync(filePath)
 
-  files.forEach(file => {
-    let stats = fs.statSync(path.join(filePath, file))
+  files.forEach((file) => {
+    const stats = fs.statSync(Path.join(filePath, file))
 
     if (stats.isFile() && file.match(/\.(png|jpg|gif)$/)) {
-      images.push(path.join(filePath, file))
+      images.push(Path.join(filePath, file))
     }
   })
 
@@ -29,16 +30,16 @@ function readFilesSync(filePath) {
 }
 
 function init() {
-  ipcMain.on('reload-images-sync', (e, arg) => {
-    let paths = userSetting.get('paths', [])
+  ipcMain.on('reload-images-sync', (e) => {
+    const paths = userSetting.get('paths', [])
     let images = []
 
-    paths.forEach(path => {
+    paths.forEach((path) => {
       images = images.concat(readFilesSync(path))
     })
 
     db.transaction(() => {
-      images.forEach(path => {
+      images.forEach((path) => {
         if (!db.getImage(path)) db.insertImage(path)
       })
     })()
@@ -46,7 +47,7 @@ function init() {
     e.returnValue = images
   })
 
-  ipcMain.on('get-all-images-sync', (e, arg) => {
+  ipcMain.on('get-all-images-sync', (e) => {
     try {
       e.returnValue = db.getAllImages().map(item => item.path)
     } catch (error) {
@@ -71,7 +72,7 @@ function init() {
     }
   })
 
-  ipcMain.on('get-all-tags-sync', (e, arg) => {
+  ipcMain.on('get-all-tags-sync', (e) => {
     try {
       e.returnValue = db.getAllTags()
     } catch (error) {
@@ -119,24 +120,24 @@ function init() {
       defaultPath: userSetting.get('last-open-path', null),
       filters: [{
         name: 'Images',
-        extensions: ['png', 'jpg']
-      }]
+        extensions: ['png', 'jpg'],
+      }],
     }, (p) => {
       if (!p) return
       userSetting.set('last-open-path', p)
-      let ext = path.extname(p)
-      let image = nativeImage.createFromPath(arg.path)
-      let data = ext == '.png' ? image.toPNG() : image.toJPEG(90)
+      const ext = Path.extname(p)
+      const image = nativeImage.createFromPath(arg.path)
+      const data = ext === '.png' ? image.toPNG() : image.toJPEG(90)
 
       fs.writeFile(p, data, (error) => {
-        error && console.log(error)
+        if (error) console.log(error)
       })
     })
   })
 
-  ipcMain.on('context-menu', (e, arg) => {
-    let parentWin = BrowserWindow.getFocusedWindow()
-    let cursor = require('electron').screen.getCursorScreenPoint()
+  ipcMain.on('context-menu', () => {
+    const parentWin = BrowserWindow.getFocusedWindow()
+    const cursor = electron.screen.getCursorScreenPoint()
 
     let win = new BrowserWindow({
       show: false,
@@ -146,7 +147,7 @@ function init() {
       x: cursor.x,
       y: cursor.y,
       resizable: false,
-      parent: parentWin
+      parent: parentWin,
     })
 
     win.loadURL(`file://${__dirname}/utils/contextmenu.html`)
@@ -163,5 +164,5 @@ function init() {
 }
 
 module.exports = {
-  initIpcMain: init
+  initIpcMain: init,
 }

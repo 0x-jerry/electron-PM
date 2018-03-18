@@ -142,24 +142,26 @@ export default class Cards extends Component {
         <SearchBox
           ref={(box) => { this._searchBox = box }}
           focus={this.state.focus}
-          searchFunc={this._searchResult}
+          search={this._searchResult}
           items={dbTool.getAllImages()}
         />
         <div className="cards">
           {cardsContent}
         </div>
-        <button
+        <span
           ref={(box) => { this._scrollBox = box }}
           onClick={(e) => {
             $(e.currentTarget).removeClass('active')
             $(this.props.parent).animate({ scrollTop: 0 })
           }}
+          role="button"
+          tabIndex={-1}
           className="scroll-to-top anim-ease"
         >
           <div className="icon">
             <i className="fas fa-lg fa-angle-up" />
           </div>
-        </button>
+        </span>
         <CardInfo ref={(cardInfo) => { this._cardInfo = cardInfo }} />
       </div>
     )

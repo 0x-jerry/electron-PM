@@ -140,7 +140,7 @@ export default class CardInfo extends Component {
               CardInfo._getAllTags().map((value, index) => (
                 <Tag
                   disabled
-                  clickFunc={() => {
+                  click={() => {
                     this._addImageTag(value)
                     this._closeTagsPage()
                   }}
@@ -154,7 +154,7 @@ export default class CardInfo extends Component {
           {
             this.state.tags.map((value, index) => (
               <Tag
-                deleteFunc={() => {
+                delete={() => {
                   this._deleteImageTag(value)
                 }}
                 key={index}

@@ -3,32 +3,39 @@ import PropTypes from 'prop-types'
 import { } from './SearchBox.scss'
 
 const propTypes = {
-  items: PropTypes.ArrayOf(),
+  items: PropTypes.arrayOf(PropTypes.string),
+  focus: PropTypes.bool,
+  search: PropTypes.func.isRequired,
 }
 
 const defaultProps = {
   items: [],
+  focus: false,
 }
 
 export default class SearchBox extends Component {
   constructor(props) {
     super(props)
     this._items = props.items
+
     this.state = {
       result: [],
     }
+
+    this._search = this._search.bind(this)
   }
 
   componentDidMount() {
     $(window).on('keydown', (e) => {
       if (!this.props.focus) return
+
       if (e.ctrlKey) {
-        if (e.key == 'f') {
+        if (e.key === 'f') {
           this.open()
         }
       }
 
-      if (e.key == 'Escape') {
+      if (e.key === 'Escape') {
         this.close()
       }
     })
@@ -50,10 +57,13 @@ export default class SearchBox extends Component {
   }
 
   _search(e) {
-    if (e.key === 'Enter') return this.close()
+    if (e.key === 'Enter') {
+      this.close()
+      return
+    }
 
     const string = this._searchInput.value
-    if (string == '') return
+    if (string === '') return
 
     const items = this._items.filter(item => !!item.split('/').pop().match(string))
 
@@ -61,28 +71,26 @@ export default class SearchBox extends Component {
       result: items.map(item => item.split('/').pop()),
     })
 
-    this.props.searchFunc && this.props.searchFunc(items)
+    this.props.search(items)
   }
 
   render() {
     return (
       <div
-className="search-box anim-ease"
-        ref={searchBox => this._searchBox = searchBox}
+        className="search-box anim-ease"
+        ref={(box) => { this._searchBox = box }}
       >
         <div className="input-box">
           <input
-            ref={input => this._searchInput = input}
+            ref={(input) => { this._searchInput = input }}
             className="search-input"
             placeholder="Search"
-            onKeyUp={this._search.bind(this)}
-            type="text" 
+            onKeyUp={this._search}
+            type="text"
           />
-          <a
-            className="search-icon"
-          >
+          <span className="search-icon">
             <i className="fas fa-search" />
-          </a>
+          </span>
         </div>
         <ul className="search-result">
           {
