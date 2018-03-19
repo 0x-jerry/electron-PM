@@ -24,7 +24,7 @@ function DataBase(name) {
   db.exec(`CREATE TABLE IF NOT EXISTS image_tag(
     id integer primary key autoincrement,
     image_id integer references images (id),
-    tag_id integer references tags (id) 
+    tag_id integer references tags (id)
   )`)
 
   this.getAllTags = () => db.prepare('SELECT * FROM tags').all()
@@ -128,8 +128,7 @@ function DataBase(name) {
 }
 
 module.exports = (name) => {
-  const defaultPath = Path.join(app.getPath('userData'), 'sqlite.db')
-  const dbPath = name || defaultPath
+  const dbPath = name || Path.join(app.getPath('userData'), 'sqlite.db')
 
   return new DataBase(dbPath)
 }
