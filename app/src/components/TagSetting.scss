@@ -3,7 +3,7 @@
 .tag-setting {
   padding: 0 20px;
 
-  h1{
+  h1 {
     text-align: center;
   }
 
@@ -12,19 +12,19 @@
 
     .add-tag {
       display: inline-block;
-      border: 1px solid $color-blue;
-      padding: 0 5px;
-      border-radius: 13px;
       height: 26px;
+      padding: 0 5px;
       line-height: 26px;
+      border: 1px solid $color-blue;
+      border-radius: 13px;
 
       input {
-        margin: 0 10px;
         width: fit-content;
+        margin: 0 10px;
         color: $color-blue;
         border: none;
 
-        &::placeholder{
+        &::placeholder {
           color: lighten($color: $color-blue, $amount: 10);
         }
 

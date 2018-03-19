@@ -1,6 +1,6 @@
 @import '../scss/base.scss';
 
-.setting{
+.setting {
   padding: 0 20px;
 
   h1 {
@@ -8,13 +8,13 @@
   }
 
   button {
-    border-radius: 2px;
+    padding: 7px 22px;
     color: $color-white;
     background-color: $color-blue;
     border: none;
-    padding: 7px 22px;
+    border-radius: 2px;
 
-    &:hover{
+    &:hover {
       box-shadow: 0 0 10px $color-blue;
     }
 
@@ -24,7 +24,6 @@
   }
 
   ul.paths {
-
     li.path {
       list-style-type: none;
 
@@ -34,16 +33,17 @@
 
       button {
         $size: 25px;
-        padding: 0;
-        margin-right: 10px;
+
         width: $size;
         height: $size;
+        padding: 0;
+        margin-right: 10px;
         color: inherit;
-        border-color: inherit;
         background-color: $color-white;
+        border-color: inherit;
         border-radius: $size / 2;
 
-        &:hover{
+        &:hover {
           color: $color-red;
           box-shadow: 0 0 0 transparent;
         }

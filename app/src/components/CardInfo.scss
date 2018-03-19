@@ -1,16 +1,16 @@
 @import '../scss/base.scss';
 
-
 .card-info-box {
   $width: 350px;
+
   position: fixed;
   top: 0;
   right: -$width - 10px;
-  box-shadow: 0 0 10px $color-shadow;
   z-index: 50;
-  height: 100vh;
   width: $width;
+  height: 100vh;
   background-color: #fff;
+  box-shadow: 0 0 10px $color-shadow;
 
   &.active {
     right: 0;
@@ -19,9 +19,9 @@
   .title {
     text-align: center;
 
-    button{
-      margin: 0;
+    button {
       padding: 0;
+      margin: 0;
       border: none;
 
       svg {
@@ -29,11 +29,12 @@
       }
     }
 
-    .open-file, .open-file-folder{
+    .open-file,
+    .open-file-folder {
       margin-left: 10px;
     }
 
-    .close{
+    .close {
       float: left;
       margin-left: 20px;
       color: $color-blue;
@@ -41,7 +42,7 @@
       &:hover {
         color: darken($color: $color-blue, $amount: 20);
       }
-      
+
       &:active {
         color: $color-blue;
       }
@@ -49,13 +50,13 @@
   }
 
   .picture {
+    display: flex;
     width: 80%;
     height: 170px;
     margin: 0 10% 10px;
     overflow: hidden;
-    display: flex;
 
-    img{
+    img {
       width: 100%;
       max-width: fit-content;
       margin: auto;
@@ -66,14 +67,14 @@
     margin: 15px;
   }
 
-  .tags{
+  .tags {
     padding: 0 15px;
 
     .all-tags {
-      padding: 0 15px;
       position: absolute;
-      width: $width - 30px;
       right: -$width - 30 - 10;
+      width: $width - 30px;
+      padding: 0 15px;
       background-color: $color-white;
 
       &.active {
@@ -82,17 +83,18 @@
 
       .close-all-tags {
         $size: 25px;
+
         width: $size;
         height: $size;
         padding: 0;
         margin: 5px;
-        border-radius: 50%;
-        border: 1px solid $color-blue;
         color: $color-blue;
+        border: 1px solid $color-blue;
+        border-radius: 50%;
 
         &:hover {
-          background-color: $color-blue;
           color: $color-white;
+          background-color: $color-blue;
         }
       }
     }
@@ -103,19 +105,19 @@
 
     .add-tag {
       $size: 25px;
+
       width: $size;
       height: $size;
       padding: 0;
       margin-left: 5px;
-      border-radius: 50%;
-      border: 1px solid $color-blue;
       color: $color-blue;
+      border: 1px solid $color-blue;
+      border-radius: 50%;
 
       &:hover {
-        background-color: $color-blue;
         color: $color-white;
+        background-color: $color-blue;
       }
     }
   }
-
 }

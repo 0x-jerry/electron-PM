@@ -5,8 +5,8 @@
 
   @mixin tag-color($color, $bg-color) {
     color: $color;
-    border: 1px solid $color;
     background-color: $bg-color;
+    border: 1px solid $color;
 
     span {
       color: $color;
@@ -14,39 +14,38 @@
   }
 
   display: inline-block;
-  margin: 10px 10px 15px;
-  padding: 0 10px;
-  height: $tag-height;
   width: auto;
-  border-radius: $tag-height / 2;
+  height: $tag-height;
+  padding: 0 10px;
+  margin: 10px 10px 15px;
   font-size: small;
-  line-height: $tag-height;
   font-weight: 200;
+  line-height: $tag-height;
+  border-radius: $tag-height / 2;
 
   @include tag-color($color-blue, $color-white);
+
+  .text {
+    padding: 0 0.5em;
+  }
+
+  .close {
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+    color: $color-white;
+  }
 
   &:hover {
     @include tag-color($color-white, $color-blue);
   }
 
   &.delete {
-    // @include tag-color($color-white, $color-red);
     @include tag-color($color-white, $color-blue);
 
     .close {
-      padding-left: 5px;
       width: auto;
+      padding-left: 5px;
     }
-  }
-
-  .text{
-    padding: 0 0.5em;
-  }
-
-  .close {
-    display: inline-block;
-    width: 0px;
-    overflow: hidden;
-    color: $color-white;
   }
 }
