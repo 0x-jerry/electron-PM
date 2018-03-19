@@ -4,14 +4,14 @@
   "description": "Electron Photo Manager",
   "main": "main.js",
   "scripts": {
+    "postinstall": "electron-rebuild -f -w better-sqlite3",
     "start": "electron .",
     "dev:start": "cross-env NODE_ENV=development electron .",
     "dev:webpack": "cross-env NODE_ENV=development webpack --watch",
     "release:linux": "cross-env NODE_ENV=production webpack --progress && electron-builder -l --x64",
     "release:win": "cross-env NODE_ENV=production webpack --progress && electron-builder -w --x64",
     "test": "mocha --require babel-core/register ./tests/**/*",
-    "test:single": "mocha --require babel-core/register",
-    "rebuild-sqlite": "electron-rebuild -f -w better-sqlite3"
+    "test:single": "mocha --require babel-core/register"
   },
   "repository": "'https://github.com/cwxyz007/electron-PM.git'",
   "author": "cwxyz007",
