@@ -1,0 +1,26 @@
+{
+  "appId": "com.cwxyz007.E-P-M",
+  "productName": "E-P-M",
+  "files": [
+    "build/**/*",
+    "app/build",
+    "app/assets",
+    "app/main",
+    "app/index.html",
+    "main.js"
+  ],
+  "mac": {
+    "target": "dmg"
+  },
+  "win": {
+    "target": "nsis"
+  },
+  "linux": {
+    "category": "Utility",
+    "target": "AppImage"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "E-P-M",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Electron Photo Manager",
   "main": "main.js",
   "scripts": {
@@ -13,59 +13,33 @@
     "test:single": "mocha --require babel-core/register",
     "rebuild-sqlite": "electron-rebuild -f -w better-sqlite3"
   },
-  "build": {
-    "appId": "com.cwxyz007.E-P-M",
-    "productName": "E-P-M",
-    "files": [
-      "build/**/*",
-      "app/build",
-      "app/assets",
-      "app/main",
-      "app/index.html",
-      "main.js"
-    ],
-    "mac": {
-      "target": "dmg"
-    },
-    "win": {
-      "target": "nsis"
-    },
-    "linux": {
-      "category": "Utility",
-      "target": "AppImage"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true
-    }
-  },
   "repository": "'https://github.com/cwxyz007/electron-PM.git'",
   "author": "cwxyz007",
   "license": "MIT",
   "dependencies": {
-    "babel-preset-env": "^1.6.1",
     "better-sqlite3": "^4.1.0",
-    "electron": "^1.8.2",
-    "electron-devtools-installer": "^2.2.3",
-    "electron-reload": "^1.2.2",
-    "electron-settings": "^3.1.4",
-    "jquery": "^3.3.1",
-    "lodash": "^4.17.5",
-    "prop-types": "^15.6.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "electron-settings": "^3.1.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "cross-env": "^5.1.3",
     "css-loader": "^0.28.9",
+    "electron": "^1.8.2",
     "electron-builder": "^20.4.1",
+    "electron-devtools-installer": "^2.2.3",
     "electron-rebuild": "^1.7.3",
+    "electron-reload": "^1.2.2",
     "file-loader": "^1.1.6",
+    "jquery": "^3.3.1",
+    "lodash": "^4.17.5",
     "mocha": "^5.0.1",
     "node-sass": "^4.7.2",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.1",
     "webpack": "^4.0.1",

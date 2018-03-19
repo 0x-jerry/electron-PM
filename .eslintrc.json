@@ -21,6 +21,7 @@
         "semi": "off",
         "no-underscore-dangle": "off",
         "jsx-a11y/click-events-have-key-events": "off",
+        "import/no-extraneous-dependencies": "off",
         "react/no-array-index-key": "warn",
         "react/jsx-filename-extension": "warn",
         "import/prefer-default-export": "warn"
