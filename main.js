@@ -1,7 +1,6 @@
 const url = require('url')
 const path = require('path')
 const { app, BrowserWindow } = require('electron')
-const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer')
 const sqlite = require('./app/main/modules/sqlite3.js')
 const { initIpcMain } = require('./app/main/ipcEvents.js')
 
@@ -17,6 +16,7 @@ if (process.env.NODE_ENV === 'development') {
 let win = null
 
 const loadDevelopTools = () => {
+  const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer')
   win.webContents.openDevTools()
 
   // react devtool extension
