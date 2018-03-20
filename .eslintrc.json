@@ -20,6 +20,7 @@
     "rules": {
         "semi": "off",
         "no-underscore-dangle": "off",
+        "global-require": "warn",
         "jsx-a11y/click-events-have-key-events": "off",
         "import/no-extraneous-dependencies": "off",
         "react/no-array-index-key": "warn",
