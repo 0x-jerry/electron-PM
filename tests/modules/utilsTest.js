@@ -47,7 +47,7 @@ describe('module utils test', () => {
 
       const expectStrs = `
         SELECT * FROM tags
-        WHERE num_id=@num_id AND str_id=@str_id
+        WHERE num_id=@numId AND str_id=@strId
       `.split(/\s/).filter(item => item !== '')
 
       sqlStrs.should.be.deep.equal(expectStrs)
