@@ -1,4 +1,5 @@
 const Sqlite3 = require('better-sqlite3')
+const config = require('../database.config.js')
 const utils = require('./utils.js')
 
 /**
@@ -40,9 +41,23 @@ function Sqlite(name) {
   /**
    *
    * @param {string} tableName
+   * @param {JSON} condition
    */
-  this.selectAll = (tableName) => {
-    return db.prepare(`SELECT * FROM ${tableName}`).all()
+  this.selectOne = (tableName, condition) => {
+    const execStr = utils.composeSelectExecString(tableName, Object.keys(condition))
+    return db.prepare(execStr).get(condition)
+  }
+
+  /**
+   *
+   * @param {string} tableName
+   * @param {JSON} condition
+   */
+  this.selectMultiple = (tableName, condition = null) => {
+    const columns = condition ? Object.keys(condition) : null
+    const execStr = utils.composeSelectExecString(tableName, columns)
+
+    return db.prepare(execStr).all(condition)
   }
 
   const begin = db.prepare('BEGIN');
@@ -50,6 +65,7 @@ function Sqlite(name) {
   const rollback = db.prepare('ROLLBACK');
 
   /**
+   *
    * @return {Function}
    */
   this.transaction = func => (...args) => {
@@ -65,4 +81,4 @@ function Sqlite(name) {
   }
 }
 
-module.exports = Sqlite
+module.exports = new Sqlite(config.name)

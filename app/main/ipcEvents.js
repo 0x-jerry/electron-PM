@@ -1,7 +1,7 @@
 const fs = require('fs')
 const Path = require('path')
-const db = require('./db.js')()
 const userSetting = require('electron-settings')
+const electron = require('electron')
 const {
   shell,
   dialog,
@@ -9,7 +9,10 @@ const {
   nativeImage,
   BrowserWindow,
 } = require('electron')
-const electron = require('electron')
+const sqlite = require('./modules/sqlite3.js')
+const Images = require('./modules/images.js')
+const Tags = require('./modules/tags.js')
+const ImageTags = require('./modules/imageTags.js')
 
 function readFilesSync(filePath) {
   if (!fs.existsSync(filePath)) return null
@@ -38,9 +41,9 @@ function init() {
       images = images.concat(readFilesSync(path))
     })
 
-    db.transaction(() => {
+    sqlite.transaction(() => {
       images.forEach((path) => {
-        if (!db.getImage(path)) db.insertImage(path)
+        if (!Images.get(path)) Images.create(path)
       })
     })()
 
@@ -49,7 +52,7 @@ function init() {
 
   ipcMain.on('get-all-images-sync', (e) => {
     try {
-      e.returnValue = db.getAllImages().map(item => item.path)
+      e.returnValue = Images.getAll()
     } catch (error) {
       console.log(error);
       e.returnValue = false
@@ -58,7 +61,7 @@ function init() {
 
   ipcMain.on('add-image-tag', (e, arg) => {
     try {
-      if (!db.getImageTag(arg.path, arg.tag)) db.insertImageTag(arg.path, arg.tag)
+      if (!ImageTags.get(arg.tag, arg.path)) ImageTags.create(arg.tag, arg.path)
     } catch (error) {
       console.log(error)
     }
@@ -66,7 +69,7 @@ function init() {
 
   ipcMain.on('delete-image-tag', (e, arg) => {
     try {
-      db.deleteImageTag(arg.path, arg.tag)
+      ImageTags.destroy(arg.tag, arg.path)
     } catch (error) {
       console.log(error)
     }
@@ -74,7 +77,7 @@ function init() {
 
   ipcMain.on('get-all-tags-sync', (e) => {
     try {
-      e.returnValue = db.getAllTags()
+      e.returnValue = Tags.getAll()
     } catch (error) {
       e.returnValue = false
     }
@@ -82,7 +85,7 @@ function init() {
 
   ipcMain.on('add-tag-sync', (e, arg) => {
     try {
-      db.insertTag(arg.text, arg.color)
+      Tags.create(arg.text, arg.color)
       e.returnValue = true
     } catch (error) {
       e.returnValue = false
@@ -91,7 +94,7 @@ function init() {
 
   ipcMain.on('delete-tag-sync', (e, arg) => {
     try {
-      db.deleteTag(arg.text, arg.force)
+      Tags.destroy(arg.text, arg.color)
       e.returnValue = true
     } catch (error) {
       e.returnValue = false
@@ -100,7 +103,7 @@ function init() {
 
   ipcMain.on('get-image-tags-sync', (e, arg) => {
     try {
-      e.returnValue = db.getImageTags(arg.path)
+      e.returnValue = ImageTags.getsByImage(arg.path)
     } catch (error) {
       e.returnValue = false
     }

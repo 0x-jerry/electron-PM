@@ -1,7 +1,7 @@
 const url = require('url')
 const path = require('path')
 const { app, BrowserWindow } = require('electron')
-const db = require('./app/main/db.js')()
+const sqlite = require('./app/main/modules/sqlite3.js')
 const { initIpcMain } = require('./app/main/ipcEvents.js')
 const electronReload = require('electron-reload')
 const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer')
@@ -46,7 +46,7 @@ const createWindow = () => {
 app.on('ready', createWindow)
 
 app.on('close', () => {
-  db.close()
+  sqlite.close()
 })
 
 app.on('window-all-closed', () => {

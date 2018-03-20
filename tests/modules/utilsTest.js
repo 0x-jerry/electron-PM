@@ -14,7 +14,47 @@ describe('module utils test', () => {
     })
   })
 
-  describe('add compose test', () => {
+  describe('select compose test', () => {
+    it('should return sql string when no columns', () => {
+      const sqlStrs = utils.composeSelectExecString('tags').split(/\s/).filter(item => item !== '')
+
+      const expectStrs = `
+        SELECT * FROM tags
+      `.split(/\s/).filter(item => item !== '')
+
+      sqlStrs.should.be.deep.equal(expectStrs)
+    })
+
+    it('should return sql string', () => {
+      const sqlStrs = utils.composeSelectExecString('tags', [
+        'num',
+        'str',
+      ]).split(/\s/).filter(item => item !== '')
+
+      const expectStrs = `
+        SELECT * FROM tags
+        WHERE num=@num AND str=@str
+      `.split(/\s/).filter(item => item !== '')
+
+      sqlStrs.should.be.deep.equal(expectStrs)
+    })
+
+    it('should return sql string with camel case style', () => {
+      const sqlStrs = utils.composeSelectExecString('tags', [
+        'numId',
+        'strId',
+      ]).split(/\s/).filter(item => item !== '')
+
+      const expectStrs = `
+        SELECT * FROM tags
+        WHERE num_id=@num_id AND str_id=@str_id
+      `.split(/\s/).filter(item => item !== '')
+
+      sqlStrs.should.be.deep.equal(expectStrs)
+    })
+  })
+
+  describe('insert compose test', () => {
     it('should return sql string', () => {
       const sqlStrs = utils.composeInsertExecString('tags', [
         'num',

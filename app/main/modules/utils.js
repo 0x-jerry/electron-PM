@@ -12,6 +12,22 @@ function camelCaseToUnderscore(str) {
  * @param {string} tableName
  * @param {Array.<string>} columns
  */
+function composeSelectExecString(tableName, columns = null) {
+  if (!columns) return `SELECT * FROM ${tableName}`
+
+  const condition = columns.map(column => `${camelCaseToUnderscore(column)}=@${column}`).join(' AND ')
+
+  return `
+    SELECT * FROM ${tableName}
+    WHERE ${condition}
+  `
+}
+
+/**
+ *
+ * @param {string} tableName
+ * @param {Array.<string>} columns
+ */
 function composeInsertExecString(tableName, columns) {
   const table = columns.map(column => camelCaseToUnderscore(column)).join(',')
   const value = columns.map(column => `@${column}`).join(',')
@@ -55,6 +71,7 @@ function composeUpdateExecString(tableName, updateColumns, conditionColumns) {
 
 module.exports = {
   camelCaseToUnderscore,
+  composeSelectExecString,
   composeInsertExecString,
   composeDeleteExecString,
   composeUpdateExecString,
