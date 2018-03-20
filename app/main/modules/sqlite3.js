@@ -1,4 +1,5 @@
 const Sqlite3 = require('better-sqlite3')
+const utils = require('./utils.js')
 
 /**
  *
@@ -16,30 +17,37 @@ function Sqlite(name) {
   this.exec = db.exec
   this.close = db.close
 
+  /**
+   *
+   * @param {string} tableName
+   * @param {JSON} data
+   */
+  this.create = (tableName, data) => {
+    const execStr = utils.composeInsertExecString(tableName, Object.keys(data))
+    return db.prepare(execStr).run(data)
+  }
+
+  /**
+   *
+   * @param {string} tableName
+   * @param {JSON} condition
+   */
+  this.delete = (tableName, condition) => {
+    const execStr = utils.composeDeleteExecString(tableName, Object.keys(condition))
+    return db.prepare(execStr).run(condition)
+  }
+
+  /**
+   *
+   * @param {string} tableName
+   */
+  this.selectAll = (tableName) => {
+    return db.prepare(`SELECT * FROM ${tableName}`).all()
+  }
+
   const begin = db.prepare('BEGIN');
   const commit = db.prepare('COMMIT');
   const rollback = db.prepare('ROLLBACK');
-
-  this.addPrepare = (tableName, data) => {
-    const keys = Object.keys(data)
-    const str = keys.map(key => `@${key}`).join(',')
-
-    return db.prepare(`
-      INSERT INTO ${tableName}(${keys.join(',')})
-      VALUES(${str})
-    `)
-  }
-
-  this.add = (tableName, data) => {
-    this.addPrepare(tableName, data).run(data)
-    // const keys = Object.keys(data)
-    // const str = keys.map(key => `@${key}`).join(' ')
-
-    // db.prepare(`
-    //   INSERT INTO ${tableName}(${keys.join(',')})
-    //   VALUES(${str})
-    // `).run(data)
-  }
 
   /**
    * @return {Function}
@@ -56,13 +64,5 @@ function Sqlite(name) {
     }
   }
 }
-
-const sqlite = new Sqlite('test.db')
-const statu = sqlite.addPrepare('testTable', {
-  num: 1,
-  text: 'string',
-})
-
-console.log(statu.source)
 
 module.exports = Sqlite

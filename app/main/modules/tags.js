@@ -1,5 +1,5 @@
 const Sqlite = require('./sqlite3')
-const { database } = require('../database.config.js')
+const config = require('../database.config.js')
 
 /**
  * tag
@@ -10,10 +10,11 @@ const { database } = require('../database.config.js')
  * @property {string} color
  */
 function Tags() {
-  const sqlite = new Sqlite(database.name)
+  const sqlite = new Sqlite(config.name)
+  const TABLE_NAME = 'tags'
 
   this.createTable = () => {
-    sqlite.exec(`CREATE TABLE IF NOT EXISTS tags(
+    sqlite.exec(`CREATE TABLE IF NOT EXISTS ${TABLE_NAME}(
       id integer primary key autoincrement,
       text varchar(20) unique,
       color varchar(20)
@@ -24,11 +25,24 @@ function Tags() {
    *
    * @param {string} text
    * @param {string} color
-   * @returns {Tag}
    */
-  this.create = (text, color = '#fff') => sqlite.prepare('INSERT INTO tags(text, color) VALUES (@text, @color)').run({ text, color })
+  this.create = (text, color = '#fff') => {
+    sqlite.create(TABLE_NAME, { text, color })
+  }
 
-  this.all = () => sqlite.prepare('SELECT * FROM tags').all()
+  /**
+   *
+   * @param {string} text
+   * @param {boolean} force
+   */
+  this.delete = (text, force = false) => {
+    if (!force) sqlite.delete(TABLE_NAME, { text })
+  }
+
+  /**
+   * @returns {Array.<Tag>}
+   */
+  this.getAll = () => sqlite.selectAll(TABLE_NAME)
 }
 
 module.exports = Tags
