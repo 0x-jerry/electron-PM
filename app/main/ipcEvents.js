@@ -47,7 +47,7 @@ function init() {
       })
     })()
 
-    e.returnValue = images
+    e.returnValue = Images.getAll()
   })
 
   ipcMain.on('get-all-images-sync', (e) => {
@@ -103,7 +103,7 @@ function init() {
 
   ipcMain.on('get-image-tags-sync', (e, arg) => {
     try {
-      e.returnValue = ImageTags.getsByImage(arg.path)
+      e.returnValue = Tags.getsByImage(arg.path)
     } catch (error) {
       e.returnValue = false
     }

@@ -1,8 +1,25 @@
 import { ipcRenderer } from 'electron'
 
 /**
+ * tag
  *
- * @returns {Array<string>}
+ * @typedef {Object} Tag
+ * @property {number} id
+ * @property {string} text
+ * @property {string} color
+ */
+
+/**
+ * image
+ *
+ * @typedef {Object} Image
+ * @property {number} id
+ * @property {string} path
+ */
+
+/**
+ *
+ * @returns {Array.<Image>}
  */
 function reloadImages() {
   return ipcRenderer.sendSync('reload-images-sync')
@@ -10,7 +27,7 @@ function reloadImages() {
 
 /**
  *
- * @returns {Array<string>}
+ * @returns {Array.<Image>}
  */
 function getAllImages() {
   return ipcRenderer.sendSync('get-all-images-sync') || []
@@ -18,7 +35,7 @@ function getAllImages() {
 
 /**
  *
- * @returns {Array<{text: string, color: string}>}
+ * @returns {Array.<Tag>}
  */
 function getAllTags() {
   return ipcRenderer.sendSync('get-all-tags-sync') || []
@@ -27,7 +44,7 @@ function getAllTags() {
 /**
  *
  * @param {string} path
- * @returns {Array<{text: string, color: string}>}
+ * @returns {Array.<Tag>}
  */
 function getTagsByImage(path) {
   const tags = ipcRenderer.sendSync('get-image-tags-sync', {
@@ -50,7 +67,6 @@ function addTagByImage(imagePath, tagText) {
 }
 
 /**
- *
  *
  * @param {string} tagText
  * @param {boolean} [force=false]

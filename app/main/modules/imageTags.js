@@ -23,6 +23,7 @@ function createTable() {
  *
  * @param {string | number} tagIdentity
  * @param {string | number} imageIdentity
+ * @returns {ImageTag}
  */
 function get(tagIdentity, imageIdentity) {
   const tag = Tags.get(tagIdentity)
@@ -37,6 +38,7 @@ function get(tagIdentity, imageIdentity) {
 /**
  *
  * @param {string | number} tagIdentity
+ * @returns {Array.<ImageTag>}
  */
 function getsByTag(tagIdentity) {
   const tag = Tags.get(tagIdentity)
@@ -49,6 +51,7 @@ function getsByTag(tagIdentity) {
 /**
  *
  * @param {string | number} imageIdentity
+ * @returns {Array.<ImageTag>}
  */
 function getsByImage(imageIdentity) {
   const image = Images.get(imageIdentity)

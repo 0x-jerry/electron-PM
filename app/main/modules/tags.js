@@ -1,4 +1,5 @@
 const sqlite = require('./sqlite3')
+const IamgeTags = require('./imageTags.js')
 
 /**
  * tag
@@ -27,6 +28,25 @@ function get(identity) {
   const selector = typeof identity === 'number' ? { id: identity } : { text: identity }
 
   return sqlite.selectOne(TABLE_NAME, selector)
+}
+
+/**
+ *
+ * @param {number | string} imageIdentify
+ * @returns {Array.<Tag>}
+ */
+function getsByImage(imageIdentify) {
+  const imageTags = IamgeTags.getsByImage(imageIdentify)
+
+  const tags = []
+
+  sqlite.transaction(() => {
+    imageTags.forEach((imageTag) => {
+      tags.push(get(imageTag.tagId))
+    })
+  })()
+
+  return tags
 }
 
 /**
@@ -59,5 +79,6 @@ module.exports = {
   getAll,
   create,
   destroy,
+  getsByImage,
   createTable,
 }
