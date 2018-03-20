@@ -1,6 +1,7 @@
 const Sqlite3 = require('better-sqlite3')
 const Path = require('path')
 const { app } = require('electron')
+require('./modules/sqlite3.js')
 
 function DataBase(name) {
   if (!name && process.env.NODE_ENV === 'development') return console.error('database must have a name')
