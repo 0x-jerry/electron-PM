@@ -19,5 +19,8 @@
         "horizontal"
       ]
     }]
-  }
+  },
+  "ignoreFiles": [
+    "*.MD"
+  ]
 }

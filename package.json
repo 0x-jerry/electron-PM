@@ -1,6 +1,6 @@
 {
   "name": "E-P-M",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Electron Photo Manager",
   "main": "main.js",
   "scripts": {
