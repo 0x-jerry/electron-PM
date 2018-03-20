@@ -14,9 +14,18 @@ function Sqlite(name) {
 
   const db = new Sqlite3(name)
 
-  this.prepare = db.prepare
-  this.exec = db.exec
-  this.close = db.close
+  /**
+   *
+   * @param {string} source
+   */
+  this.exec = source => db.exec(source)
+
+  /**
+   *
+   * @param {string} source
+   */
+  this.prepare = source => db.prepare(source)
+  this.close = () => db.close()
 
   /**
    *
@@ -81,6 +90,8 @@ function Sqlite(name) {
       if (db.inTransaction) rollback.run()
     }
   }
+
+  Sqlite.instance = this
 }
 
-module.exports = new Sqlite(config.name)
+module.exports = new Sqlite(config.path)

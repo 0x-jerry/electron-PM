@@ -15,15 +15,12 @@ const defaultProps = {
 }
 
 export default class CardInfo extends Component {
-  static _getAllTags() {
-    return dbTool.getAllTags()
-  }
-
   constructor(props) {
     super(props)
     this.state = {
       tags: [],
       src: '',
+      allTags: dbTool.getAllTags(),
     }
 
     this.close = this.close.bind(this)
@@ -137,7 +134,7 @@ export default class CardInfo extends Component {
               <i className="fas fa-lg fa-caret-right" />
             </button>
             {
-              CardInfo._getAllTags().map(value => (
+              this.state.allTags.map(value => (
                 <Tag
                   disabled
                   click={() => {
@@ -159,7 +156,7 @@ export default class CardInfo extends Component {
                 }}
                 key={value.id}
               >
-                {value}
+                {value.text}
               </Tag>
             ))
           }

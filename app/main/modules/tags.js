@@ -1,5 +1,5 @@
 const sqlite = require('./sqlite3')
-const IamgeTags = require('./imageTags.js')
+const { tableNames } = require('../database.config.js')
 
 /**
  * tag
@@ -9,7 +9,7 @@ const IamgeTags = require('./imageTags.js')
  * @property {string} text
  * @property {string} color
  */
-const TABLE_NAME = 'tags'
+const TABLE_NAME = tableNames.tags
 
 function createTable() {
   sqlite.exec(`CREATE TABLE IF NOT EXISTS ${TABLE_NAME}(
@@ -31,22 +31,22 @@ function get(identity) {
 }
 
 /**
+ * TODO
+ * 重构此函数
  *
  * @param {number | string} imageIdentify
  * @returns {Array.<Tag>}
  */
 function getsByImage(imageIdentify) {
-  const imageTags = IamgeTags.getsByImage(imageIdentify)
+  const condition = typeof imageIdentify === 'number' ? 'images.id' : 'images.path'
+  const sql = sqlite.prepare(`
+    SELECT tags.* FROM tags
+      JOIN images, image_tags
+      ON tags.id=image_tags.tag_id AND images.id=image_tags.image_id
+      WHERE ${condition}=@imageIdentify
+  `)
 
-  const tags = []
-
-  sqlite.transaction(() => {
-    imageTags.forEach((imageTag) => {
-      tags.push(get(imageTag.tagId))
-    })
-  })()
-
-  return tags
+  return sql.all({ imageIdentify })
 }
 
 /**
@@ -71,7 +71,10 @@ function create(text, color = '#fff') {
  * @param {boolean} force
  */
 function destroy(text, force = false) {
-  if (!force) sqlite.delete(TABLE_NAME, { text })
+  const tag = get(text)
+
+  if (force) sqlite.delete(tableNames.imageTags, { tagId: tag.id })
+  sqlite.delete(TABLE_NAME, tag)
 }
 
 module.exports = {

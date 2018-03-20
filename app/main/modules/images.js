@@ -1,4 +1,5 @@
 const sqlite = require('./sqlite3')
+const { tableNames } = require('../database.config.js')
 
 /**
  * image
@@ -7,7 +8,7 @@ const sqlite = require('./sqlite3')
  * @property {number} id
  * @property {string} path
  */
-const TABLE_NAME = 'images'
+const TABLE_NAME = tableNames.images
 
 function createTable() {
   sqlite.exec(`CREATE TABLE IF NOT EXISTS ${TABLE_NAME}(

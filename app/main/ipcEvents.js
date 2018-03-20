@@ -33,6 +33,10 @@ function readFilesSync(filePath) {
 }
 
 function init() {
+  Images.createTable()
+  Tags.createTable()
+  ImageTags.createTable()
+
   ipcMain.on('reload-images-sync', (e) => {
     const paths = userSetting.get('paths', [])
     let images = []
@@ -94,7 +98,7 @@ function init() {
 
   ipcMain.on('delete-tag-sync', (e, arg) => {
     try {
-      Tags.destroy(arg.text, arg.color)
+      Tags.destroy(arg.text, arg.force)
       e.returnValue = true
     } catch (error) {
       e.returnValue = false
@@ -105,6 +109,7 @@ function init() {
     try {
       e.returnValue = Tags.getsByImage(arg.path)
     } catch (error) {
+      console.log(error);
       e.returnValue = false
     }
   })

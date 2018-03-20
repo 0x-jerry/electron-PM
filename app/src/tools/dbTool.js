@@ -47,11 +47,7 @@ function getAllTags() {
  * @returns {Array.<Tag>}
  */
 function getTagsByImage(path) {
-  const tags = ipcRenderer.sendSync('get-image-tags-sync', {
-    path,
-  }) || []
-
-  return tags
+  return ipcRenderer.sendSync('get-image-tags-sync', { path }) || []
 }
 
 /**
