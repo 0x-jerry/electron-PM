@@ -57,7 +57,9 @@ function Sqlite(name) {
     const columns = condition ? Object.keys(condition) : null
     const execStr = utils.composeSelectExecString(tableName, columns)
 
-    return db.prepare(execStr).all(condition)
+    if (condition) return db.prepare(execStr).all(condition)
+
+    return db.prepare(execStr).all()
   }
 
   const begin = db.prepare('BEGIN');

@@ -16,7 +16,7 @@ const defaultProps = {
 
 export default class CardInfo extends Component {
   static _getAllTags() {
-    return dbTool.getAllTags().map(({ text }) => text)
+    return dbTool.getAllTags()
   }
 
   constructor(props) {
@@ -44,7 +44,7 @@ export default class CardInfo extends Component {
     if (!src) return
 
     this.setState({
-      tags: dbTool.getTagsByImage(src).map(tag => tag.text),
+      tags: dbTool.getTagsByImage(src),
       src,
     })
 
@@ -66,7 +66,7 @@ export default class CardInfo extends Component {
 
   _updateTags() {
     this.setState({
-      tags: dbTool.getTagsByImage(this.state.src).map(tag => tag.text),
+      tags: dbTool.getTagsByImage(this.state.src),
     })
 
     $(`img[src='${path}']`).trigger('update')
@@ -137,27 +137,27 @@ export default class CardInfo extends Component {
               <i className="fas fa-lg fa-caret-right" />
             </button>
             {
-              CardInfo._getAllTags().map((value, index) => (
+              CardInfo._getAllTags().map(value => (
                 <Tag
                   disabled
                   click={() => {
-                    this._addImageTag(value)
+                    this._addImageTag(value.text)
                     this._closeTagsPage()
                   }}
-                  key={index}
+                  key={value.id}
                 >
-                  {value}
+                  {value.text}
                 </Tag>
               ))
             }
           </div>
           {
-            this.state.tags.map((value, index) => (
+            this.state.tags.map(value => (
               <Tag
                 delete={() => {
-                  this._deleteImageTag(value)
+                  this._deleteImageTag(value.text)
                 }}
-                key={index}
+                key={value.id}
               >
                 {value}
               </Tag>

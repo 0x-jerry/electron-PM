@@ -1,6 +1,6 @@
 const { join } = require('path')
-const { getPath } = require('electron').app
+const { app } = require('electron')
 
 module.exports = {
-  name: join(getPath('userData'), 'sqlite.db'),
+  name: join(app.getPath('userData'), 'sqlite.db'),
 }

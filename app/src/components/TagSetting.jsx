@@ -69,7 +69,7 @@ export default class TagSetting extends Component {
             this.state.tags.map((tag, index) => (
               <Tag
                 delete={() => this._removeTag(index)}
-                key={index}
+                key={tag.id}
               >
                 {tag.text}
               </Tag>

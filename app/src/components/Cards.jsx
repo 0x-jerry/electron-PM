@@ -20,7 +20,7 @@ export default class Cards extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentPaths: [],
+      currentImages: [],
       focus: true,
     }
 
@@ -64,7 +64,7 @@ export default class Cards extends Component {
 
     this._allImagePath = dbTool.getAllImages()
     this.setState({
-      currentPaths: this._allImagePath.slice(0, this._startImageNumber),
+      currentImages: this._allImagePath.slice(0, this._startImageNumber),
     })
   }
 
@@ -79,11 +79,11 @@ export default class Cards extends Component {
 
   _loadMoreImgae() {
     this.setState((prevState) => {
-      const maxlength = prevState.currentPaths.length + this._loadNumber
+      const maxlength = prevState.currentImages.length + this._loadNumber
       if (maxlength > this._allImagePath.length) return false
 
       return {
-        currentPaths: this._allImagePath.slice(0, maxlength),
+        currentImages: this._allImagePath.slice(0, maxlength),
       }
     })
   }
@@ -91,14 +91,14 @@ export default class Cards extends Component {
   _reloadImages() {
     this._allImagePath = dbTool.reloadImages()
     this.setState({
-      currentPaths: this._allImagePath.slice(0, this._startImageNumber),
+      currentImages: this._allImagePath.slice(0, this._startImageNumber),
     })
   }
 
   _searchResult(items) {
     this._allImagePath = items
     this.setState({
-      currentPaths: this._allImagePath.slice(0, this._startImageNumber),
+      currentImages: this._allImagePath.slice(0, this._startImageNumber),
     })
   }
 
@@ -120,11 +120,11 @@ export default class Cards extends Component {
       </div>
     )
 
-    if (this.state.currentPaths.length > 0) {
-      cardsContent = this.state.currentPaths.map((url, index) => (
+    if (this.state.currentImages.length > 0) {
+      cardsContent = this.state.currentImages.map(value => (
         <CardBox
-          src={url}
-          key={index}
+          src={value.path}
+          key={value.id}
           contextmenu={() => {
             contextmenu()
           }}
@@ -143,7 +143,7 @@ export default class Cards extends Component {
           ref={(box) => { this._searchBox = box }}
           focus={this.state.focus}
           search={this._searchResult}
-          items={dbTool.getAllImages()}
+          items={dbTool.getAllImages().map(image => image.path)}
         />
         <div className="cards">
           {cardsContent}
