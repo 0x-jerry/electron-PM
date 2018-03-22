@@ -105,7 +105,7 @@ function init() {
     }
   })
 
-  ipcMain.on('get-image-tags-sync', (e, arg) => {
+  ipcMain.on('get-tags-by-image-sync', (e, arg) => {
     try {
       e.returnValue = Tags.getsByImage(arg.path)
     } catch (error) {

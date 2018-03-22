@@ -47,11 +47,16 @@ function getAllTags() {
  * @returns {Array.<Tag>}
  */
 function getTagsByImage(path) {
-  return ipcRenderer.sendSync('get-image-tags-sync', { path }) || []
+  return ipcRenderer.sendSync('get-tags-by-image-sync', { path }) || []
 }
 
+/**
+ *
+ * @param {string} text
+ * @returns {Array.<Image>}
+ */
 function getImagesByTag(text) {
-  return ipcRenderer.sendSync('get-images-by-tag-sync', { text })
+  return ipcRenderer.sendSync('get-images-by-tag-sync', { text }) || []
 }
 
 /**
