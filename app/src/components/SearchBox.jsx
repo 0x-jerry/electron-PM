@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { parse } from 'path'
 import { } from './SearchBox.scss'
+import dbTool from '../tools/dbTool'
 
 const propTypes = {
-  items: PropTypes.arrayOf(PropTypes.string),
+  items: PropTypes.arrayOf(PropTypes.object),
   focus: PropTypes.bool,
   search: PropTypes.func.isRequired,
 }
@@ -17,12 +19,16 @@ export default class SearchBox extends Component {
   constructor(props) {
     super(props)
     this._items = props.items
+    this._allTags = dbTool.getAllTags()
 
     this.state = {
       result: [],
+      tagsResult: [],
     }
 
     this._search = this._search.bind(this)
+    this._searchTags = this._searchTags.bind(this)
+    this._tagFocusIndex = -1
   }
 
   componentDidMount() {
@@ -39,6 +45,29 @@ export default class SearchBox extends Component {
         this.close()
       }
     })
+
+
+    /**
+     * TODO
+     * 想想组件化
+     */
+    $(this._searchBox).on('keydown', (e) => {
+      const $buttons = $(this._searchResultBox).find('button')
+
+      if (e.key === 'ArrowDown') {
+        this._tagFocusIndex += this._tagFocusIndex >= $buttons.length - 1 ? 0 : 1
+        $buttons.get(this._tagFocusIndex).focus()
+      }
+
+      if (e.key === 'ArrowUp') {
+        if (this._tagFocusIndex === 0) {
+          $(this._searchInput).focus()
+        } else {
+          this._tagFocusIndex -= 1
+          $buttons.get(this._tagFocusIndex).focus()
+        }
+      }
+    })
   }
 
   open() {
@@ -53,6 +82,7 @@ export default class SearchBox extends Component {
     $(this._searchInput).val('')
     this.setState({
       result: [],
+      tagsResult: [],
     })
   }
 
@@ -65,12 +95,21 @@ export default class SearchBox extends Component {
     const string = this._searchInput.value
     if (string === '') return
 
-    const items = this._items.filter(item => !!item.split('/').pop().match(string))
+    const items = this._items.filter(item => !!parse(item.path).name.match(string))
+
+    const tags = this._allTags.filter(tag => !!tag.text.match(string))
 
     this.setState({
-      result: items.map(item => item.split('/').pop()),
+      result: items,
+      tagsResult: tags,
     })
 
+    this.props.search(items)
+  }
+
+  _searchTags(tag) {
+    this.close()
+    const items = dbTool.getImagesByTag(tag.text)
     this.props.search(items)
   }
 
@@ -92,9 +131,24 @@ export default class SearchBox extends Component {
             <i className="fas fa-search" />
           </span>
         </div>
-        <ul className="search-result">
+        <ul
+          ref={(box) => { this._searchResultBox = box }}
+          className="search-result"
+        >
           {
-            this.state.result.map((value, index) => <li key={index}> {value} </li>)
+            this.state.tagsResult.map((value, index) => (
+              <li key={value.id}>
+                <button
+                  tabIndex={index}
+                  onClick={() => this._searchTags(value)}
+                >
+                  {value.text}
+                </button>
+              </li>
+            ))
+          }
+          {
+            this.state.result.map(value => <li key={value.id}> {parse(value.path).base} </li>)
           }
         </ul>
       </div>

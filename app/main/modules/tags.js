@@ -37,8 +37,8 @@ function get(identity) {
  * @param {number | string} imageIdentify
  * @returns {Array.<Tag>}
  */
-function getsByImage(imageIdentify) {
-  const condition = typeof imageIdentify === 'number' ? 'images.id' : 'images.path'
+function getsByImage(imageIdentity) {
+  const condition = typeof imageIdentity === 'number' ? 'images.id' : 'images.path'
   const sql = sqlite.prepare(`
     SELECT tags.* FROM tags
       JOIN images, image_tags
@@ -46,7 +46,7 @@ function getsByImage(imageIdentify) {
       WHERE ${condition}=@imageIdentify
   `)
 
-  return sql.all({ imageIdentify })
+  return sql.all({ imageIdentity })
 }
 
 /**

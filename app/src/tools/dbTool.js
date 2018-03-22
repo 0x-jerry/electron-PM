@@ -50,6 +50,10 @@ function getTagsByImage(path) {
   return ipcRenderer.sendSync('get-image-tags-sync', { path }) || []
 }
 
+function getImagesByTag(text) {
+  return ipcRenderer.sendSync('get-images-by-tag-sync', { text })
+}
+
 /**
  *
  * @param {string} imagePath
@@ -102,6 +106,7 @@ function deleteTagByImage(imagePath, tagText) {
 export default{
   reloadImages,
   getTagsByImage,
+  getImagesByTag,
   deleteTagByImage,
   addTagByImage,
   getAllTags,

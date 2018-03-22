@@ -114,6 +114,15 @@ function init() {
     }
   })
 
+  ipcMain.on('get-images-by-tag-sync', (e, arg) => {
+    try {
+      e.returnValue = Images.getsByTag(arg.text)
+    } catch (error) {
+      console.log(error);
+      e.returnValue = false
+    }
+  })
+
   ipcMain.on('open-file', (e, arg) => {
     shell.openItem(arg.path)
   })

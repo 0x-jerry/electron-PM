@@ -29,6 +29,25 @@ function get(identity) {
 }
 
 /**
+ * TODO
+ * 重构此函数
+ *
+ * @param {string | number} tagIdentity
+ * @returns {Array.<Image>}
+ */
+function getsByTag(tagIdentity) {
+  const condition = typeof tagIdentity === 'number' ? 'tags.id' : 'tags.text'
+  const sql = sqlite.prepare(`
+    SELECT images.* FROM images
+      JOIN tags, image_tags
+      ON tags.id=image_tags.tag_id AND images.id=image_tags.image_id
+      WHERE ${condition}=@tagIdentity
+  `)
+
+  return sql.all({ tagIdentity })
+}
+
+/**
  * @returns {Array.<Image>}
  */
 function getAll() {
@@ -56,5 +75,6 @@ module.exports = {
   getAll,
   create,
   destory,
+  getsByTag,
   createTable,
 }

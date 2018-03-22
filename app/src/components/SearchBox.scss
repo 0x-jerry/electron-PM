@@ -40,6 +40,17 @@
     li {
       margin: 4px 0;
       line-height: 1em;
+
+      button {
+        width: 100%;
+        text-align: left;
+        border: none;
+
+        &:focus,
+        &:hover {
+          outline: 1px solid $color-blue;
+        }
+      }
     }
   }
 }

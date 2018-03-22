@@ -106,14 +106,16 @@ export default class Cards extends Component {
     let cardsContent = (
       <div className="default-show">
         <button
-          onClick={() => ipcRenderer.emit('setting-add-image-path')}
+          tabIndex={-1}
           className="logo"
+          onClick={() => ipcRenderer.emit('setting-add-image-path')}
         >
           <img src="assets/logo.png" alt="" />
         </button>
         <button
-          onClick={() => ipcRenderer.emit('setting-add-image-path')}
+          tabIndex={-1}
           className="add-path"
+          onClick={() => ipcRenderer.emit('setting-add-image-path')}
         >
           <h1>点击添加文件路径</h1>
         </button>
@@ -143,7 +145,7 @@ export default class Cards extends Component {
           ref={(box) => { this._searchBox = box }}
           focus={this.state.focus}
           search={this._searchResult}
-          items={dbTool.getAllImages().map(image => image.path)}
+          items={dbTool.getAllImages()}
         />
         <div className="cards">
           {cardsContent}
