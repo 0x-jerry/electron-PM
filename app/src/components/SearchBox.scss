@@ -48,7 +48,7 @@
 
         &:focus,
         &:hover {
-          outline: 1px solid $color-blue;
+          border-bottom: 1px solid $color-blue;
         }
       }
     }

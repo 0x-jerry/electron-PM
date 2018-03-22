@@ -106,15 +106,15 @@ export default class Cards extends Component {
     let cardsContent = (
       <div className="default-show">
         <button
-          tabIndex={-1}
           className="logo"
+          tabIndex={-1}
           onClick={() => ipcRenderer.emit('setting-add-image-path')}
         >
           <img src="assets/logo.png" alt="" />
         </button>
         <button
-          tabIndex={-1}
           className="add-path"
+          tabIndex={-1}
           onClick={() => ipcRenderer.emit('setting-add-image-path')}
         >
           <h1>点击添加文件路径</h1>

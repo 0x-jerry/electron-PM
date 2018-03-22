@@ -44,6 +44,7 @@ export default class CardBox extends Component {
           className="picture"
           onContextMenu={this._contextMenu}
           onClick={this._click}
+          tabIndex={-1}
         >
           <img
             src={this.props.src}

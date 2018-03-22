@@ -28,7 +28,6 @@ export default class SearchBox extends Component {
 
     this._search = this._search.bind(this)
     this._searchTags = this._searchTags.bind(this)
-    this._tagFocusIndex = -1
   }
 
   componentDidMount() {
@@ -73,6 +72,7 @@ export default class SearchBox extends Component {
   open() {
     $(this._searchBox).addClass('active')
     $(this._searchInput).focus()
+    this._tagFocusIndex = -1
   }
 
   close() {
@@ -136,12 +136,13 @@ export default class SearchBox extends Component {
           className="search-result"
         >
           {
-            this.state.tagsResult.map((value, index) => (
+            this.state.tagsResult.map(value => (
               <li key={value.id}>
                 <button
-                  tabIndex={index}
+                  tabIndex={-1}
                   onClick={() => this._searchTags(value)}
                 >
+                  <i className="fas fa-tag" />&nbsp;
                   {value.text}
                 </button>
               </li>
