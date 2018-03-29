@@ -1,5 +1,3 @@
-import { ipcRenderer } from 'electron'
-
 /**
  *
  * @param {string} text
@@ -21,15 +19,6 @@ function notify(text, click, close) {
   }
 }
 
-function contextmenu() {
-  ipcRenderer.send('context-menu', {})
-
-  const $bg = $('<div style=\'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;\'> </div>')
-  $bg.one('click', () => $bg.remove())
-  $('body').append($bg)
-}
-
 export {
   notify,
-  contextmenu,
 }

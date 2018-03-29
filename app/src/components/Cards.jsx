@@ -1,4 +1,4 @@
-import { ipcRenderer } from 'electron'
+import { ipcRenderer, remote } from 'electron'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import CardBox from './CardBox'
@@ -6,7 +6,6 @@ import { } from './Cards.scss'
 import CardInfo from './CardInfo'
 import SearchBox from './SearchBox'
 import dbTool from '../tools/dbTool'
-import { contextmenu } from '../tools/utils'
 
 const propTypes = {
   parent: PropTypes.string.isRequired,
@@ -127,9 +126,6 @@ export default class Cards extends Component {
         <CardBox
           src={value.path}
           key={value.id}
-          contextmenu={() => {
-            contextmenu()
-          }}
           click={(e, path) => {
             this._cardInfo.open(path)
           }}

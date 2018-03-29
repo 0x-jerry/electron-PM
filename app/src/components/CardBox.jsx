@@ -1,3 +1,4 @@
+import { ipcRenderer, remote } from 'electron'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { } from './CardBox.scss'
@@ -5,18 +6,25 @@ import { } from './CardBox.scss'
 const propTypes = {
   click: PropTypes.func,
   src: PropTypes.string.isRequired,
-  contextmenu: PropTypes.func,
 }
 
 const defaultProps = {
   click: () => {},
-  contextmenu: () => {},
 }
 
 export default class CardBox extends Component {
+  static _contextMenu(path) {
+    const { Menu, MenuItem } = remote
+
+    const menu = new Menu()
+    menu.append(new MenuItem({ label: 'open file', click() { ipcRenderer.send('open-file', { path }) } }))
+    menu.append(new MenuItem({ label: 'open file in folder', click() { ipcRenderer.send('open-folder', { path }) } }))
+
+    menu.popup(remote.getCurrentWindow())
+  }
+
   constructor() {
     super()
-    this._contextMenu = this._contextMenu.bind(this)
     this._click = this._click.bind(this)
   }
 
@@ -30,10 +38,6 @@ export default class CardBox extends Component {
     this.props.click(e, this.props.src)
   }
 
-  _contextMenu(e) {
-    this.props.contextmenu(e)
-  }
-
   render() {
     return (
       <div
@@ -42,7 +46,7 @@ export default class CardBox extends Component {
       >
         <button
           className="picture"
-          onContextMenu={this._contextMenu}
+          onContextMenu={() => CardBox._contextMenu(this.props.src)}
           onClick={this._click}
           tabIndex={-1}
         >

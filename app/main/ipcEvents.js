@@ -151,33 +151,6 @@ function init() {
       })
     })
   })
-
-  ipcMain.on('context-menu', () => {
-    const parentWin = BrowserWindow.getFocusedWindow()
-    const cursor = electron.screen.getCursorScreenPoint()
-
-    let win = new BrowserWindow({
-      show: false,
-      frame: process.env.NODE_ENV === 'development',
-      width: 200,
-      height: 300,
-      x: cursor.x,
-      y: cursor.y,
-      resizable: false,
-      parent: parentWin,
-    })
-
-    win.loadURL(`file://${__dirname}/utils/contextmenu.html`)
-
-    win.once('ready-to-show', () => {
-      win.show()
-    })
-
-    win.on('blur', () => {
-      win.close()
-      win = null
-    })
-  })
 }
 
 module.exports = {
