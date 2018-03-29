@@ -21,6 +21,7 @@ export default class AddTag extends Component {
     }
 
     this.props.addClick($input.val())
+    $input.val('')
   }
 
   render() {

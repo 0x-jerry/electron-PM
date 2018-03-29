@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { } from './CardInfo.scss'
 import Tag from './Tag';
 import dbTool from '../tools/dbTool'
+import AddTag from './AddTag'
 
 const propTypes = {
   src: PropTypes.string,
@@ -66,9 +67,17 @@ export default class CardInfo extends Component {
       tags: dbTool.getTagsByImage(this.state.src),
     })
 
-    $(`img[src='${path}']`).trigger('update')
+    // $(`img[src='${path}']`).trigger('update')
   }
 
+  _addTag(value) {
+    dbTool.addTag(value)
+    this.setState({
+      allTags: dbTool.getAllTags(),
+    })
+    this._addImageTag(value)
+    this._closeTagsPage()
+  }
 
   _addImageTag(value) {
     dbTool.addTagByImage(this.state.src, value)
@@ -147,6 +156,7 @@ export default class CardInfo extends Component {
                 </Tag>
               ))
             }
+            <AddTag addClick={value => this._addTag(value)} />
           </div>
           {
             this.state.tags.map(value => (
@@ -162,7 +172,7 @@ export default class CardInfo extends Component {
           }
           <button
             onClick={this._openTagsPage}
-            className="add-tag anim-ease"
+            className="add-image-tag anim-ease"
           >
             <i className="fas fa-plus" />
           </button>
