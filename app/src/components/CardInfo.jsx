@@ -43,6 +43,7 @@ export default class CardInfo extends Component {
 
     this.setState({
       tags: dbTool.getTagsByImage(src),
+      allTags: dbTool.getAllTags(),
       src,
     })
 

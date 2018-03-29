@@ -1,13 +1,11 @@
 const fs = require('fs')
 const Path = require('path')
 const userSetting = require('electron-settings')
-const electron = require('electron')
 const {
   shell,
   dialog,
   ipcMain,
   nativeImage,
-  BrowserWindow,
 } = require('electron')
 const sqlite = require('./modules/sqlite3.js')
 const Images = require('./modules/images.js')
@@ -101,6 +99,7 @@ function init() {
       Tags.destroy(arg.text, arg.force)
       e.returnValue = true
     } catch (error) {
+      console.log(error);
       e.returnValue = false
     }
   })

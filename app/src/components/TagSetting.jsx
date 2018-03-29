@@ -18,7 +18,7 @@ export default class TagSetting extends Component {
   }
 
   open() {
-    return this
+    this._updateTags()
   }
 
   _updateTags() {
