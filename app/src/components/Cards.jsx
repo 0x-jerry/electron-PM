@@ -124,6 +124,8 @@ export default class Cards extends Component {
     if (this.state.currentImages.length > 0) {
       cardsContent = this.state.currentImages.map(value => (
         <CardBox
+          width="360px"
+          height="auto"
           src={value.path}
           key={value.id}
           click={(e, path) => {

@@ -6,6 +6,7 @@ import { } from './CardInfo.scss'
 import Tag from './Tag';
 import dbTool from '../tools/dbTool'
 import AddTag from './AddTag'
+import CardBox from './CardBox'
 
 const propTypes = {
   src: PropTypes.string,
@@ -109,7 +110,7 @@ export default class CardInfo extends Component {
           </span>
           <button
             onClick={() => {
-              ipcRenderer.send('open-file', { path: $(this._image).attr('src') })
+              ipcRenderer.send('open-file', { path: this.state.src })
             }}
             className="open-file"
           >
@@ -117,7 +118,7 @@ export default class CardInfo extends Component {
           </button>
           <button
             onClick={() => {
-              ipcRenderer.send('open-folder', { path: $(this._image).attr('src') })
+              ipcRenderer.send('open-folder', { path: this.state.src })
             }}
             className="open-file-folder"
           >
@@ -125,10 +126,10 @@ export default class CardInfo extends Component {
           </button>
         </h3>
         <div className="picture">
-          <img
-            ref={(image) => { this._image = image }}
+          <CardBox
+            width="100%"
+            height="auto"
             src={this.state.src}
-            alt="card"
           />
         </div>
         <div className="line" />

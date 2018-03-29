@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import { } from './CardBox.scss'
 
 const propTypes = {
+  width: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
   click: PropTypes.func,
   src: PropTypes.string.isRequired,
 }
@@ -41,6 +43,10 @@ export default class CardBox extends Component {
   render() {
     return (
       <div
+        style={{
+          height: this.props.height,
+          width: this.props.width,
+        }}
         ref={(box) => { this._cardBox = box }}
         className="card-box anim-ease"
       >
