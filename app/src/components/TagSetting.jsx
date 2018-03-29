@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { } from './TagSetting.scss'
 import Alert from './Alert'
 import Tag from './Tag'
+import AddTag from './AddTag'
 import dbTool from '../tools/dbTool'
 
 export default class TagSetting extends Component {
@@ -26,12 +27,9 @@ export default class TagSetting extends Component {
     })
   }
 
-  _addTag(input) {
-    const $input = $(input)
-
-    dbTool.addTag($input.val())
+  _addTag(value) {
+    dbTool.addTag(value)
     this._updateTags()
-    $input.val('')
   }
 
   _removeTag(index, force = false) {
@@ -75,22 +73,7 @@ export default class TagSetting extends Component {
               </Tag>
             ))
           }
-          <div className="add-tag">
-            <input
-              onKeyPress={e => e.key === 'Enter' && this._addTag(e.currentTarget)}
-              placeholder="添加标签"
-              type="text"
-              size="6"
-            />
-            <span
-              onClick={e => this._addTag($(e.currentTarget).siblings('input'))}
-              className="icon"
-              role="button"
-              tabIndex={-1}
-            >
-              <i className="fas fa-plus" />
-            </span>
-          </div>
+          <AddTag addClick={value => this._addTag(value)} />
         </section>
         <Alert
           ref={(alert) => { this._alert = alert }}

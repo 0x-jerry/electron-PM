@@ -1,4 +1,4 @@
-import { ipcRenderer, remote } from 'electron'
+import { ipcRenderer } from 'electron'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import CardBox from './CardBox'

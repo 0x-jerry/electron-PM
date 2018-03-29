@@ -95,7 +95,7 @@ export default class CardInfo extends Component {
             <i className="fa fa-2x fa-caret-right" />
           </button>
           <span className="name">
-            {path.parse(this.state.src).name}
+            {path.parse(this.state.src).name.slice(0, 20)}
           </span>
           <button
             onClick={() => {

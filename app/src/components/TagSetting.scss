@@ -9,33 +9,5 @@
 
   .tags {
     text-align: center;
-
-    .add-tag {
-      display: inline-block;
-      height: 26px;
-      padding: 0 5px;
-      line-height: 26px;
-      border: 1px solid $color-blue;
-      border-radius: 13px;
-
-      input {
-        width: fit-content;
-        margin: 0 10px;
-        color: $color-blue;
-        border: none;
-
-        &::placeholder {
-          color: lighten($color: $color-blue, $amount: 10);
-        }
-
-        &:focus {
-          border-color: $color-blue;
-        }
-      }
-
-      .icon {
-        color: $color-blue;
-      }
-    }
   }
 }
