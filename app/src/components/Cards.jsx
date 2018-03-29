@@ -15,12 +15,15 @@ const defaultProps = {
 
 }
 
+const Resolution = 0.5626
+
 export default class Cards extends Component {
   constructor(props) {
     super(props)
     this.state = {
       currentImages: [],
       focus: true,
+      cardBoxSize: [360, 360 * Resolution],
     }
 
     this._loadNumber = 6
@@ -124,8 +127,8 @@ export default class Cards extends Component {
     if (this.state.currentImages.length > 0) {
       cardsContent = this.state.currentImages.map(value => (
         <CardBox
-          width="360px"
-          height="auto"
+          height={`${this.state.cardBoxSize[1]}px`}
+          width={`${this.state.cardBoxSize[0]}px`}
           src={value.path}
           key={value.id}
           click={(e, path) => {
@@ -145,6 +148,17 @@ export default class Cards extends Component {
           search={this._searchResult}
           items={dbTool.getAllImages()}
         />
+        {/* <div className="top-tool-bar">
+          <input
+            type="range"
+            className="slider"
+            min="100"
+            max="700"
+            onInput={e => this.setState({
+              cardBoxSize: [e.currentTarget.value, e.currentTarget.value * Resolution],
+            })}
+          />
+        </div> */}
         <div className="cards">
           {cardsContent}
         </div>
