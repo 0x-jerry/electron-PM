@@ -34,7 +34,7 @@ function get(identity) {
  * TODO
  * 重构此函数
  *
- * @param {number | string} imageIdentify
+ * @param {number | string} imageIdentity
  * @returns {Array.<Tag>}
  */
 function getsByImage(imageIdentity) {
@@ -43,7 +43,7 @@ function getsByImage(imageIdentity) {
     SELECT tags.* FROM tags
       JOIN images, image_tags
       ON tags.id=image_tags.tag_id AND images.id=image_tags.image_id
-      WHERE ${condition}=@imageIdentify
+      WHERE ${condition}=@imageIdentity
   `)
 
   return sql.all({ imageIdentity })
