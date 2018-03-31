@@ -8,9 +8,7 @@ const utils = require('./utils.js')
  * @returns
  */
 function Sqlite(name) {
-  if (!name && process.env.NODE_ENV === 'development') return console.error('database must have a name')
-
-  if (typeof Sqlite.instance === 'object' && Sqlite.instance._db.name === name) return Sqlite.instance
+  if (typeof Sqlite.instance === 'object') return Sqlite.instance
 
   const db = new Sqlite3(name)
 
