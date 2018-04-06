@@ -6,6 +6,7 @@ import NavBar from './components/NavBar'
 import Cards from './components/Cards'
 import Setting from './components/Setting'
 import TagSetting from './components/TagSetting'
+import i18n from './tools/i18n'
 
 export default class App extends Component {
   constructor() {
@@ -13,7 +14,7 @@ export default class App extends Component {
 
     this._menus = [{
       icon: 'home',
-      text: '主 页',
+      text: i18n.home,
       target: '#main',
       click: () => {
         this.cards.open()
@@ -21,7 +22,7 @@ export default class App extends Component {
       content: (<Cards parent="#main" ref={(cards) => { this.cards = cards }} />),
     }, {
       icon: 'cog',
-      text: '设 置',
+      text: i18n.setting,
       target: '#setting',
       click: () => {
         this.setting.open()
@@ -30,7 +31,7 @@ export default class App extends Component {
       content: (<Setting ref={(setting) => { this.setting = setting }} />),
     }, {
       icon: 'tag',
-      text: '标 签',
+      text: i18n.tag,
       target: '#tag-setting',
       click: () => {
         this.tagSetting.open()

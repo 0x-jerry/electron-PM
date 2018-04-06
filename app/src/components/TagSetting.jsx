@@ -4,6 +4,7 @@ import Alert from './Alert'
 import Tag from './Tag'
 import AddTag from './AddTag'
 import dbTool from '../tools/dbTool'
+import i18n from '../tools/i18n'
 
 export default class TagSetting extends Component {
   constructor() {
@@ -43,13 +44,13 @@ export default class TagSetting extends Component {
     }
 
     const buttons = [{
-      text: '删除',
+      text: i18n.delete,
       type: 'danger',
       click: () => {
         this._removeTag(index, true)
       },
     }, {
-      text: '取消',
+      text: i18n.cancel,
     }]
 
     this._alert.open(buttons)
@@ -59,7 +60,7 @@ export default class TagSetting extends Component {
     return (
       <div className="tag-setting">
         <h1>
-          <i className="fa fa-tag" />&nbsp;标签
+          <i className="fa fa-tag" />&nbsp;{i18n.tag}
         </h1>
         <div className="line" />
         <section className="tags">

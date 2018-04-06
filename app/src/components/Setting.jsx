@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { ipcRenderer, remote } from 'electron'
 import userSetting from 'electron-settings'
 import { } from './Setting.scss'
+import i18n from '../tools/i18n'
 
 export default class Setting extends Component {
   static _saveImagePath(paths) {
@@ -61,7 +62,7 @@ export default class Setting extends Component {
     return (
       <div className="setting">
         <h1>
-          <i className="fas fa-cog" />&nbsp;设置
+          <i className="fas fa-cog" />&nbsp;{i18n.setting}
         </h1>
         <div className="line" />
         <section>
