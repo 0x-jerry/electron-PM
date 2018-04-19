@@ -47,7 +47,7 @@ export default class Cards extends Component {
       const max = $box.outerHeight() - window.innerHeight
 
       if (-$box.offset().top >= max - 400) {
-        this._loadMoreImgae()
+        this._loadMoreImage()
       }
 
       if (-$box.offset().top > window.innerHeight) {
@@ -79,7 +79,7 @@ export default class Cards extends Component {
     this._cardInfo.close()
   }
 
-  _loadMoreImgae() {
+  _loadMoreImage() {
     this.setState((prevState) => {
       const maxlength = prevState.currentImages.length + this._loadNumber
       if (maxlength > this._allImagePath.length) return false

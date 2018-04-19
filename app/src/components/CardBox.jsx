@@ -8,10 +8,12 @@ const propTypes = {
   height: PropTypes.string.isRequired,
   click: PropTypes.func,
   src: PropTypes.string.isRequired,
+  imageLoaded: PropTypes.func,
 }
 
 const defaultProps = {
   click: () => {},
+  imageLoaded: () => {},
 }
 
 export default class CardBox extends Component {
@@ -33,6 +35,7 @@ export default class CardBox extends Component {
   componentDidMount() {
     $(this._image).on('load', () => {
       $(this._cardBox).addClass('show')
+      this.props.imageLoaded(this._image)
     })
   }
 

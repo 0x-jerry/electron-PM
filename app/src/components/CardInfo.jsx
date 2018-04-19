@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import path from 'path'
 import { ipcRenderer } from 'electron'
 import PropTypes from 'prop-types'
+import ExtractImgColor from 'extract-img-color'
 import { } from './CardInfo.scss'
 import Tag from './Tag';
 import dbTool from '../tools/dbTool'
@@ -23,7 +24,9 @@ export default class CardInfo extends Component {
       tags: [],
       src: '',
       allTags: dbTool.getAllTags(),
+      colors: [],
     }
+    this.extractImgColor = new ExtractImgColor()
 
     this.close = this.close.bind(this)
     this._closeTagsPage = this._closeTagsPage.bind(this)
@@ -130,7 +133,24 @@ export default class CardInfo extends Component {
             width="100%"
             height="auto"
             src={this.state.src}
+            imageLoaded={(image) => {
+              this.setState({
+                colors: this.extractImgColor.getPalette(image, 4),
+              })
+            }}
           />
+        </div>
+        <div className="line" />
+        <div className="colors">
+          {
+            this.state.colors.map((color, index) =>
+              (<div
+                className="color"
+                key={index}
+                style={{ backgroundColor: `rgb(${color.join()})` }}
+                data-color={`rgb(${color.join()})`}
+              />))
+          }
         </div>
         <div className="line" />
         <div className="tags">

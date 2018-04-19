@@ -38,7 +38,7 @@ export default class Setting extends Component {
       if (!files) return
       this.setState((prevState) => {
         const paths = [...new Set(prevState.imagePaths.concat(files))]
-        this._saveImagePath(paths)
+        Setting._saveImagePath(paths)
         return {
           imagePaths: paths,
         }
@@ -51,7 +51,7 @@ export default class Setting extends Component {
 
     this.setState((prevState) => {
       prevState.imagePaths.splice(index, 1)
-      this._saveImagePath(prevState.imagePaths)
+      Setting._saveImagePath(prevState.imagePaths)
       return {
         imagePaths: prevState.imagePaths,
       }
