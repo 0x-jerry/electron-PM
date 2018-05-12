@@ -6,6 +6,7 @@ import { } from './Cards.scss'
 import CardInfo from './CardInfo'
 import SearchBox from './SearchBox'
 import dbTool from '../tools/dbTool'
+import i18n from '../tools/i18n'
 
 const propTypes = {
   parent: PropTypes.string.isRequired,
@@ -119,7 +120,7 @@ export default class Cards extends Component {
           tabIndex={-1}
           onClick={() => ipcRenderer.emit('setting-add-image-path')}
         >
-          <h1>点击添加文件路径</h1>
+          <h1>{i18n.addFolder}</h1>
         </button>
       </div>
     )

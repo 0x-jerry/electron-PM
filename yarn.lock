@@ -2964,9 +2964,9 @@ extglob@^2.0.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-extract-img-color@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/extract-img-color/-/extract-img-color-1.0.6.tgz#80fc28b841a0094cbf801f2f298430902b0edb5b"
+extract-img-color@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/extract-img-color/-/extract-img-color-1.0.7.tgz#65307f49c62dfe1cca13fb37c19244388439d6a4"
 
 extract-zip@^1.0.3:
   version "1.6.6"

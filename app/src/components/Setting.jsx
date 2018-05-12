@@ -3,6 +3,7 @@ import { ipcRenderer, remote } from 'electron'
 import userSetting from 'electron-settings'
 import { } from './Setting.scss'
 import i18n from '../tools/i18n'
+import Alert from './Alert'
 
 export default class Setting extends Component {
   static _saveImagePath(paths) {
@@ -22,6 +23,11 @@ export default class Setting extends Component {
   componentDidMount() {
     ipcRenderer.on('setting-add-image-path', () => {
       this._addImagePath()
+    })
+
+    const language = userSetting.get('language', 'zhCN')
+    $(this.languageSelect).find('option').each((index, ele) => {
+      if (ele.value === language) $(ele).attr('selected', true)
     })
   }
 
@@ -66,7 +72,31 @@ export default class Setting extends Component {
         </h1>
         <div className="line" />
         <section>
-          <h2>图片路径</h2>
+          <p>{i18n.language}:
+            <select
+              ref={(e) => { this.languageSelect = e }}
+              name="languaue"
+              id="languaue"
+              onChange={(e) => {
+                userSetting.set('language', e.currentTarget.value)
+
+                const buttons = [{
+                  text: i18n.confirm,
+                  click: () => {
+                    window.location.reload(true)
+                  },
+                }, {
+                  text: i18n.cancel,
+                  type: 'danger',
+                }]
+                this._alert.open(buttons)
+              }}
+            >
+              <option value="zhCN">简体中文</option>
+              <option value="en">English</option>
+            </select>
+          </p>
+          <h2>{i18n.assetsFolder}</h2>
           <ul className="paths">
             {
               this.state.imagePaths.map((path, index) => (
@@ -80,11 +110,17 @@ export default class Setting extends Component {
             }
             <li className="add-path">
               <button onClick={this._addImagePath}>
-                添加路径
+                {i18n.addFolder}
               </button>
             </li>
           </ul>
         </section>
+        <Alert
+          ref={(alert) => { this._alert = alert }}
+          header="修改语言"
+        >
+          修改语言需要重新载入，是否现在重载？
+        </Alert>
       </div>
     )
   }

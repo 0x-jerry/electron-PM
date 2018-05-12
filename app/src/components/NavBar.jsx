@@ -70,7 +70,7 @@ export default class NavBar extends Component {
               <i className="fas fa-lg fa-bars" />
             </div>
           </button>
-          <button
+          {/* <button
             className="nav-btn logo"
           >
             <div className="icon">
@@ -79,7 +79,7 @@ export default class NavBar extends Component {
             <h4 className="text">
               E-P-M
             </h4>
-          </button>
+          </button> */}
           {
             this.props.menus.map((menu, index) => (
               <button

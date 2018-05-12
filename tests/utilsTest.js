@@ -1,5 +1,5 @@
 require('chai').should()
-const utils = require('../../app/main/modules/utils.js')
+const utils = require('../app/main/modules/utils.js')
 
 describe('module utils test', () => {
   describe('caml case to underscore test', () => {
