@@ -150,6 +150,15 @@ function init() {
       })
     })
   })
+
+  ipcMain.on('get-file-size-sync', (e, arg) => {
+    try {
+      const state = fs.statSync(arg.path)
+      e.returnValue = state.size
+    } catch (error) {
+      e.returnValue = 0;
+    }
+  })
 }
 
 module.exports = {

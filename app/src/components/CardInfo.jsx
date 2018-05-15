@@ -8,6 +8,7 @@ import Tag from './Tag';
 import dbTool from '../tools/dbTool'
 import AddTag from './AddTag'
 import CardBox from './CardBox'
+import utils from '../tools/utils'
 
 const propTypes = {
   src: PropTypes.string,
@@ -25,6 +26,7 @@ export default class CardInfo extends Component {
       src: '',
       allTags: dbTool.getAllTags(),
       colors: [],
+      infos: [],
     }
     this.extractImgColor = new ExtractImgColor()
 
@@ -134,8 +136,26 @@ export default class CardInfo extends Component {
             height="auto"
             src={this.state.src}
             imageLoaded={(image) => {
+              const fileSize = utils.getFileSize(this.state.src)
+              const size = `${image.naturalWidth}*${image.naturalHeight}`
+              const format = this.state.src.split('.').pop().toUpperCase()
+
               this.setState({
-                colors: this.extractImgColor.getPalette(image, 4),
+                colors: this.extractImgColor.getPalette(image, 10)
+                            .filter((value, index) => index % 2 === 0),
+                infos: [{
+                  id: 1,
+                  key: '文件大小',
+                  value: fileSize,
+                }, {
+                  id: 2,
+                  key: '图片分辨率',
+                  value: size,
+                }, {
+                  id: 3,
+                  key: '图片格式',
+                  value: format,
+                }],
               })
             }}
           />
@@ -144,12 +164,32 @@ export default class CardInfo extends Component {
         <div className="colors">
           {
             this.state.colors.map((color, index) =>
-              (<div
+              (<button
                 className="color"
                 key={index}
                 style={{ backgroundColor: `rgb(${color.join()})` }}
                 data-color={`rgb(${color.join()})`}
+                onClick={() => {
+                  utils.copyToClipboard(`rgb(${color.join()})`)
+                }}
               />))
+          }
+        </div>
+        <div className="line" />
+        <div className="infos">
+          {
+            this.state.infos.map(info => (
+              <button
+                className="info"
+                key={info.id}
+                onClick={() => {
+                  utils.copyToClipboard(info.value)
+                  utils.notify('Copied!')
+                }}
+              >
+                {info.key} : {info.value}
+              </button>
+            ))
           }
         </div>
         <div className="line" />

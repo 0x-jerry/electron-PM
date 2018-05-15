@@ -1,6 +1,6 @@
-## TODO
+# TODO
 
-### 功能
+## 功能
 
 - [x] 确定 `tag` 和 `image` 的数据结构
 - [x] 使用 `electron-settings` 保存用户设置
@@ -20,18 +20,19 @@
 - [ ] ~~颜色主题~~
 - [x] 图片右键菜单
 - [x] 搜索标签显示
+- [x] 多语言支持
+- [x] 提取图片信息
 - [ ] 动态调整图片宽度
 - [ ] 设置里面 开/关 实时搜索
-- [ ] 多语言支持
 
-### Bug
+## Bug
 
 - [x] 同步更新 `tag` 显示，存在内存泄漏
 - [x] 第一次打开右边的宽度不正确
 - [x] `better-sqlite3` 在 `windows` 平台使用调试需要安装 `windows-build-tools`
 > Install all the required tools and configurations using Microsoft's windows-build-tools using npm install --global --production windows-build-tools from an elevated PowerShell or CMD.exe (run as Administrator).
 
-### 优化
+## 优化
 
 - [x] `sqlite` 大量插入优化速度
 - [x] 分页组件 `pageNav`
@@ -43,13 +44,14 @@
 - [ ] ~~设置页面保存提示~~
 - [x] 搜索按回车则显示结果，ESC 则显示之前的结果
 - [x] 改用系统右键菜单
+- [x] 提取主题色
 - [ ] 图片数量过多时，略有卡顿
 - [ ] 搜索图片不存在时, 不一样的提示，非默认页面
 - [ ] `production` 环境打包
-- [ ] 提取主题色
 - [ ] 主题色相似搜索
+- [ ] 翻译不全
 
-### UI & UX
+## UI & UX
 
 - [x] `logo` 设计
 - [x] 主题设计

@@ -90,6 +90,26 @@
     }
   }
 
+  .infos {
+    width: 95%;
+    margin: 10px auto;
+
+    .info {
+      display: block;
+      width: 100%;
+      padding: 4px 3px;
+      margin: 0;
+      text-align: left;
+      border: none;
+
+      &:hover {
+        color: $color-white;
+        background-color: $color-blue;
+        box-shadow: 0 0 2px $color-blue;
+      }
+    }
+  }
+
   .tags {
     padding: 0 15px;
 
