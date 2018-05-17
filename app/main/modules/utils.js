@@ -55,6 +55,20 @@ function composeDeleteExecString(tableName, columns) {
 /**
  *
  * @param {string} tableName
+ * @param {Array.<string>} columns
+ */
+function composeDeleteLikeExecString(tableName, columns) {
+  const condition = columns.map(column => `${camelCaseToUnderscore(column)} LIKE @${column}`).join(' AND ')
+
+  return `
+    DELETE FROM ${tableName}
+    WHERE ${condition}
+  `
+}
+
+/**
+ *
+ * @param {string} tableName
  * @param {Array.<string>} updateColumns
  * @param {Array.<string>} conditionColumns
  */
@@ -75,4 +89,5 @@ module.exports = {
   composeInsertExecString,
   composeDeleteExecString,
   composeUpdateExecString,
+  composeDeleteLikeExecString,
 }

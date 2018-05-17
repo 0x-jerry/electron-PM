@@ -24,10 +24,15 @@ export default class AddTag extends Component {
     $input.val('')
   }
 
+  clearInput() {
+    $(this._input).val('')
+  }
+
   render() {
     return (
       <div className="add-tag">
         <input
+          ref={(e) => { this._input = e }}
           onKeyPress={e => e.key === 'Enter' && this._addTag(e.currentTarget)}
           placeholder="添加标签"
           type="text"

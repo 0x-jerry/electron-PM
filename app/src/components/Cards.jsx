@@ -28,7 +28,7 @@ export default class Cards extends Component {
     }
 
     this._loadNumber = 6
-    this._startImageNumber = 12
+    this._startImageNumber = 30
     this._allImagePath = dbTool.getAllImages()
 
     this._searchResult = this._searchResult.bind(this)

@@ -50,6 +50,19 @@ function Sqlite(name) {
    * @param {string} tableName
    * @param {JSON} condition
    */
+  this.deleteLike = (tableName, condition) => {
+    const c = condition
+    Object.keys(condition).forEach((key) => { c[key] += '%' })
+
+    const execStr = utils.composeDeleteLikeExecString(tableName, Object.keys(condition))
+    return db.prepare(execStr).run(c)
+  }
+
+  /**
+   *
+   * @param {string} tableName
+   * @param {JSON} condition
+   */
   this.selectOne = (tableName, condition) => {
     const execStr = utils.composeSelectExecString(tableName, Object.keys(condition))
     return db.prepare(execStr).get(condition)

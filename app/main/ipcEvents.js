@@ -52,6 +52,30 @@ function init() {
     e.returnValue = Images.getAll()
   })
 
+  ipcMain.on('delete-image', (e, arg) => {
+    try {
+      sqlite.transaction(() => {
+        ImageTags.getsByImage(arg.path).forEach((imageTag) => {
+          ImageTags.destroyById(imageTag.id)
+        })
+        if (Images.get(arg.path)) Images.destory(arg.path)
+      })()
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
+  ipcMain.on('delete-images', (e, arg) => {
+    try {
+      sqlite.transaction(() => {
+        ImageTags.destroyByPathLike(arg.path)
+        Images.destroyLike(arg.path)
+      })()
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
   ipcMain.on('get-all-images-sync', (e) => {
     try {
       e.returnValue = Images.getAll()

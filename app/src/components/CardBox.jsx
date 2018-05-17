@@ -2,6 +2,7 @@ import { ipcRenderer, remote } from 'electron'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { } from './CardBox.scss'
+import dbTool from '../tools/dbTool'
 
 const propTypes = {
   width: PropTypes.string.isRequired,
@@ -21,8 +22,7 @@ export default class CardBox extends Component {
     const { Menu, MenuItem } = remote
 
     const menu = new Menu()
-    menu.append(new MenuItem({ label: 'open file', click() { ipcRenderer.send('open-file', { path }) } }))
-    menu.append(new MenuItem({ label: 'open file in folder', click() { ipcRenderer.send('open-folder', { path }) } }))
+    menu.append(new MenuItem({ label: '打开文件位置', click() { ipcRenderer.send('open-folder', { path }) } }))
 
     menu.popup(remote.getCurrentWindow())
   }
@@ -33,10 +33,19 @@ export default class CardBox extends Component {
   }
 
   componentDidMount() {
-    $(this._image).on('load', () => {
-      $(this._cardBox).addClass('show')
-      this.props.imageLoaded(this._image)
-    })
+    $(this._image)
+      .on('load', () => {
+        $(this._cardBox).addClass('show')
+        this.props.imageLoaded(this._image)
+      })
+      .on('error', () => {
+        console.log(`error src is ${this.props.src}`)
+        dbTool.deleteImage(this.props.src)
+        $(this._image).attr('src', 'assets/miss.png')
+      })
+      .on('dblclick', () => {
+        ipcRenderer.send('open-file', { path: this.props.src })
+      })
   }
 
   _click(e) {

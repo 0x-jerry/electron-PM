@@ -57,9 +57,9 @@ function getsByTag(tagIdentity) {
 function getsByImage(imageIdentity) {
   const image = Images.get(imageIdentity)
 
-  return sqlite.selectMultiple(TABLE_NAME, {
+  return image ? sqlite.selectMultiple(TABLE_NAME, {
     imageId: image.id,
-  })
+  }) : []
 }
 
 /**
@@ -91,6 +91,30 @@ function destroy(tagIdentity, imageIdentity) {
   })
 }
 
+/**
+ *
+ * @param {number} id
+ */
+function destroyById(id) {
+  sqlite.delete(TABLE_NAME, { id })
+}
+
+/**
+ * TODO 重构代码
+ * @param {string} path
+ */
+function destroyByPathLike(path) {
+  sqlite.exec(`
+  DELETE FROM image_tags
+    WHERE id IN (
+      SELECT image_tags.id FROM image_tags
+        JOIN tags, images
+        ON tags.id=image_tags.tag_id AND images.id=image_tags.image_id
+        WHERE images.path LIKE '${path}%'
+    )
+  `)
+}
+
 module.exports = {
   get,
   create,
@@ -98,4 +122,6 @@ module.exports = {
   getsByTag,
   getsByImage,
   createTable,
+  destroyById,
+  destroyByPathLike,
 }

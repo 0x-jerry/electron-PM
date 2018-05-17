@@ -4,6 +4,7 @@ import userSetting from 'electron-settings'
 import { } from './Setting.scss'
 import i18n from '../tools/i18n'
 import Alert from './Alert'
+import dbTool from  '../tools/dbTool'
 
 export default class Setting extends Component {
   static _saveImagePath(paths) {
@@ -56,7 +57,8 @@ export default class Setting extends Component {
     if (index < 0 || index >= this.state.imagePaths.length) return
 
     this.setState((prevState) => {
-      prevState.imagePaths.splice(index, 1)
+      const paths = prevState.imagePaths.splice(index, 1)
+      dbTool.deleteImages(paths.pop())
       Setting._saveImagePath(prevState.imagePaths)
       return {
         imagePaths: prevState.imagePaths,

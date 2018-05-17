@@ -70,11 +70,20 @@ function destory(path) {
   sqlite.delete(TABLE_NAME, { path })
 }
 
+/**
+ *
+ * @param {string} path
+ */
+function destroyLike(path) {
+  sqlite.deleteLike(TABLE_NAME, { path })
+}
+
 module.exports = {
   get,
   getAll,
   create,
   destory,
+  destroyLike,
   getsByTag,
   createTable,
 }

@@ -39,7 +39,7 @@ export default class CardInfo extends Component {
     this.open(this.props.src)
     $(window).on('keyup', (e) => {
       if (e.key === 'Escape') {
-        $(this._cardInfoBox).removeClass('active')
+        this.close()
       }
     })
   }
@@ -66,6 +66,7 @@ export default class CardInfo extends Component {
   }
 
   _closeTagsPage() {
+    this._addTagButton.clearInput()
     $(this._newTagsBox).removeClass('active')
   }
 
@@ -218,7 +219,10 @@ export default class CardInfo extends Component {
                 </Tag>
               ))
             }
-            <AddTag addClick={value => this._addTag(value)} />
+            <AddTag
+              ref={(e) => { this._addTagButton = e }}
+              addClick={value => this._addTag(value)}
+            />
           </div>
           {
             this.state.tags.map(value => (

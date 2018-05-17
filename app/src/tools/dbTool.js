@@ -108,6 +108,18 @@ function deleteTagByImage(imagePath, tagText) {
   })
 }
 
+/**
+ *
+ * @param {string} imagePath
+ */
+function deleteImage(imagePath) {
+  ipcRenderer.send('delete-image', { path: imagePath })
+}
+
+function deleteImages(imagePathLike) {
+  ipcRenderer.send('delete-images', { path: imagePathLike })
+}
+
 export default{
   reloadImages,
   getTagsByImage,
@@ -118,4 +130,6 @@ export default{
   getAllImages,
   deleteTag,
   addTag,
+  deleteImage,
+  deleteImages,
 }
