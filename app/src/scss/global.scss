@@ -116,3 +116,40 @@ input {
   margin: 10px auto;
   border-top: 1px dashed $color-shadow;
 }
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 0;
+  border: none;
+  $range-thumb-width: 10px;
+  $range-height: 15px;
+
+  &::-webkit-slider-thumb {
+    width: $range-thumb-width;
+    height: $range-height;
+    cursor: pointer;
+    background: $color-blue;
+    -webkit-appearance: none;
+  }
+
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: $range-height;
+    cursor: pointer;
+    background: $color-white;
+    box-shadow: 0 0 1px $color-blue;
+  }
+
+  &:focus {
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      outline: none;
+    }
+
+    &::-webkit-slider-runnable-track {
+      outline: none;
+    }
+  }
+}

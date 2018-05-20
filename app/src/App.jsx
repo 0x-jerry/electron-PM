@@ -3,7 +3,7 @@ import { remote } from 'electron'
 import { } from './scss/global.scss'
 import { } from './App.scss'
 import NavBar from './components/NavBar'
-import Cards from './components/Cards'
+import Home from './components/Home'
 import Setting from './components/Setting'
 import TagSetting from './components/TagSetting'
 import i18n from './tools/i18n'
@@ -17,16 +17,16 @@ export default class App extends Component {
       text: i18n.home,
       target: '#main',
       click: () => {
-        this.cards.open()
+        this.home.open()
       },
-      content: (<Cards parent="#main" ref={(cards) => { this.cards = cards }} />),
+      content: (<Home ref={(home) => { this.home = home }} />),
     }, {
       icon: 'cog',
       text: i18n.setting,
       target: '#setting',
       click: () => {
         this.setting.open()
-        this.cards.blur()
+        this.home.blur()
       },
       content: (<Setting ref={(setting) => { this.setting = setting }} />),
     }, {
@@ -35,7 +35,7 @@ export default class App extends Component {
       target: '#tag-setting',
       click: () => {
         this.tagSetting.open()
-        this.cards.blur()
+        this.home.blur()
       },
       content: (<TagSetting ref={(tagSetting) => { this.tagSetting = tagSetting }} />),
     }]

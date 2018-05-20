@@ -6,13 +6,11 @@ import dbTool from '../tools/dbTool'
 
 const propTypes = {
   items: PropTypes.arrayOf(PropTypes.object),
-  focus: PropTypes.bool,
   search: PropTypes.func.isRequired,
 }
 
 const defaultProps = {
   items: [],
-  focus: false,
 }
 
 export default class SearchBox extends Component {
@@ -21,69 +19,22 @@ export default class SearchBox extends Component {
     this._items = props.items
     this._allTags = dbTool.getAllTags()
 
-    this.state = {
-      result: [],
-      tagsResult: [],
-    }
-
     this._search = this._search.bind(this)
     this._searchTags = this._searchTags.bind(this)
+    this._clearInput = this._clearInput.bind(this)
   }
 
   componentDidMount() {
-    $(window).on('keydown', (e) => {
-      if (!this.props.focus) return
 
-      if (e.ctrlKey) {
-        if (e.key === 'f') {
-          this.open()
-        }
-      }
-
-      if (e.key === 'Escape') {
-        this.close()
-      }
-    })
-
-
-    /**
-     * TODO
-     * 想想组件化
-     */
-    $(this._searchBox).on('keydown', (e) => {
-      const $buttons = $(this._searchResultBox).find('button')
-
-      if (e.key === 'ArrowDown') {
-        this._tagFocusIndex += this._tagFocusIndex >= $buttons.length - 1 ? 0 : 1
-        $buttons.get(this._tagFocusIndex).focus()
-      }
-
-      if (e.key === 'ArrowUp') {
-        if (this._tagFocusIndex === 0) {
-          $(this._searchInput).focus()
-        } else {
-          this._tagFocusIndex -= 1
-          $buttons.get(this._tagFocusIndex).focus()
-        }
-      }
-    })
   }
 
   open() {
-    $(this._searchBox).addClass('active')
     $(this._searchInput).focus()
-    this._tagFocusIndex = -1
   }
 
   close() {
-    $(this._searchBox).removeClass('active')
-
     $(this._searchInput).blur()
     $(this._searchInput).val('')
-    this.setState({
-      result: [],
-      tagsResult: [],
-    })
   }
 
   _search(e) {
@@ -92,19 +43,25 @@ export default class SearchBox extends Component {
       return
     }
 
+    if (e.target.value.length === 0) {
+      $(this._clearBtn).removeClass('active')
+    } else if (!$(this._clearBtn).hasClass('active')) {
+      $(this._clearBtn).addClass('active')
+    }
+
     const string = this._searchInput.value
     if (string === '') return
 
     const items = this._items.filter(item => !!parse(item.path).name.match(string))
 
-    const tags = this._allTags.filter(tag => !!tag.text.match(string))
-
-    this.setState({
-      result: items,
-      tagsResult: tags,
-    })
-
     this.props.search(items)
+  }
+
+  _clearInput() {
+    $(this._searchInput).val('')
+    $(this._clearBtn).removeClass('active')
+
+    this.props.search(this.props.items)
   }
 
   _searchTags(tag) {
@@ -127,31 +84,14 @@ export default class SearchBox extends Component {
             onKeyUp={this._search}
             type="text"
           />
-          <span className="search-icon">
-            <i className="fas fa-search" />
-          </span>
+          <button
+            ref={(btn) => { this._clearBtn = btn }}
+            onClick={this._clearInput}
+            className="clear-icon"
+          >
+            <i className="fas fa-times" />
+          </button>
         </div>
-        <ul
-          ref={(box) => { this._searchResultBox = box }}
-          className="search-result"
-        >
-          {
-            this.state.tagsResult.map(value => (
-              <li key={value.id}>
-                <button
-                  tabIndex={-1}
-                  onClick={() => this._searchTags(value)}
-                >
-                  <i className="fas fa-tag" />&nbsp;
-                  {value.text}
-                </button>
-              </li>
-            ))
-          }
-          {
-            this.state.result.map(value => <li key={value.id}> {parse(value.path).base} </li>)
-          }
-        </ul>
       </div>
     )
   }

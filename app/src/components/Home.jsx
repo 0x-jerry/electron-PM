@@ -1,24 +1,24 @@
 import { ipcRenderer } from 'electron'
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import CardBox from './CardBox'
-import { } from './Cards.scss'
+import { } from './Home.scss'
 import CardInfo from './CardInfo'
 import SearchBox from './SearchBox'
 import dbTool from '../tools/dbTool'
 import i18n from '../tools/i18n'
 
-const propTypes = {
-  parent: PropTypes.string.isRequired,
-}
+// const propTypes = {
+//   parent: PropTypes.string.isRequired,
+// }
 
-const defaultProps = {
+// const defaultProps = {
 
-}
+// }
 
 const Resolution = 0.5626
 
-export default class Cards extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -43,7 +43,7 @@ export default class Cards extends Component {
   componentDidMount() {
     this._reloadImages()
 
-    $(this.props.parent).scroll(_.debounce(() => {
+    $(this._cards).scroll(_.debounce(() => {
       const $box = $(this._cardBox)
       const max = $box.outerHeight() - window.innerHeight
 
@@ -51,7 +51,7 @@ export default class Cards extends Component {
         this._loadMoreImage()
       }
 
-      if (-$box.offset().top > window.innerHeight) {
+      if ($(this._cards).scrollTop() > 0) {
         const $scrollBox = $(this._scrollBox)
         if (!$scrollBox.hasClass('active')) $scrollBox.addClass('active')
       } else {
@@ -106,7 +106,7 @@ export default class Cards extends Component {
   }
 
   render() {
-    let cardsContent = (
+    let defaultContent = (
       <div className="default-show">
         <button
           className="logo"
@@ -126,7 +126,7 @@ export default class Cards extends Component {
     )
 
     if (this.state.currentImages.length > 0) {
-      cardsContent = this.state.currentImages.map(value => (
+      defaultContent = this.state.currentImages.map(value => (
         <CardBox
           height={`${this.state.cardBoxSize[1]}px`}
           width={`${this.state.cardBoxSize[0]}px`}
@@ -143,31 +143,44 @@ export default class Cards extends Component {
         ref={(box) => { this._cardBox = box }}
         className="cards-box"
       >
-        <SearchBox
-          ref={(box) => { this._searchBox = box }}
-          focus={this.state.focus}
-          search={this._searchResult}
-          items={dbTool.getAllImages()}
-        />
-        {/* <div className="top-tool-bar">
-          <input
-            type="range"
-            className="slider"
-            min="100"
-            max="700"
-            onInput={e => this.setState({
-              cardBoxSize: [e.currentTarget.value, e.currentTarget.value * Resolution],
-            })}
-          />
-        </div> */}
-        <div className="cards">
-          {cardsContent}
+        <div className="top-tool-bar">
+          <section className="search-tool">
+            <SearchBox
+              ref={(box) => { this._searchBox = box }}
+              focus={this.state.focus}
+              search={this._searchResult}
+              items={dbTool.getAllImages()}
+            />
+          </section>
+          <section className="scale-tool">
+            <input
+              type="range"
+              className="slider anim-ease"
+              min="100"
+              max="700"
+              defaultValue={this.state.cardBoxSize[0]}
+              onInput={e => this.setState({
+                cardBoxSize: [e.currentTarget.value, e.currentTarget.value * Resolution],
+              })}
+            />
+          </section>
+          <section className="select-tool">
+            <button className="select-icon">
+              <i className="fas fa-th-large" />
+            </button>
+          </section>
+        </div>
+        <div
+          ref={(cards) => { this._cards = cards; }}
+          className="cards"
+        >
+          {defaultContent}
         </div>
         <span
           ref={(box) => { this._scrollBox = box }}
           onClick={(e) => {
             $(e.currentTarget).removeClass('active')
-            $(this.props.parent).animate({ scrollTop: 0 })
+            $(this._cards).animate({ scrollTop: 0 })
           }}
           role="button"
           tabIndex={-1}
@@ -183,5 +196,5 @@ export default class Cards extends Component {
   }
 }
 
-Cards.propTypes = propTypes
-Cards.defaultProps = defaultProps
+// Home.propTypes = propTypes
+// Home.defaultProps = defaultProps
